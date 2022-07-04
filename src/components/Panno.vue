@@ -1,16 +1,16 @@
 <template>
   <div class="flex w-full p-4">
-    <div class="flex w-full p-4 justify-center">
-      <div _ngcontent-bdp-c0="" class="panno-container relative">
+    <div class="flex w-full px-4  sm:px-20 justify-center ">
+      <div _ngcontent-bdp-c0="" class="panno-container relative -mt-20">
 
         <PannoPanel v-bind:isShowGroupBet="isShowGroupBet"></PannoPanel>
 
-        <Ovale v-if="!isShowGroupBet"></Ovale>
+        <Ovale ></Ovale>
 
 
         <PannoSnap></PannoSnap>
 
-        <OvaleSnap v-if="!isShowGroupBet"></OvaleSnap>
+        <OvaleSnap ></OvaleSnap>
 
       </div>
     </div>
@@ -30,7 +30,7 @@
           <Icon icon='bytesize:reload' width="40"></Icon>
         </button>
       </div>
-      <Coin fillColor='green' v-bind:value='0.5'></Coin>
+      <Coin fillColor='green' v-bind:value='0.5'  ></Coin>
       <Coin fillColor='#13cd0c' v-bind:value='1'></Coin>
       <Coin fillColor='#fbdb1c' v-bind:value='2'></Coin>
       <Coin fillColor='#fb931c' v-bind:value='2.5'></Coin>
@@ -69,9 +69,9 @@ export default {
   methods: {
 
     handleShowGroupBet() {
-      this.isShowGroupBet = !this.isShowGroupBet;
+      // this.isShowGroupBet = !this.isShowGroupBet;
+      // this.$store.commit('setIsGroupBetting',this.isShowGroupBet);
     },
-
      
   },
   
@@ -190,18 +190,20 @@ export default {
   filter: none !important
 }
 
-.panno-container .snap-point {
+.panno-container .snap-point, .panno-container .ovale-snap-point {
   opacity: 0;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   pointer-events: visible
 }
 
 .panno-container .snap-point:active,
-.panno-container .snap-point:focus {
+.panno-container .snap-point:focus,
+.panno-container .ovale-snap-point:active,
+.panno-container .ovale-snap-point:focus {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
 }
 
-.panno-container .snap-point:hover {
+.panno-container .snap-point:hover ,.panno-container .ovale-snap-point:hover {
   opacity: .6;
   fill: #fff;
   fill-opacity: 0.6

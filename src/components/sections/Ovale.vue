@@ -2,7 +2,7 @@
 
     <div _ngcontent-bdp-c0="" id="ovale">
         <svg id="drawOvale" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1"
-            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 1400 540"
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 200 1400 280"
             style="transform-origin: 10% center; transform: perspective(100em) rotateX(40deg);">
             <g transform="translate(290 300) scale(0.6 0.6)">
                 <defs id="SvgjsDefs1013"></defs>

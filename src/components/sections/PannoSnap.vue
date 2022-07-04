@@ -1,7 +1,7 @@
 <template>
     <div _ngcontent-bdp-c0="" id="snap">
         <svg id="drawSnap" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1"
-            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 1400 440"
+            xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 -240 1400 680"
             style="transform-origin: 10% center; transform: perspective(100em) rotateX(40deg);">
             <defs id="SvgjsDefs1009">
                 <filter id="dropshadow" x="-30%" y="-40%" width="200%" height="200%">
@@ -43,7 +43,7 @@
 
             <image v-for="point in filterCoins" :width="point.width" :height="point.height" :x="point.x" :y="point.y"
                 :xoffset="point.xoffset" :yoffset="point.yoffset" :hover="point.hover"
-                href="../../assets/svg/coin-0.5.svg" />
+                :href="`../../assets/svg/coin-${point.value}.svg`" :refer="point.refer"  />
 
             <symbol id="SvgjsSymbol1570">
                 <circle id="SvgjsCircle1571" r="28" cx="32" cy="32" filter="url(#dropshadow)"></circle>
@@ -81,33 +81,56 @@
     </div>
 </template>
 <script>
-import { snapPoints } from '../../utils/SnapPoints.js';
+import { snapPoints, controlPoints } from '../../utils/SnapPoints.js';
 export default {
     data() {
         return {
             snapPoints,
+            controlPoints,
+
         }
+    },
+    methods:{
+         
+       
     },
     computed: {
         filterCoins() {
+
             const selectedCoins = this.$store.state.selected;
             const coins = [];
-            for (const point of this.snapPoints) {
+             
+            for (const point of this.controlPoints) {
                 for (const coin of selectedCoins) {
-                    if (coin == point.refer) {
+                    if (coin.refer == point.refer) {
                         coins.push(
                             {
                                 ...point,
-                                
+                                value: coin.value,
                             }
                         )
                     }
                 }
             }
-            console.log(coins);
+
+            for (const point of this.snapPoints) {
+                for (const coin of selectedCoins) {
+                    if (coin.refer == point.refer) {
+                        coins.push(
+                            {
+                                ...point,
+                                value: coin.value,
+                            }
+                        )
+                    }
+                }
+            }
+            
+        
             return coins;
         }
-    }
+    },
+    
 }
 
 </script>
