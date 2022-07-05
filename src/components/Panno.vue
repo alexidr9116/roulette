@@ -3,7 +3,7 @@
     <div class="flex w-full px-4  sm:px-20 justify-center ">
       <div _ngcontent-bdp-c0="" class="panno-container relative -mt-20">
 
-        <PannoPanel v-bind:isShowGroupBet="isShowGroupBet"></PannoPanel>
+        <PannoPanel v-bind:startedBetting="startedBetting"></PannoPanel>
 
         <Ovale ></Ovale>
 
@@ -21,7 +21,7 @@
       class="right absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon='ph:coins-duotone' width="40"></Icon>
     </button>
-    <div class="coin-toolbar py-6 w-full flex items-center justify-center">
+    <div class="coin-toolbar py-6 w-full flex items-center justify-center" :class="(!startedBetting?'coin-toolbar-close':'')">
       <div class="flex justify-center coin-sub-toolbar">
         <button class="animate-btn btn w-14 h-14 md:w-20 md:h-20  btn-circle mr-4">
           <Icon icon='la:times' width="40"></Icon>
@@ -62,7 +62,7 @@ export default {
   data() {
     return {
       isOvaleShow: true,
-      isShowGroupBet: true,
+      startedBetting: false,
      
     }
   },
@@ -72,13 +72,10 @@ export default {
       this.$store.commit('setSelected',[]);
     },
     handleShowGroupBet() {
-      // this.isShowGroupBet = !this.isShowGroupBet;
-      // this.$store.commit('setIsGroupBetting',this.isShowGroupBet);
+      this.startedBetting = !this.startedBetting;
+      this.$store.commit('setStartedBetting',this.startedBetting);
     },
-     
   },
-  
-
 
 };
 </script>
@@ -134,18 +131,35 @@ export default {
   position: absolute;
   animation-duration: 1s;
   animation-name: slideTop;
-  bottom: 0;
+  bottom: 0px;
 }
-
+.coin-toolbar-close {
+  position: absolute;
+  animation-duration: 1s;
+  animation-name: slideBottom;
+  bottom: -130px;
+}
 
 
 @keyframes slideTop {
   from {
-    bottom: -48px;
+    bottom: -130px;
   }
 
   to {
     bottom: 0px;
+    
+  }
+}
+
+@keyframes slideBottom {
+  from {
+    bottom: 0px;
+  }
+
+  to {
+    bottom: -130px;
+    
   }
 }
 </style>

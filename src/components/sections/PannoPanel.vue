@@ -20,7 +20,7 @@
           </feComponentTransfer>
         </filter>
       </defs>
-      <g id="groupOtherBets" v-if="isShowGroupBet">
+      <g id="groupOtherBets">
         <rect id="gD1" width="400" height="70" class="transparent" x="100" y="300"></rect>
         <text
           id="gD1T"
@@ -393,6 +393,9 @@ export default {
       element.addEventListener(
         "click",
         (e) => {
+          if(!this.$store.state.started){
+            return;
+          }
           const arr = this.$store.state.selected;
           if (arr.filter((v) => v.refer == e.target.id).length == 0){
             arr.push({
@@ -400,11 +403,13 @@ export default {
               value: this.$store.state.coin,
             });
             this.selected = arr;
+
             this.$store.commit("setSelected", arr);
         }
           else{
             const _arr = arr.filter((v) => v.refer != e.target.id);
             this.selected = _arr;
+
             this.$store.commit("setSelected", _arr);
           }
           

@@ -8,7 +8,7 @@ export default new Vuex.Store({
     hovered:[],   
     selected:[],
     coin:0.5,
-    isGroupBetting:true,
+    started:false,
   },
   getters: {},
   mutations: {
@@ -23,8 +23,8 @@ export default new Vuex.Store({
       state.selected = selected;
       console.log(selected);
     },
-    setIsGroupBetting(state,isGroupBetting){
-      state.isGroupBetting = isGroupBetting;
+    setStartedBetting(state,started){
+      state.started = started;
     }
   },
   actions: {},
