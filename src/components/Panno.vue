@@ -1,7 +1,7 @@
 <template>
   <div class="flex w-full p-4">
     <div class="flex w-full px-4 sm:px-32 justify-center">
-      <div _ngcontent-bdp-c0="" class="panno-container relative mt-20 sm:mt-10 lg:-mt-20">
+      <div _ngcontent-bdp-c0="" class="panno-container relative mt-20 sm:mt-5 lg:-mt-10">
         <PannoPanel v-bind:startedBetting="startedBetting"></PannoPanel>
 
         <Ovale></Ovale>

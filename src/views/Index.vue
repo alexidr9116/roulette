@@ -72,8 +72,8 @@ export default {
   },
   data() {
     return {
-      isShowCounterDesktop: false,
-      isShowWheel: false,
+      isShowCounterDesktop: true,
+      isShowWheel: true,
       isShowInfoPanel: false,
       isShowInfoPanel2: false,
       fadeLeft: "", // fadeOutLeft
@@ -516,7 +516,7 @@ export default {
       setTimeout(() => {
         this.fadeLeft = "fadeOutLeft";
         setTimeout(() => {
-          this.isShowWheel = false;
+          this.isShowWheel = true;
           this.isShowCounterDesktop = true;
           setTimeout(() => {
             this.fadeLeft = "fadeInLeft";
