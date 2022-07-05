@@ -231,12 +231,12 @@ export default {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
-.panno-container .snap-point:hover,
+/* .panno-container .snap-point:hover,
 .panno-container .ovale-snap-point:hover {
   opacity: 0.6;
   fill: #fff;
   fill-opacity: 0.6;
-}
+} */
 
 .BETCLOSE .panno-container.ovaleOn #fiche .fic,
 .BETCLOSE .panno-container.ovaleOn #panno #groupOtherBets {
