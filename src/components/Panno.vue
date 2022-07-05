@@ -31,7 +31,7 @@
       :class="!startedBetting ? 'coin-toolbar-close' : ''"
     >
       <div class="flex justify-center coin-sub-toolbar">
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4">
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1" @click = "handleShowGroupBet">
           <Icon icon="la:times" width="40"></Icon>
         </button>
         <button
