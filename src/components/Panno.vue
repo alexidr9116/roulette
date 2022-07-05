@@ -26,8 +26,8 @@
         <button class="animate-btn btn w-14 h-14 md:w-20 md:h-20  btn-circle mr-4">
           <Icon icon='la:times' width="40"></Icon>
         </button>
-        <button class="animate-btn btn  w-14 h-14 md:w-20 md:h-20 btn-circle mr-4">
-          <Icon icon='bytesize:reload' width="40"></Icon>
+        <button class="animate-btn btn  w-14 h-14 md:w-20 md:h-20 btn-circle mr-4" @click="handleReset">
+          <Icon icon='bytesize:reload' width="40" ></Icon>
         </button>
       </div>
       <Coin fillColor='green' v-bind:value='0.5'  ></Coin>
@@ -67,7 +67,10 @@ export default {
     }
   },
   methods: {
-
+    handleReset(){
+      this.$store.commit('setHovered',[]);
+      this.$store.commit('setSelected',[]);
+    },
     handleShowGroupBet() {
       // this.isShowGroupBet = !this.isShowGroupBet;
       // this.$store.commit('setIsGroupBetting',this.isShowGroupBet);

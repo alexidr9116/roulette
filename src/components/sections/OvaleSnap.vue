@@ -115,18 +115,25 @@ export default {
         }
     },
     methods: {
-        setHovered(_hovered, isOvale) {
-            const _hovers = _hovered.trim().includes(" ") ? _hovered.split(' ') : [_hovered.trim()];
-            const _hoverPannos = [];
-            const _coinPannos = [];
-            
-            
-
+        setSelected(_selected){
+            const _hovers = _selected.trim().includes(" ") ? _selected.split(' ') : [_selected.trim()];
             for (const id of _hovers) {
                 if(this.selected.filter((f)=>f.refer==id).length == 0){
                     this.selected.push({refer:id,value:this.$store.state.coin});
                 }
-                
+            }
+        },
+        setHovered(_hovered, isOvale) {
+            const _hovers = _hovered.trim().includes(" ") ? _hovered.split(' ') : [_hovered.trim()];
+            const _hoverPannos = [];
+            const _coinPannos = [];
+            console.log(_hovers);
+            for (const id of _hovers) {
+                if(id=='')
+                continue;
+                 // if(this.selected.filter((f)=>f.refer==id).length == 0){
+                //     this.selected.push({refer:id,value:this.$store.state.coin});
+                // }
                 if (isOvale) {
                     const hover = document.getElementById(id).getAttribute('hover');
                     if (hover && hover != null) {
@@ -138,11 +145,8 @@ export default {
                         }
                     }
                 }
-                 
-
             }
             this.$store.commit('setHovered', _hoverPannos);
-
         }
     },
     mounted() {
@@ -166,21 +170,30 @@ export default {
                 false);
             element.addEventListener('mouseout', () => {
                 // betting hover
-                this.$store.commit('setHovered', []);
+                const _betList = element.getAttribute('bet_list');
+                const _outs = _betList.includes(" ") ? _betList.split(' ') : [_betList.trim()];
+
+                // this.selected = this.selected.filter(f=>!_outs.includes(f.refer));
+                // console.log(this.selected)
+                this.setHovered(this.selected.map(m=>m.refer).join(" "),true);
+                
             },
                 false);
             element.removeEventListener('click',()=>{});
             element.addEventListener(
                 "click",
                 (e) => {
-                const arr = this.$store.state.selected;
+                 
+                this.setSelected(element.getAttribute('bet_list'));
+                
                 // if (arr.filter((v) => v.refer == e.target.id).length == 0){
                 //     arr.push({
                 //     refer: e.target.id,
                 //     value: this.$store.state.coin,
                 //     });
                 //     this.selected = arr;
-                    this.$store.commit("setSelected", this.selected);
+                this.setHovered(this.selected.map(m=>m.refer).join(" "),true);
+                this.$store.commit("setSelected", this.selected);
                 // }
                 // else{
                 //     const _arr = arr.filter((v) => v.refer != e.target.id);
