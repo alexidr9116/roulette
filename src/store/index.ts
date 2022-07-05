@@ -9,19 +9,27 @@ export default new Vuex.Store({
     selected:[],
     coin:0.5,
     started:false,
+    balance:0,
+    roundBalance:0,
   },
   getters: {},
   mutations: {
     setHovered(state, hovers){
       state.hovered = hovers;
     },
+
+    setBalance(state,balance){
+      state.balance = balance;
+      state.roundBalance = balance;
+    },
     setSelectedCoin(state,coin){
-      console.log(coin)
       state.coin = coin;
     },
     setSelected(state,selected){
       state.selected = selected;
-      console.log(selected);
+      const _betted = selected.reduce((prev:Number,current:any)=>(prev+current.value),0);
+      state.roundBalance = state.balance-_betted;
+
     },
     setStartedBetting(state,started){
       state.started = started;

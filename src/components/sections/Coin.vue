@@ -1,5 +1,5 @@
 <template>
-    <div class="coin  w-14 h-14 md:w-20 md:h-20 " @click="handleSelectCoin"
+    <div class="coin  w-10 h-10 md:w-16 md:h-16 " @click="handleSelectCoin"
         :class="{ 'coin-selected': (this.value == this.$store.state.coin) }">
         <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
             viewBox="30 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">

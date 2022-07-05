@@ -1,54 +1,64 @@
 <template>
   <div class="flex w-full p-4">
-    <div class="flex w-full px-4  sm:px-20 justify-center ">
-      <div _ngcontent-bdp-c0="" class="panno-container relative -mt-20">
-
+    <div class="flex w-full px-4 sm:px-32 justify-center">
+      <div _ngcontent-bdp-c0="" class="panno-container relative mt-20 sm:mt-10 lg:-mt-20">
         <PannoPanel v-bind:startedBetting="startedBetting"></PannoPanel>
 
-        <Ovale ></Ovale>
-
+        <Ovale></Ovale>
 
         <PannoSnap></PannoSnap>
 
-        <OvaleSnap ></OvaleSnap>
-
+        <OvaleSnap></OvaleSnap>
       </div>
     </div>
-    <button class="left absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
-      <Icon icon='carbon:user-avatar-filled-alt' width="40"></Icon>
+    <button
+      class="left absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+    >
+      <Icon icon="carbon:user-avatar-filled-alt" width="40"></Icon>
     </button>
-    <button @click='handleShowGroupBet()'
-      class="right absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
-      <Icon icon='ph:coins-duotone' width="40"></Icon>
+    <button
+      @click="handleShowGroupBet()"
+      class="right absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+    >
+      <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
-    <div class="coin-toolbar py-6 w-full flex items-center justify-center" :class="(!startedBetting?'coin-toolbar-close':'')">
+    <div class="absolute top-0 right-10 flex gap-2 items-end">
+      <label class="text-lg text-yellow-500">{{ formatNumber($store.state.roundBalance) }}</label>
+      <Icon icon="la:coins" width="40" class="text-yellow-500"></Icon>
+    </div>
+    <div
+      class="coin-toolbar py-6 w-full flex items-center justify-center"
+      :class="!startedBetting ? 'coin-toolbar-close' : ''"
+    >
       <div class="flex justify-center coin-sub-toolbar">
-        <button class="animate-btn btn w-14 h-14 md:w-20 md:h-20  btn-circle mr-4">
-          <Icon icon='la:times' width="40"></Icon>
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4">
+          <Icon icon="la:times" width="40"></Icon>
         </button>
-        <button class="animate-btn btn  w-14 h-14 md:w-20 md:h-20 btn-circle mr-4" @click="handleReset">
-          <Icon icon='bytesize:reload' width="40" ></Icon>
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4"
+          @click="handleReset"
+        >
+          <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
-      <Coin fillColor='green' v-bind:value='0.5'  ></Coin>
-      <Coin fillColor='#13cd0c' v-bind:value='1'></Coin>
-      <Coin fillColor='#fbdb1c' v-bind:value='2'></Coin>
-      <Coin fillColor='#fb931c' v-bind:value='2.5'></Coin>
-      <Coin fillColor='#fb1c1c' v-bind:value='3'></Coin>
-      <Coin fillColor='#de1cfb' v-bind:value='4'></Coin>
-      <Coin fillColor='#1c65fb' v-bind:value='5'></Coin>
+      <Coin fillColor="green" v-bind:value="0.5"></Coin>
+      <Coin fillColor="#13cd0c" v-bind:value="1"></Coin>
+      <Coin fillColor="#fbdb1c" v-bind:value="2"></Coin>
+      <Coin fillColor="#fb931c" v-bind:value="2.5"></Coin>
+      <Coin fillColor="#fb1c1c" v-bind:value="3"></Coin>
+      <Coin fillColor="#de1cfb" v-bind:value="4"></Coin>
+      <Coin fillColor="#1c65fb" v-bind:value="5"></Coin>
     </div>
   </div>
-
 </template>
 
 <script>
-import Ovale from './sections/Ovale'
-import OvaleSnap from './sections/OvaleSnap'
-import PannoPanel from './sections/PannoPanel'
-import Coin from './sections/Coin'
-import PannoSnap from './sections/PannoSnap'
-import { Icon } from '@iconify/vue2'
+import Ovale from "./sections/Ovale";
+import OvaleSnap from "./sections/OvaleSnap";
+import PannoPanel from "./sections/PannoPanel";
+import Coin from "./sections/Coin";
+import PannoSnap from "./sections/PannoSnap";
+import { Icon } from "@iconify/vue2";
 export default {
   name: "Panno",
   components: {
@@ -63,28 +73,33 @@ export default {
     return {
       isOvaleShow: true,
       startedBetting: false,
-     
-    }
+    };
   },
   methods: {
-    handleReset(){
-      this.$store.commit('setHovered',[]);
-      this.$store.commit('setSelected',[]);
+    handleReset() {
+      this.$store.commit("setHovered", []);
+      this.$store.commit("setSelected", []);
     },
     handleShowGroupBet() {
       this.startedBetting = !this.startedBetting;
-      this.$store.commit('setStartedBetting',this.startedBetting);
+      this.$store.commit("setStartedBetting", this.startedBetting);
+    },
+    formatNumber(value) {
+      let val = (value / 1).toFixed(2);
+      return val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
-
+  mounted() {
+    this.$store.commit("setBalance", 1000);
+    
+  },
 };
 </script>
 
 <style scoped>
 .top-half {
-  top: 50%
+  top: 50%;
 }
-
 
 .left {
   left: 2rem;
@@ -108,13 +123,12 @@ export default {
 }
 
 .btn-lg {
-  height: 90px;
-  width: 90px;
+  height: 64px;
+  width: 64px;
 }
 
 .btn-circle {
   border-radius: 50%;
-
 }
 
 .animate-btn {
@@ -124,7 +138,7 @@ export default {
 }
 
 .animate-btn:hover {
-  box-shadow: 1px 1px 15px 1px #777
+  box-shadow: 1px 1px 15px 1px #777;
 }
 
 .coin-toolbar {
@@ -140,7 +154,6 @@ export default {
   bottom: -130px;
 }
 
-
 @keyframes slideTop {
   from {
     bottom: -130px;
@@ -148,7 +161,6 @@ export default {
 
   to {
     bottom: 0px;
-    
   }
 }
 
@@ -159,22 +171,20 @@ export default {
 
   to {
     bottom: -130px;
-    
   }
 }
 </style>
-<style >
+<style>
 .panno-container #fiche,
 .panno-container #ovale,
 .panno-container #ovalesnap,
 .panno-container #panno,
 .panno-container #pda,
 .panno-container #snap {
-
   position: absolute;
   width: 100%;
   -webkit-backface-visibility: hidden;
-  backface-visibility: hidden
+  backface-visibility: hidden;
 }
 
 .panno-container #fiche,
@@ -182,58 +192,60 @@ export default {
 .panno-container #panno,
 .panno-container #pda,
 .panno-container #snap {
-  pointer-events: none
+  pointer-events: none;
 }
 
 .panno-container #ovale,
 .panno-container #panno {
-  opacity: .85
+  opacity: 0.85;
 }
 
 .panno-container #ovale text,
 .panno-container #panno text {
-  text-shadow: #000 0 0 40px
+  text-shadow: #000 0 0 40px;
 }
 
 .panno-container #ovale .hover,
 .panno-container #panno .hover {
   -webkit-filter: url(#brightness-filter) !important;
-  filter: url(#brightness-filter) !important
+  filter: url(#brightness-filter) !important;
 }
 
 .BETCLOSE .panno-container #ovale .hover,
 .BETCLOSE .panno-container #panno .hover {
   -webkit-filter: none !important;
-  filter: none !important
+  filter: none !important;
 }
 
-.panno-container .snap-point, .panno-container .ovale-snap-point {
+.panno-container .snap-point,
+.panno-container .ovale-snap-point {
   opacity: 0;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
-  pointer-events: visible
+  pointer-events: visible;
 }
 
 .panno-container .snap-point:active,
 .panno-container .snap-point:focus,
 .panno-container .ovale-snap-point:active,
 .panno-container .ovale-snap-point:focus {
-  -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
 
-.panno-container .snap-point:hover ,.panno-container .ovale-snap-point:hover {
-  opacity: .6;
+.panno-container .snap-point:hover,
+.panno-container .ovale-snap-point:hover {
+  opacity: 0.6;
   fill: #fff;
-  fill-opacity: 0.6
+  fill-opacity: 0.6;
 }
 
 .BETCLOSE .panno-container.ovaleOn #fiche .fic,
 .BETCLOSE .panno-container.ovaleOn #panno #groupOtherBets {
-  display: block !important
+  display: block !important;
 }
 
 .BETCLOSE .panno-container.ovaleOn #ovale,
 .BETCLOSE .panno-container.ovaleOn #ovalesnap {
-  display: none
+  display: none;
 }
 
 .mobile.BETTIME .panno-container {
@@ -241,7 +253,7 @@ export default {
   top: 0;
   width: 100%;
   height: 68%;
-  pointer-events: visible
+  pointer-events: visible;
 }
 
 @media screen and (orientation: portrait) {
@@ -249,11 +261,11 @@ export default {
     top: calc(50% - 23vw);
     height: 50vw;
     width: 86vh;
-    margin-left: calc(50% - 43vh)
+    margin-left: calc(50% - 43vh);
   }
 
   .tablet .mobile.BETTIME .panno-container {
-    top: calc(50% - 25vw)
+    top: calc(50% - 25vw);
   }
 }
 
@@ -261,19 +273,19 @@ export default {
   position: absolute;
   width: 100%;
   height: 50%;
-  margin-top: 14%
+  margin-top: 14%;
 }
 
 .mobile.BETCLOSE .panno-container.ovaleOn #fiche,
 .mobile.BETCLOSE .panno-container.ovaleOn #panno,
 .mobile.BETCLOSE .panno-container.ovaleOn #pda,
 .mobile.BETCLOSE .panno-container.ovaleOn #snap {
-  transform: scale3D(1, 1, 1) translate(0, 0)
+  transform: scale3D(1, 1, 1) translate(0, 0);
 }
 
 .mobile .panno-container {
   z-index: 2;
-  transition: transform .2s ease-in
+  transition: transform 0.2s ease-in;
 }
 
 .mobile .panno-container #fiche,
@@ -284,7 +296,7 @@ export default {
 .mobile .panno-container #snap {
   position: absolute;
   height: 100%;
-  width: 100%
+  width: 100%;
 }
 
 .mobile .panno-container #fiche svg,
@@ -295,14 +307,14 @@ export default {
 .mobile .panno-container #snap svg {
   position: absolute;
   top: 0;
-  left: 0
+  left: 0;
 }
 
 .mobile .panno-container.ovaleOn #fiche,
 .mobile .panno-container.ovaleOn #panno,
 .mobile .panno-container.ovaleOn #pda,
 .mobile .panno-container.ovaleOn #snap {
-  transform: scale3D(.5, .5, .5) translate(0, -48%)
+  transform: scale3D(0.5, 0.5, 0.5) translate(0, -48%);
 }
 
 @media screen and (orientation: portrait) {
@@ -311,29 +323,29 @@ export default {
     height: 40vw;
     width: 66vh;
     margin-left: calc(50% - 33vh);
-    opacity: .7
+    opacity: 0.7;
   }
 
   .tablet .mobile.BETCLOSE .panno-container {
-    top: calc(50% - 25vw)
+    top: calc(50% - 25vw);
   }
 
   .mobile .panno-container {
     z-index: 2;
-    transform: rotate(90deg)
+    transform: rotate(90deg);
   }
 
   .mobile .panno-container.ovaleOn #fiche,
   .mobile .panno-container.ovaleOn #panno,
   .mobile .panno-container.ovaleOn #pda,
   .mobile .panno-container.ovaleOn #snap {
-    transform: scale3D(.5, .5, .5) translate(0, -60%)
+    transform: scale3D(0.5, 0.5, 0.5) translate(0, -60%);
   }
 }
 
 .mobile .panno-container.ovaleOn #ovale,
 .mobile .panno-container.ovaleOn #ovalesnap {
-  transform: scale3D(.8, .8, .8) translate(0, 30%)
+  transform: scale3D(0.8, 0.8, 0.8) translate(0, 30%);
 }
 
 .mobile #mlc-video-div.videoRL-zoom,
@@ -342,7 +354,7 @@ export default {
   width: 250% !important;
   height: 250% !important;
   left: -13% !important;
-  top: -140% !important
+  top: -140% !important;
 }
 
 .RL_OLY01 .mobile #mlc-video-div.videoRL-zoom,
@@ -350,24 +362,23 @@ export default {
   width: 100% !important;
   height: 100% !important;
   left: 0 !important;
-  top: 0 !important
+  top: 0 !important;
 }
 
 @media screen and (orientation: portrait) {
-
   .mobile .panno-container.ovaleOn #ovale,
   .mobile .panno-container.ovaleOn #ovalesnap {
-    transform: scale3D(1, 1, 1) translate(0, 20%)
+    transform: scale3D(1, 1, 1) translate(0, 20%);
   }
 
   .mobile .panno-container.ovaleOn #ovale .txtOvalePortrait,
   .mobile .panno-container.ovaleOn #ovalesnap .txtOvalePortrait {
-    display: block !important
+    display: block !important;
   }
 
   .mobile .panno-container.ovaleOn #ovale .txtOvaleLandscape,
   .mobile .panno-container.ovaleOn #ovalesnap .txtOvaleLandscape {
-    display: none
+    display: none;
   }
 
   .mobile #mlc-video-div.videoRL-zoom,
@@ -375,7 +386,7 @@ export default {
     width: 300% !important;
     height: 300% !important;
     left: -30% !important;
-    top: -156% !important
+    top: -156% !important;
   }
 
   .RL_OLY01 .mobile #mlc-video-div.videoRL-zoom,
@@ -383,7 +394,7 @@ export default {
     width: 100% !important;
     height: 100% !important;
     left: 4% !important;
-    top: -34% !important
+    top: -34% !important;
   }
 }
 
@@ -394,11 +405,10 @@ export default {
   width: 100% !important;
   height: 100% !important;
   left: 0 !important;
-  top: 0 !important
+  top: 0 !important;
 }
 
 @media screen and (orientation: portrait) {
-
   .SRMR01 .mobile #mlc-video-div.videoRL-zoom,
   .SRMR01 .mobile #mlc-video-tag.videoRL-zoom,
   .SRMR02 .mobile #mlc-video-div.videoRL-zoom,
@@ -406,7 +416,7 @@ export default {
     width: 112% !important;
     height: 112% !important;
     left: 0 !important;
-    top: -40% !important
+    top: -40% !important;
   }
 }
 
@@ -415,17 +425,16 @@ export default {
   width: 100% !important;
   height: 50% !important;
   left: 0 !important;
-  top: 0 !important
+  top: 0 !important;
 }
 
 @media screen and (orientation: portrait) {
-
   .HITR01 .mobile #mlc-video-div.videoRL-zoom,
   .HITR01 .mobile #mlc-video-tag.videoRL-zoom {
     width: 100% !important;
     height: 24% !important;
     left: 0 !important;
-    top: 0 !important
+    top: 0 !important;
   }
 }
 
@@ -434,17 +443,16 @@ export default {
   width: 94% !important;
   height: 100% !important;
   left: 0 !important;
-  top: -20% !important
+  top: -20% !important;
 }
 
 @media screen and (orientation: portrait) {
-
   .RL_AUTO1 .mobile #mlc-video-div.videoRL-zoom,
   .RL_AUTO1 .mobile #mlc-video-tag.videoRL-zoom {
     width: 100% !important;
     height: 100% !important;
     left: 0 !important;
-    top: -36% !important
+    top: -36% !important;
   }
 }
 
@@ -453,7 +461,7 @@ export default {
   width: 250% !important;
   height: 250% !important;
   left: -16% !important;
-  top: -140% !important
+  top: -140% !important;
 }
 
 .mobile #mlc-video-div.videoRL-santino,
@@ -462,17 +470,16 @@ export default {
   width: 37% !important;
   height: 37% !important;
   left: 0 !important;
-  top: -11% !important
+  top: -11% !important;
 }
 
 @media screen and (orientation: portrait) {
-
   .RL_GREEN .mobile #mlc-video-div.videoRL-zoom,
   .RL_GREEN .mobile #mlc-video-tag.videoRL-zoom {
     width: 250% !important;
     height: 250% !important;
     left: -14% !important;
-    top: -128% !important
+    top: -128% !important;
   }
 
   .mobile #mlc-video-div.videoRL-santino,
@@ -480,7 +487,7 @@ export default {
     width: 120% !important;
     height: 34% !important;
     left: -16% !important;
-    top: -6% !important
+    top: -6% !important;
   }
 }
 
@@ -489,17 +496,16 @@ export default {
   width: 25% !important;
   height: 48% !important;
   left: 0 !important;
-  top: -12% !important
+  top: -12% !important;
 }
 
 @media screen and (orientation: portrait) {
-
   .RL_AUTO1 .mobile #mlc-video-div.videoRL-santino,
   .RL_AUTO1 .mobile #mlc-video-tag.videoRL-santino {
     width: 100% !important;
     height: 100% !important;
     left: 0 !important;
-    top: -36% !important
+    top: -36% !important;
   }
 
   .RL_OLY01 .mobile #mlc-video-div.videoRL-santino,
@@ -507,7 +513,7 @@ export default {
     width: 100% !important;
     height: 100% !important;
     left: 3% !important;
-    top: -41% !important
+    top: -41% !important;
   }
 
   .HITR01 .mobile #mlc-video-div.videoRL-santino,
@@ -515,7 +521,7 @@ export default {
     width: 100% !important;
     height: 100% !important;
     left: 0 !important;
-    top: -51% !important
+    top: -51% !important;
   }
 
   .SRMR01 .mobile #mlc-video-div.videoRL-santino,
@@ -525,7 +531,7 @@ export default {
     width: 100% !important;
     height: 100% !important;
     left: 0 !important;
-    top: -42% !important
+    top: -42% !important;
   }
 
   .RL_GREEN .mobile #mlc-video-div.videoRL-santino,
@@ -533,376 +539,360 @@ export default {
     width: 120% !important;
     height: 120% !important;
     left: -5% !important;
-    top: -52% !important
+    top: -52% !important;
   }
 }
 
 .panno-container .fiche1-color {
-  fill: #317323
+  fill: #317323;
 }
 
 .panno-container .fiche1-color3D {
-  fill: #275c1b
+  fill: #275c1b;
 }
 
 .panno-container .fiche2-color {
-  fill: #78a441
+  fill: #78a441;
 }
 
 .panno-container .fiche2-color3D {
-  fill: #658b36
+  fill: #658b36;
 }
 
 .panno-container .fiche3-color {
-  fill: #e5c900
+  fill: #e5c900;
 }
 
 .panno-container .fiche3-color3D {
-  fill: #bfab00
+  fill: #bfab00;
 }
 
 .panno-container .fiche4-color {
-  fill: #ff6d2d
+  fill: #ff6d2d;
 }
 
 .panno-container .fiche4-color3D {
-  fill: #e65e2c
+  fill: #e65e2c;
 }
 
 .panno-container .fiche5-color {
-  fill: #c71f21
+  fill: #c71f21;
 }
 
 .panno-container .fiche5-color3D {
-  fill: #a3191b
+  fill: #a3191b;
 }
 
 .panno-container .fiche6-color {
-  fill: #7720c8
+  fill: #7720c8;
 }
 
 .panno-container .fiche6-color3D {
-  fill: #631aa8
+  fill: #631aa8;
 }
 
 .panno-container .fiche7-color {
-  fill: #3560b0
+  fill: #3560b0;
 }
 
 .panno-container .fiche7-color3D {
-  fill: #274988
+  fill: #274988;
 }
 
 .panno-container .fiche-color-pda1 {
-  fill: #999
+  fill: #999;
 }
 
 .panno-container .fiche-color-pda2 {
-  fill: #666
+  fill: #666;
 }
 
 .panno-container .fiche-color-pda3 {
-  fill: #333
+  fill: #333;
 }
 
 .panno-container .fiches-text {
-  fill: #fff
+  fill: #fff;
 }
 
 .panno-container .red {
   fill: #c00;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .black {
   fill: #000;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .green {
   fill: #390;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .gold {
   stroke: #c90;
-  stroke-width: 10px
+  stroke-width: 10px;
 }
 
 .panno-container .silver {
   stroke: #666;
-  stroke-width: 10px
+  stroke-width: 10px;
 }
 
 .panno-container .bronze {
   stroke: #630;
-  stroke-width: 10px
+  stroke-width: 10px;
 }
 
 .panno-container .transparent {
   fill: #333;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .red {
   fill: #c00;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .black {
   fill: #000;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .green {
   fill: #390;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .white-red {
   fill: rgb(245, 147, 147);
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .white-black {
   fill: rgb(182, 180, 180);
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .white-green {
   fill: rgb(185, 235, 160);
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .fondo-ovale {
   fill: #333;
-  fill-opacity: .6;
+  fill-opacity: 0.6;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .transparent {
   fill: #333;
   stroke: #fff;
-  stroke-width: 2
+  stroke-width: 2;
 }
 
 .panno-container .gold {
   stroke: #c90;
-  stroke-width: 10px
+  stroke-width: 10px;
 }
 
 .panno-container .silver {
   stroke: #666;
-  stroke-width: 10px
+  stroke-width: 10px;
 }
 
 .panno-container .bronze {
   stroke: #630;
-  stroke-width: 10px
+  stroke-width: 10px;
 }
 
-
-
 @-webkit-keyframes pulseWin-redbox {
-
   0%,
   100% {
-    fill: #c90
+    fill: #c90;
   }
 
   50% {
-    fill: #c00
+    fill: #c00;
   }
 }
 
 @keyframes pulseWin-redbox {
-
   0%,
   100% {
-    fill: #c90
+    fill: #c90;
   }
 
   50% {
-    fill: #c00
+    fill: #c00;
   }
 }
 
 @-webkit-keyframes pulseWin-blackbox {
-
   0%,
   100% {
-    fill: #c90
+    fill: #c90;
   }
 
   50% {
-    fill: #000
+    fill: #000;
   }
 }
 
 @keyframes pulseWin-blackbox {
-
   0%,
   100% {
-    fill: #c90
+    fill: #c90;
   }
 
   50% {
-    fill: #000
+    fill: #000;
   }
 }
 
 @-webkit-keyframes pulseWin-greenbox {
-
   0%,
   100% {
-    fill: #c90
+    fill: #c90;
   }
 
   50% {
-    fill: #390
+    fill: #390;
   }
 }
 
 @keyframes pulseWin-greenbox {
-
   0%,
   100% {
-    fill: #c90
+    fill: #c90;
   }
 
   50% {
-    fill: #390
+    fill: #390;
   }
 }
 
 @-webkit-keyframes pulseWin-otherbox {
-
   0%,
   100% {
-    fill: #666
+    fill: #666;
   }
 
   50% {
-    fill: #333
+    fill: #333;
   }
 }
 
 @keyframes pulseWin-otherbox {
-
   0%,
   100% {
-    fill: #666
+    fill: #666;
   }
 
   50% {
-    fill: #333
+    fill: #333;
   }
 }
 
 @-webkit-keyframes jpGold {
-
   0%,
   100% {
     fill: #fff;
     font-weight: 700;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 
   50% {
     fill: #c90;
     font-weight: 500;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 }
 
 @keyframes jpGold {
-
   0%,
   100% {
     fill: #fff;
     font-weight: 700;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 
   50% {
     fill: #c90;
     font-weight: 500;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 }
 
 @-webkit-keyframes jpSilver {
-
   0%,
   100% {
     fill: #fff;
     font-weight: 700;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 
   50% {
     fill: #666;
     font-weight: 500;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 }
 
 @keyframes jpSilver {
-
   0%,
   100% {
     fill: #fff;
     font-weight: 700;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 
   50% {
     fill: #666;
     font-weight: 500;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 }
 
 @-webkit-keyframes jpBronze {
-
   0%,
   100% {
     fill: #fff;
     font-weight: 700;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 
   50% {
     fill: #630;
     font-weight: 500;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 }
 
 @keyframes jpBronze {
-
   0%,
   100% {
     fill: #fff;
     font-weight: 700;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 
   50% {
     fill: #630;
     font-weight: 500;
-    text-shadow: 0 0 50px #000
+    text-shadow: 0 0 50px #000;
   }
 }
 
@@ -912,27 +902,27 @@ export default {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite
+  animation-iteration-count: infinite;
 }
 
 .pulseWinBox.redBox {
   -webkit-animation-name: pulseWin-redbox;
-  animation-name: pulseWin-redbox
+  animation-name: pulseWin-redbox;
 }
 
 .pulseWinBox.blackBox {
   -webkit-animation-name: pulseWin-blackbox;
-  animation-name: pulseWin-blackbox
+  animation-name: pulseWin-blackbox;
 }
 
 .pulseWinBox.greenBox {
   -webkit-animation-name: pulseWin-greenbox;
-  animation-name: pulseWin-greenbox
+  animation-name: pulseWin-greenbox;
 }
 
 .pulseWinBox.otherBox {
   -webkit-animation-name: pulseWin-otherbox;
-  animation-name: pulseWin-otherbox
+  animation-name: pulseWin-otherbox;
 }
 
 .pulseWinNum {
@@ -941,56 +931,56 @@ export default {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
   -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite
+  animation-iteration-count: infinite;
 }
 
 .pulseWinNum.jpGold {
   -webkit-animation-name: jpGold;
-  animation-name: jpGold
+  animation-name: jpGold;
 }
 
 .pulseWinNum.jpSilver {
   -webkit-animation-name: jpSilver;
-  animation-name: jpSilver
+  animation-name: jpSilver;
 }
 
 .pulseWinNum.jpBronze {
   -webkit-animation-name: jpBronze;
-  animation-name: jpBronze
+  animation-name: jpBronze;
 }
 
 .btn-ovale {
   /*background-image: url(/roulette-module/html5/roulette_new/assets/img/ico/ovale.svg);*/
   pointer-events: visible;
   position: absolute;
-  z-index: 13
+  z-index: 13;
 }
 
 .desktop .btn-ovale {
   width: 3.5vh;
   height: 3.5vh;
-  border-width: .2vh;
+  border-width: 0.2vh;
   bottom: 18%;
   margin-top: 0;
-  transform: perspective(100em) rotateX(25deg)
+  transform: perspective(100em) rotateX(25deg);
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .desktop .btn-ovale {
-    border-width: .1vw;
+    border-width: 0.1vw;
     width: 2vw;
-    height: 2vw
+    height: 2vw;
   }
 }
 
 .desktop.roulette-left .btn-ovale {
-  right: .8%;
-  margin-right: 0
+  right: 0.8%;
+  margin-right: 0;
 }
 
 .desktop.roulette-right .btn-ovale {
   left: 5%;
-  margin-left: 0
+  margin-left: 0;
 }
 
 .mobile .btn-ovale {
@@ -999,13 +989,13 @@ export default {
   right: 0;
   bottom: 11%;
   margin-top: 0;
-  margin-right: 1.75vw
+  margin-right: 1.75vw;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .mobile .btn-ovale {
     width: 6vw;
-    height: 6vw
+    height: 6vw;
   }
 }
 
@@ -1013,7 +1003,7 @@ export default {
   .mobile .btn-ovale {
     bottom: 8%;
     width: 10vw;
-    height: 10vw
+    height: 10vw;
   }
 }
 
@@ -1027,47 +1017,47 @@ export default {
   margin-top: 0;
   /*background-image: url(/roulette-module/html5/roulette_new/assets/img/ico/pda.svg);*/
   background-size: 70%;
-  border-width: .2vh;
+  border-width: 0.2vh;
   pointer-events: visible;
-  z-index: 13
+  z-index: 13;
 }
 
 .btn-pda.active {
   background-color: #c90;
-  box-shadow: 0 0 12px #c90
+  box-shadow: 0 0 12px #c90;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .desktop.roulette-left .btn-pda {
     margin-right: 0;
-    right: 56.5%
+    right: 56.5%;
   }
 
   .desktop.roulette-right .btn-pda {
     margin-left: 0;
-    left: 56.5%
+    left: 56.5%;
   }
 
   .desktop .btn-pda {
     width: 2vw;
     height: 2vw;
-    border-width: .1vw;
+    border-width: 0.1vw;
     margin-right: 0;
-    transform: perspective(100em) rotateX(25deg)
+    transform: perspective(100em) rotateX(25deg);
   }
 }
 
 #tooltip {
   position: absolute;
   color: #fff;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0, 0, 0, 0.8);
   font-size: 2vh;
   border-radius: 1vh;
   z-index: 99999999;
   box-sizing: border-box;
-  box-shadow: 0 1px 8px rgba(0, 0, 0, .5);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
   pointer-events: none;
-  display: none
+  display: none;
 }
 
 #tooltip i {
@@ -1077,7 +1067,7 @@ export default {
   margin-left: -12px;
   width: 24px;
   height: 12px;
-  overflow: hidden
+  overflow: hidden;
 }
 
 #tooltip i::after {
@@ -1087,74 +1077,74 @@ export default {
   height: 12px;
   left: 50%;
   transform: translate(-50%, -50%) rotate(45deg);
-  background-color: rgba(0, 0, 0, .5);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, .5)
+  background-color: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 }
 
 #tooltip .tooltip-title {
   border-radius: 1vh 1vh 0 0;
-  padding: .8vh
+  padding: 0.8vh;
 }
 
 #tooltip .tooltip-title h3 {
-  margin: 0
+  margin: 0;
 }
 
 #tooltip .tooltip-title.red {
-  background: #c00
+  background: #c00;
 }
 
 #tooltip .tooltip-title.black {
-  background: #000
+  background: #000;
 }
 
 #tooltip .tooltip-title.zero {
-  background: #390
+  background: #390;
 }
 
 #tooltip .tooltip-body {
-  padding: 1vh
+  padding: 1vh;
 }
 
 #tooltip .tooltip-body p {
-  margin: 1vh 0
+  margin: 1vh 0;
 }
 
 #tooltip .tooltip-body .tooltip-numplayers {
   font-style: italic;
   font-weight: 100;
-  font-size: 1.5vh
+  font-size: 1.5vh;
 }
 
 #tooltip .tooltip-body .tooltip-betammount {
-  font-weight: 800
+  font-weight: 800;
 }
 
 .BETCLOSE #tooltip {
-  display: none !important
+  display: none !important;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   #tooltip {
     font-size: 1.14vw;
-    border-radius: .57vw
+    border-radius: 0.57vw;
   }
 
   #tooltip .tooltip-title {
-    border-radius: .57vw .57vw 0 0;
-    padding: .46vw
+    border-radius: 0.57vw 0.57vw 0 0;
+    padding: 0.46vw;
   }
 
   #tooltip .tooltip-body {
-    padding: .57vw
+    padding: 0.57vw;
   }
 
   #tooltip .tooltip-body p {
-    margin: .57vw 0
+    margin: 0.57vw 0;
   }
 
   #tooltip .tooltip-body .tooltip-numplayers {
-    font-size: .85vw
+    font-size: 0.85vw;
   }
 }
 
@@ -1165,7 +1155,7 @@ export default {
   left: 40%;
   width: 58%;
   height: auto;
-  bottom: 12%
+  bottom: 12%;
 }
 
 .RL_GREEN .desktop.roulette-left .panno-container #fiche,
@@ -1175,7 +1165,7 @@ export default {
   left: 42%;
   width: 55%;
   height: auto;
-  bottom: 12%
+  bottom: 12%;
 }
 
 .desktop.roulette-left .panno-container #ovale,
@@ -1183,7 +1173,7 @@ export default {
   width: 34%;
   left: 53%;
   height: auto;
-  bottom: 11%
+  bottom: 11%;
 }
 
 .desktop.roulette-left .panno-container #ovale #drawOvale,
@@ -1191,7 +1181,7 @@ export default {
 .desktop.roulette-left .panno-container #ovalesnap #drawOvale,
 .desktop.roulette-left .panno-container #ovalesnap #drawOvalesnap {
   transform-origin: -10% center !important;
-  transform: perspective(100em) rotateX(43deg) !important
+  transform: perspective(100em) rotateX(43deg) !important;
 }
 
 .desktop.roulette-right .panno-container #fiche,
@@ -1201,7 +1191,7 @@ export default {
   right: 41%;
   width: 50%;
   height: auto;
-  bottom: 9.7%
+  bottom: 9.7%;
 }
 
 .desktop .panno-container {
@@ -1209,7 +1199,7 @@ export default {
   background-size: cover;
   background-position: center bottom;
   width: 100%;
-  height: 100%
+  height: 100%;
 }
 
 .RL_GREEN .desktop #mlc-video-div,
@@ -1217,7 +1207,7 @@ export default {
 .RL_TRAIN01 .desktop #mlc-video-div,
 .RL_TRAIN01 .desktop #mlc-video-tag {
   position: absolute;
-  top: -7%
+  top: -7%;
 }
 
 .RL_GREEN .desktop .panno-container,
@@ -1229,7 +1219,7 @@ export default {
   width: 60%;
   height: 35%;
   position: absolute;
-  margin-left: 20%
+  margin-left: 20%;
 }
 
 .jackpot-result .jackpot-box {
@@ -1237,7 +1227,7 @@ export default {
   font-size: 4vh;
   font-weight: 600;
   text-align: center;
-  text-transform: uppercase
+  text-transform: uppercase;
 }
 
 .jackpot-result .jackpot-box .gold {
@@ -1245,7 +1235,7 @@ export default {
   margin-left: 30%;
   background-color: #c90;
   border: 3px solid #ffbf00;
-  border-radius: 4em
+  border-radius: 4em;
 }
 
 .jackpot-result .jackpot-box .silver {
@@ -1253,7 +1243,7 @@ export default {
   margin-left: 30%;
   background-color: #666;
   border: 3px solid grey;
-  border-radius: 4em
+  border-radius: 4em;
 }
 
 .jackpot-result .jackpot-box .bronze {
@@ -1261,7 +1251,7 @@ export default {
   width: 40%;
   background-color: #630;
   border: 3px solid #994d00;
-  border-radius: 4em
+  border-radius: 4em;
 }
 
 .jackpot-result .jackpot-box .jackpot-result-logo {
@@ -1270,7 +1260,7 @@ export default {
   height: 10vh;
   /*background-image: url(/roulette-module/html5/roulette_new/assets/img/ico/jpTitleTot.svg);*/
   background-repeat: no-repeat;
-  background-position: center center
+  background-position: center center;
 }
 
 .jackpot-result .jackpot-box .jackpot-result-win {
@@ -1279,62 +1269,62 @@ export default {
   margin-top: -2%;
   font-size: 7vh;
   font-weight: 100;
-  text-shadow: #000 0 0 1em
+  text-shadow: #000 0 0 1em;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .jackpot-result .jackpot-box {
-    font-size: 2.28vw
+    font-size: 2.28vw;
   }
 
   .jackpot-result .jackpot-box .jackpot-result-logo {
-    height: 5.7vw
+    height: 5.7vw;
   }
 
   .jackpot-result .jackpot-box .jackpot-result-win {
-    font-size: 4vw
+    font-size: 4vw;
   }
 }
 
 .roulette-left #sidepanel {
-  right: 0
+  right: 0;
 }
 
 .roulette-left #sidepanel .sidepanel-menu {
-  left: 0
+  left: 0;
 }
 
 .roulette-left #sidepanel .sidepanel-content {
   right: 0;
-  background-color: rgba(0, 0, 0, .5);
-  border-radius: 4vh 0 0 4vh
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 4vh 0 0 4vh;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .roulette-left #sidepanel .sidepanel-content {
-    border-radius: 2.3vw 0 0 2.3vw
+    border-radius: 2.3vw 0 0 2.3vw;
   }
 }
 
 .roulette-right #sidepanel {
-  left: 0
+  left: 0;
 }
 
 .roulette-right #sidepanel .sidepanel-menu {
-  right: 0
+  right: 0;
 }
 
 .roulette-right #sidepanel .sidepanel-content {
   left: 0;
-  background-color: rgba(0, 0, 0, .5);
-  border-radius: 0 4vh 4vh 0
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 0 4vh 4vh 0;
 }
 
 #sidepanel {
   position: absolute;
   top: 0;
   height: 50%;
-  width: 48%
+  width: 48%;
 }
 
 #sidepanel .sidepanel-menu {
@@ -1344,29 +1334,29 @@ export default {
   top: 0;
   margin-top: 1vh;
   margin-left: 1vh;
-  z-index: 1
+  z-index: 1;
 }
 
 #sidepanel .sidepanel-menu .mlc-btn {
   height: 6vh;
   width: 6vh;
-  margin: .5vh
+  margin: 0.5vh;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .roulette-right #sidepanel .sidepanel-content {
-    border-radius: 0 2.3vw 2.3vw 0
+    border-radius: 0 2.3vw 2.3vw 0;
   }
 
   #sidepanel .sidepanel-menu {
-    margin-top: .6vw;
-    margin-left: .6vw
+    margin-top: 0.6vw;
+    margin-left: 0.6vw;
   }
 
   #sidepanel .sidepanel-menu .mlc-btn {
     height: 3.4vw;
     width: 3.4vw;
-    margin: .3vw
+    margin: 0.3vw;
   }
 }
 
@@ -1394,125 +1384,125 @@ export default {
 
 #sidepanel .sidepanel-menu .mlc-btn.active {
   background-color: #c90;
-  box-shadow: 0 0 12px #c90
+  box-shadow: 0 0 12px #c90;
 }
 
 #sidepanel .sidepanel-menu .mlc-btn.privata {
-  background-color: #c80000
+  background-color: #c80000;
 }
 
 #sidepanel .sidepanel-content {
   height: 100%;
   width: 86%;
   position: absolute;
-  top: 0
+  top: 0;
 }
 
 @-webkit-keyframes InRight {
   from {
-    transform: translate3d(86%, 0, 0)
+    transform: translate3d(86%, 0, 0);
   }
 
   to {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes InRight {
   from {
-    transform: translate3d(86%, 0, 0)
+    transform: translate3d(86%, 0, 0);
   }
 
   to {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .InRight {
   -webkit-animation-name: InRight;
-  animation-name: InRight
+  animation-name: InRight;
 }
 
 @-webkit-keyframes InLeft {
   from {
-    transform: translate3d(86%, 0, 0)
+    transform: translate3d(86%, 0, 0);
   }
 
   to {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 }
 
 @keyframes InLeft {
   from {
-    transform: translate3d(-86%, 0, 0)
+    transform: translate3d(-86%, 0, 0);
   }
 
   to {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 }
 
 .InLeft {
   -webkit-animation-name: InLeft;
-  animation-name: InLeft
+  animation-name: InLeft;
 }
 
 @-webkit-keyframes OutRight {
   from {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translate3d(86%, 0, 0)
+    transform: translate3d(86%, 0, 0);
   }
 }
 
 @keyframes OutRight {
   from {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translate3d(86%, 0, 0)
+    transform: translate3d(86%, 0, 0);
   }
 }
 
 .OutRight {
   -webkit-animation-name: OutRight;
-  animation-name: OutRight
+  animation-name: OutRight;
 }
 
 @-webkit-keyframes OutLeft {
   from {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translate3d(86%, 0, 0)
+    transform: translate3d(86%, 0, 0);
   }
 }
 
 @keyframes OutLeft {
   from {
-    transform: translate3d(0, 0, 0)
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translate3d(-86%, 0, 0)
+    transform: translate3d(-86%, 0, 0);
   }
 }
 
 .OutLeft {
   -webkit-animation-name: OutLeft;
-  animation-name: OutLeft
+  animation-name: OutLeft;
 }
 
 .new-msg {
   border-color: #ffc800;
   box-shadow: 0 0 20px 3px #ffc800;
   -webkit-animation: 1s infinite newmsg;
-  animation: 1s infinite newmsg
+  animation: 1s infinite newmsg;
 }
 
 .limits-list {
@@ -1523,7 +1513,7 @@ export default {
   left: 0;
   background: bottom right/cover no-repeat #000;
   display: block;
-  pointer-events: visible
+  pointer-events: visible;
 }
 
 .limits-list .logo {
@@ -1535,25 +1525,25 @@ export default {
   position: absolute;
   right: 4vw;
   left: 54%;
-  bottom: 0
+  bottom: 0;
 }
 
 .limits-list h2 {
   font-size: 1.5em;
   color: #fff;
   line-height: 1.2;
-  padding-left: 2%
+  padding-left: 2%;
 }
 
 .limits-list h2 i {
-  color: #c00
+  color: #c00;
 }
 
 .limits-list h2 span {
   border-left: 2px solid #666;
   font-size: 1.4em;
-  padding-left: .3em;
-  margin-left: .2em
+  padding-left: 0.3em;
+  margin-left: 0.2em;
 }
 
 .limits-list .limits {
@@ -1562,7 +1552,7 @@ export default {
   grid-template-columns: 25% 25% 25% 25%;
   padding-right: 10%;
   padding-left: 2%;
-  margin-top: 5%
+  margin-top: 5%;
 }
 
 @media screen and (orientation: portrait) {
@@ -1570,16 +1560,16 @@ export default {
     width: 20%;
     height: 5%;
     left: unset;
-    right: 5%
+    right: 5%;
   }
 
   .mobile .limits-list h2 {
-    font-size: 1em
+    font-size: 1em;
   }
 
   .mobile .limits-list .limits {
     height: 80%;
-    grid-template-columns: 50% 50%
+    grid-template-columns: 50% 50%;
   }
 }
 
@@ -1587,41 +1577,41 @@ export default {
   width: 26vh;
   height: 26vh;
   margin: 5px;
-  border: .6vh solid #c90;
+  border: 0.6vh solid #c90;
   border-radius: 50%;
-  transition: .6s;
+  transition: 0.6s;
   align-self: center;
   justify-self: left;
   text-transform: uppercase;
   position: relative;
-  cursor: pointer
+  cursor: pointer;
 }
 
 @media screen and (orientation: portrait) {
   .mobile .limits-list .limits .limit-element {
     width: 25vw;
     height: 25vw;
-    border: .6vw solid #c90
+    border: 0.6vw solid #c90;
   }
 
   .mobile .limits-list .limits .limit-element .ico-roulette {
     width: 14vw;
-    height: 8vw
+    height: 8vw;
   }
 }
 
 .limits-list .limits .limit-element:focus,
 .limits-list .limits .limit-element:hover {
-  background: rgba(204, 153, 0, .1);
+  background: rgba(204, 153, 0, 0.1);
   -o-box-shadow: 0 0 1.5em 0 #c90;
-  box-shadow: 0 0 1.5em 0 #c90
+  box-shadow: 0 0 1.5em 0 #c90;
 }
 
 .limits-list .limits .limit-element:active {
-  transform: scale(.9);
+  transform: scale(0.9);
   -o-box-shadow: 0 0 1.5em 0 #c90;
   box-shadow: 0 0 1.5em 0 #c90;
-  opacity: .8
+  opacity: 0.8;
 }
 
 .limits-list .limits .limit-element .ico-roulette {
@@ -1633,19 +1623,19 @@ export default {
   display: block;
   /*background-image: url(/roulette-module/html5/roulette_new/assets/img/general/ico_roulette.png);*/
   background-repeat: no-repeat;
-  background-size: contain
+  background-size: contain;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .limits-list .limits .limit-element {
     width: 14.3vw;
     height: 14.3vw;
-    border: .3vw solid #c90
+    border: 0.3vw solid #c90;
   }
 
   .limits-list .limits .limit-element .ico-roulette {
     width: 7.7vw;
-    height: 4.4vw
+    height: 4.4vw;
   }
 }
 
@@ -1661,40 +1651,40 @@ export default {
   position: absolute;
   line-height: 3.1;
   right: -13%;
-  top: 34%
+  top: 34%;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .limits-list .limits .limit-element .currency {
     width: 3.4vw;
     height: 3.4vw;
-    font-size: 1.2vw
+    font-size: 1.2vw;
   }
 }
 
 .limits-list .limits .limit-element .table {
   font-weight: 100;
-  margin-bottom: .3vh;
+  margin-bottom: 0.3vh;
   margin-top: 4vh;
   width: 65%;
   text-align: right;
-  font-size: 2.5vh
+  font-size: 2.5vh;
 }
 
 .limits-list .limits .limit-element .table span {
   font-size: 4.2vh;
-  font-weight: 300
+  font-weight: 300;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .limits-list .limits .limit-element .table {
     font-size: 1.37vw;
     margin-top: 2.4vw;
-    margin-bottom: .15vw
+    margin-bottom: 0.15vw;
   }
 
   .limits-list .limits .limit-element .table span {
-    font-size: 2.3vw
+    font-size: 2.3vw;
   }
 }
 
@@ -1703,26 +1693,26 @@ export default {
   font-size: 2.5vh;
   width: 65%;
   text-align: right;
-  margin: 0 0 .6vh;
-  color: rgba(255, 255, 255, .6)
+  margin: 0 0 0.6vh;
+  color: rgba(255, 255, 255, 0.6);
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .limits-list .limits .limit-element .subtitle {
-    font-size: 1.37vw
+    font-size: 1.37vw;
   }
 }
 
 .limits-list .limits .limit-element .values {
   font-size: 4.4vh;
   margin: 1.8vh 0;
-  text-align: center
+  text-align: center;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .limits-list .limits .limit-element .values {
     font-size: 2vw;
-    margin: 1vw 0
+    margin: 1vw 0;
   }
 }
 
@@ -1730,58 +1720,58 @@ export default {
   .mobile .limits-list .limits .limit-element .currency {
     width: 6vw;
     height: 6vw;
-    font-size: 2vw
+    font-size: 2vw;
   }
 
   .mobile .limits-list .limits .limit-element .table {
     font-size: 2vw;
     margin-top: 3vw;
-    margin-bottom: .3vw
+    margin-bottom: 0.3vw;
   }
 
   .mobile .limits-list .limits .limit-element .table span {
-    font-size: 4.5vw
+    font-size: 4.5vw;
   }
 
   .mobile .limits-list .limits .limit-element .subtitle {
-    font-size: 2vw
+    font-size: 2vw;
   }
 
   .mobile .limits-list .limits .limit-element .values {
     font-size: 4vw;
-    margin: 2vw 0
+    margin: 2vw 0;
   }
 }
 
 .limits-list .limits .limit-element .values i {
-  color: rgba(255, 255, 255, .5);
-  font-weight: 100
+  color: rgba(255, 255, 255, 0.5);
+  font-weight: 100;
 }
 
 .swipeToPlay {
   width: 100%;
   height: 110%;
-  background-color: rgba(0, 0, 0, .8);
+  background-color: rgba(0, 0, 0, 0.8);
   z-index: 999;
   position: absolute;
   top: 0;
   left: 0;
   text-align: center;
-  pointer-events: visible
+  pointer-events: visible;
 }
 
 .swipeToPlay.no-ios {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMTkuNjQgOTIuNTYiPjx0aXRsZT50YXA8L3RpdGxlPjxnIGlkPSJMaXZlbGxvXzIiIGRhdGEtbmFtZT0iTGl2ZWxsbyAyIj48ZyBpZD0iTGl2ZWxsb18xLTIiIGRhdGEtbmFtZT0iTGl2ZWxsbyAxIj48ZyBpZD0iTGl2ZWxsb18xLTMiIGRhdGEtbmFtZT0iTGl2ZWxsbyAxIj48ZyBpZD0idGFwIj48cGF0aCBkPSJNMTA4LjUxLDQ3LjI2LDgzLDIyYTQuMTcsNC4xNywwLDAsMC01LjcsMCw0LjIzLDQuMjMsMCwwLDAtLjMsNS45bDcuNCw3LjQuMi4yYTIuMTIsMi4xMiwwLDEsMS0zLjEsMi45TDcxLjExLDI4YTQuMTcsNC4xNywwLDAsMC01LjksNS45bDEwLjUsMTAuNWEyLjEyLDIuMTIsMCwwLDEtMywzbC0xMy40LTEzLjVhNC4xNyw0LjE3LDAsMCwwLTUuOSw1LjlsMTMuNCwxMy40YTIuMTIsMi4xMiwwLDAsMS0zLDNMMzUuNTEsMjhhNC4xNyw0LjE3LDAsMCwwLTUuOSw1LjlsMzcuMiwzNy4zYTIuMTgsMi4xOCwwLDAsMSwuNS44LDIuMDUsMi4wNSwwLDAsMS0xLjMsMi42bC0xNS41LDUuMmE3LjIxLDcuMjEsMCwwLDAtMy4zLDIuMSwzLjg2LDMuODYsMCwwLDAtMS4xLDIuNyw0LDQsMCwwLDAsMy45LDMuOWwzOC41LjFhMjguNTUsMjguNTUsMCwwLDAsMjAuMS04LjNBMjMuNDUsMjMuNDUsMCwwLDAsMTA4LjUxLDQ3LjI2WiIgc3R5bGU9ImZpbGw6bm9uZSIvPjxwYXRoIGQ9Ik0xMTEuNjEsNDQuMTZsLTI1LjMtMjUuM2E4LjgyLDguODIsMCwwLDAtMTIuMS4xLDguMjUsOC4yNSwwLDAsMC0yLjMsNC4zLDguMjgsOC4yOCwwLDAsMC0xMS4yLDMuOSw0LjY5LDQuNjksMCwwLDAtLjYsMi4xLDguMjgsOC4yOCwwLDAsMC0xMS4yLDMuOWMtLjIuNS0uNCwxLS42LDEuNEwzOC43MSwyNWE4LjQyLDguNDIsMCwxLDAtMTIuMywxMS41bC40LjQsMzQuOCwzNC44LTEyLjMsNC4xYTEzLDEzLDAsMCwwLTQuOSwzLDguMDUsOC4wNSwwLDAsMCw1LjcsMTMuOGgzOC41YTMyLjc4LDMyLjc4LDAsMCwwLDIzLjEtOS41QTI3LjY3LDI3LjY3LDAsMCwwLDExMS42MSw0NC4xNlptLTMuMSwzNS45YTI4LjU1LDI4LjU1LDAsMCwxLTIwLjEsOC4zbC0zOC41LS4xYTQsNCwwLDAsMS0zLjktMy45LDMuODYsMy44NiwwLDAsMSwxLjEtMi43LDEwLjMyLDEwLjMyLDAsMCwxLDMuMy0yLjFsMTUuNS01LjJhMiwyLDAsMCwwLDEuMy0yLjYsMi4xOCwyLjE4LDAsMCwwLS41LS44bC0zNy4xLTM3LjFhNC4xNyw0LjE3LDAsMCwxLDUuOS01LjlsMjguMywyOC4yYTIuMTIsMi4xMiwwLDAsMCwzLTNsLTEzLjUtMTMuNGE0LjE3LDQuMTcsMCwwLDEsNS45LTUuOWwxMy40LDEzLjRhMi4xMiwyLjEyLDAsMCwwLDMtM2wtMTAuNC0xMC40YTQuMTcsNC4xNywwLDAsMSw1LjktNS45bDEwLjUsMTAuNWEyLjEyLDIuMTIsMCwxLDAsMy4xLTIuOWwtLjItLjJMNzcuMTEsMjhhNC4yMSw0LjIxLDAsMCwxLDYtNS45bDI1LjUsMjUuMkEyMy4yMSwyMy4yMSwwLDAsMSwxMDguNTEsODAuMDZaIiBzdHlsZT0iZmlsbDojZmZmIi8+PHBhdGggZD0iTTU4LDE3YTMwLjYzLDMwLjYzLDAsMCwwLTU0LjUtLjc4aDBsLS40Ljc3aDBBMzAuNjQsMzAuNjQsMCwwLDAsMzEsNjEuMTZjNi42NywwLDQuOTEtNi41OSwxLTYuMjZBMjQuNDksMjQuNDksMCwwLDEsNi4yMywzMS43NmEyNC4xMSwyNC4xMSwwLDAsMSw0LTE0Ljc4aDBhMjQuMDYsMjQuMDYsMCwwLDEsMTAuMy04LjYzQTI0LjQ5LDI0LjQ5LDAsMCwxLDUyLjkyLDIwLjgxQzU0LjM5LDI0LjQsNjEsMjMsNTgsMTdaIiBzdHlsZT0iZmlsbDojZmZmIi8+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 20%
+  background-size: 20%;
 }
 
 .swipeToPlay.ios {
   background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMjIuMTIgOTguOTciPjx0aXRsZT5zd2lwZXVwPC90aXRsZT48ZyBpZD0iTGl2ZWxsb18yIiBkYXRhLW5hbWU9IkxpdmVsbG8gMiI+PGcgaWQ9IkxpdmVsbG9fMS0yIiBkYXRhLW5hbWU9IkxpdmVsbG8gMSI+PGcgaWQ9InN3aXBlX3VwIiBkYXRhLW5hbWU9InN3aXBlIHVwIj48cGF0aCBkPSJNNzYuNzMsMjUuNDNhOC42MSw4LjYxLDAsMCwwLTIuMzMsNC4zMiw4LjQsOC40LDAsMCwwLTExLjI0LDMuODgsNi43Niw2Ljc2LDAsMCwwLS42NCwyLjA2LDguNCw4LjQsMCwwLDAtMTEuMjQsMy44OGMtLjIxLjUtLjQzLDEtLjU3LDEuNDJMNDEuMSwzMS4zN0E4LjQxLDguNDEsMCwwLDAsMjguNzksNDIuODNsLjQzLjQyTDY0LDc4LDUxLjcsODIuMTRhMTIuNTQsMTIuNTQsMCwwLDAtNC44OCwzLDguMDgsOC4wOCwwLDAsMCwwLDExLjQ2QTguMjMsOC4yMywwLDAsMCw1Mi41NSw5OUg5MWEzMi43MSwzMi43MSwwLDAsMCwyMy4xMi05LjU0LDI3LjUsMjcuNSwwLDAsMCwwLTM4Ljc1TDg4LjgzLDI1LjM2YTguODcsOC44NywwLDAsMC0xMi4xLjA3Wk0xMTEsNTMuNzlhMjMuMjIsMjMuMjIsMCwwLDEsMCwzMi44MUEyOC41NywyOC41NywwLDAsMSw5MSw5NC45NGwtMzguNTQtLjA3QTMuOTMsMy45MywwLDAsMSw0OC41Miw5MWEzLjg2LDMuODYsMCwwLDEsMS4xMy0yLjY5QTguNTYsOC41NiwwLDAsMSw1Myw4Ni4yNGwxNS40OS01LjE2YTIuMTEsMi4xMSwwLDAsMCwxLjM0LTIuNjEsMi43OSwyLjc5LDAsMCwwLS40OS0uNzhMMzIsNDAuNDJBNC4yLDQuMiwwLDAsMSwzOCwzNC40OEw2Ni4yNyw2Mi43N2EyLDIsMCwwLDAsMywwaDBhMiwyLDAsMCwwLDAtM2gwTDU1LjgsNDYuMzZhNC4yLDQuMiwwLDEsMSw1Ljk0LTUuOTRoMEw3NS4xOCw1My44NmEyLDIsMCwwLDAsMywwaDBhMiwyLDAsMCwwLDAtM0w2Ny42OCw0MC40MmE0LjIsNC4yLDAsMCwxLDUuOTQtNS45NGgwTDg0LjA5LDQ1YTIuMSwyLjEsMCwxLDAsMy4xMS0yLjgzTDg3LDQxLjkxbC03LjQzLTcuNDNhNC4yNCw0LjI0LDAsMCwxLC4yOC01Ljk0LDQuMTYsNC4xNiwwLDAsMSw1LjY2LDBMMTExLDUzLjc5WiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjxyZWN0IHg9IjcuMDciIHk9IjEyLjUyIiB3aWR0aD0iNy44OSIgaGVpZ2h0PSI1MS42NyIgcng9IjMuOTUiIHJ5PSIzLjk1IiBzdHlsZT0iZmlsbDojZmZmIi8+PHBhdGggZD0iTTIuNTcsMTguODksMTkuNDYsMTljMi4zMywwLDMuMjQtMS42MSwyLTMuNkwxMy4xMSwxLjQ5Yy0xLjIxLTItMy4xNy0yLTQuMzcsMEwuNTQsMTUuMTlDLS42OCwxNy4yNS4yNCwxOC44OCwyLjU3LDE4Ljg5WiIgc3R5bGU9ImZpbGw6I2ZmZiIvPjwvZz48L2c+PC9nPjwvc3ZnPg==);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 20%
+  background-size: 20%;
 }
 
 .mat-menu-panel {
@@ -1791,22 +1781,22 @@ export default {
   -webkit-overflow-scrolling: touch;
   max-height: calc(100vh - 48px);
   border-radius: 4px;
-  outline: 0
+  outline: 0;
 }
 
 .mat-menu-panel.ng-animating {
-  pointer-events: none
+  pointer-events: none;
 }
 
 @media (-ms-high-contrast: active) {
   .mat-menu-panel {
-    outline: solid 1px
+    outline: solid 1px;
   }
 }
 
 .mat-menu-content:not(:empty) {
   padding-top: 8px;
-  padding-bottom: 8px
+  padding-bottom: 8px;
 }
 
 .mat-menu-item {
@@ -1828,46 +1818,45 @@ export default {
   text-align: left;
   text-decoration: none;
   max-width: 100%;
-  position: relative
+  position: relative;
 }
 
 .mat-menu-item::-moz-focus-inner {
-  border: 0
+  border: 0;
 }
 
 .mat-menu-item[disabled] {
-  cursor: default
+  cursor: default;
 }
 
-[dir=rtl] .mat-menu-item {
-  text-align: right
+[dir="rtl"] .mat-menu-item {
+  text-align: right;
 }
 
 .mat-menu-item .mat-icon {
   margin-right: 16px;
-  vertical-align: middle
+  vertical-align: middle;
 }
 
 .mat-menu-item .mat-icon svg {
-  vertical-align: top
+  vertical-align: top;
 }
 
-[dir=rtl] .mat-menu-item .mat-icon {
+[dir="rtl"] .mat-menu-item .mat-icon {
   margin-left: 16px;
-  margin-right: 0
+  margin-right: 0;
 }
 
 @media (-ms-high-contrast: active) {
-
   .mat-menu-item-highlighted,
   .mat-menu-item.cdk-keyboard-focused,
   .mat-menu-item.cdk-program-focused {
-    outline: dotted 1px
+    outline: dotted 1px;
   }
 }
 
 .mat-menu-item-submenu-trigger {
-  padding-right: 32px
+  padding-right: 32px;
 }
 
 .mat-menu-item-submenu-trigger::after {
@@ -1876,27 +1865,27 @@ export default {
   border-style: solid;
   border-width: 5px 0 5px 5px;
   border-color: transparent transparent transparent currentColor;
-  content: '';
+  content: "";
   display: inline-block;
   position: absolute;
   top: 50%;
   right: 16px;
-  transform: translateY(-50%)
+  transform: translateY(-50%);
 }
 
-[dir=rtl] .mat-menu-item-submenu-trigger {
+[dir="rtl"] .mat-menu-item-submenu-trigger {
   padding-right: 16px;
-  padding-left: 32px
+  padding-left: 32px;
 }
 
-[dir=rtl] .mat-menu-item-submenu-trigger::after {
+[dir="rtl"] .mat-menu-item-submenu-trigger::after {
   right: auto;
   left: 16px;
-  transform: rotateY(180deg) translateY(-50%)
+  transform: rotateY(180deg) translateY(-50%);
 }
 
 button.mat-menu-item {
-  width: 100%
+  width: 100%;
 }
 
 .mat-menu-item .mat-menu-ripple {
@@ -1905,35 +1894,35 @@ button.mat-menu-item {
   right: 0;
   bottom: 0;
   position: absolute;
-  pointer-events: none
+  pointer-events: none;
 }
 
 #fiche1 .color {
-  fill: #317323
+  fill: #317323;
 }
 
 #fiche2 .color {
-  fill: #78a441
+  fill: #78a441;
 }
 
 #fiche3 .color {
-  fill: #e5c900
+  fill: #e5c900;
 }
 
 #fiche4 .color {
-  fill: #ff6d2d
+  fill: #ff6d2d;
 }
 
 #fiche5 .color {
-  fill: #c71f21
+  fill: #c71f21;
 }
 
 #fiche6 .color {
-  fill: #7720c8
+  fill: #7720c8;
 }
 
 #fiche7 .color {
-  fill: #3560b0
+  fill: #3560b0;
 }
 
 .mat-dialog-container {
@@ -1946,12 +1935,12 @@ button.mat-menu-item {
   width: 100%;
   height: 100%;
   min-height: inherit;
-  max-height: inherit
+  max-height: inherit;
 }
 
 @media (-ms-high-contrast: active) {
   .mat-dialog-container {
-    outline: solid 1px
+    outline: solid 1px;
   }
 }
 
@@ -1961,12 +1950,12 @@ button.mat-menu-item {
   padding: 0 24px;
   max-height: 65vh;
   overflow: auto;
-  -webkit-overflow-scrolling: touch
+  -webkit-overflow-scrolling: touch;
 }
 
 .mat-dialog-title {
   margin: 0 0 20px;
-  display: block
+  display: block;
 }
 
 .mat-dialog-actions {
@@ -1975,30 +1964,30 @@ button.mat-menu-item {
   flex-wrap: wrap;
   min-height: 52px;
   align-items: center;
-  margin-bottom: -24px
+  margin-bottom: -24px;
 }
 
-.mat-dialog-actions[align=end] {
-  justify-content: flex-end
+.mat-dialog-actions[align="end"] {
+  justify-content: flex-end;
 }
 
-.mat-dialog-actions[align=center] {
-  justify-content: center
+.mat-dialog-actions[align="center"] {
+  justify-content: center;
 }
 
-.mat-dialog-actions .mat-button+.mat-button,
-.mat-dialog-actions .mat-button+.mat-raised-button,
-.mat-dialog-actions .mat-raised-button+.mat-button,
-.mat-dialog-actions .mat-raised-button+.mat-raised-button {
-  margin-left: 8px
+.mat-dialog-actions .mat-button + .mat-button,
+.mat-dialog-actions .mat-button + .mat-raised-button,
+.mat-dialog-actions .mat-raised-button + .mat-button,
+.mat-dialog-actions .mat-raised-button + .mat-raised-button {
+  margin-left: 8px;
 }
 
-[dir=rtl] .mat-dialog-actions .mat-button+.mat-button,
-[dir=rtl] .mat-dialog-actions .mat-button+.mat-raised-button,
-[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-button,
-[dir=rtl] .mat-dialog-actions .mat-raised-button+.mat-raised-button {
+[dir="rtl"] .mat-dialog-actions .mat-button + .mat-button,
+[dir="rtl"] .mat-dialog-actions .mat-button + .mat-raised-button,
+[dir="rtl"] .mat-dialog-actions .mat-raised-button + .mat-button,
+[dir="rtl"] .mat-dialog-actions .mat-raised-button + .mat-raised-button {
   margin-left: 0;
-  margin-right: 8px
+  margin-right: 8px;
 }
 
 .message-dialog .mat-dialog-container {
@@ -2010,13 +1999,13 @@ button.mat-menu-item {
   left: 0;
   margin-top: -49vh;
   font-family: Montserrat, sans-serif;
-  background-color: rgba(0, 0, 0, .9);
+  background-color: rgba(0, 0, 0, 0.9);
   border-radius: 10px;
-  box-shadow: 0 0 20px 2px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 20px 2px rgba(0, 0, 0, 0.3);
   padding: 1.5%;
   overflow: hidden;
   vertical-align: middle;
-  z-index: 99
+  z-index: 99;
 }
 
 .message-dialog .mat-dialog-container .ico-message-dialog {
@@ -2026,7 +2015,7 @@ button.mat-menu-item {
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center center;
-  vertical-align: middle
+  vertical-align: middle;
 }
 
 .message-dialog .mat-dialog-container p {
@@ -2035,11 +2024,11 @@ button.mat-menu-item {
   vertical-align: middle;
   padding: 0 0 0 3vh;
   margin: 0;
-  font-size: 1em
+  font-size: 1em;
 }
 
 .message-dialog.dialog-error .mat-dialog-container {
-  border: 2px solid #c80000
+  border: 2px solid #c80000;
 }
 
 .message-dialog.dialog-error .mat-dialog-container .ico-message-dialog {
@@ -2047,7 +2036,7 @@ button.mat-menu-item {
 }
 
 .message-dialog.dialog-info .mat-dialog-container {
-  border: 2px solid #00aeef
+  border: 2px solid #00aeef;
 }
 
 .message-dialog.dialog-info .mat-dialog-container .ico-message-dialog {
@@ -2055,22 +2044,22 @@ button.mat-menu-item {
 }
 
 .message-dialog.dialog-info .mat-dialog-container .mat-dialog-actions {
-  margin-right: .5em;
-  float: right
+  margin-right: 0.5em;
+  float: right;
 }
 
 .message-dialog.dialog-info .mat-dialog-container .mat-dialog-actions button {
   background-color: transparent;
-  font-size: .8em;
-  padding: .7em 2em !important;
+  font-size: 0.8em;
+  padding: 0.7em 2em !important;
   color: #fff;
   font-weight: 700;
   border-radius: 4px;
   border: 2px solid #fff;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
   margin-bottom: 5px;
-  outline: 0
+  outline: 0;
 }
 
 .message-dialog.dialog-info .mat-dialog-container .mat-dialog-actions button:active,
@@ -2078,11 +2067,11 @@ button.mat-menu-item {
 .message-dialog.dialog-info .mat-dialog-container .mat-dialog-actions button:hover {
   border-color: #1dafec;
   color: #d7a024;
-  background-color: #222
+  background-color: #222;
 }
 
 .message-dialog.dialog-warning .mat-dialog-container {
-  border: 2px solid #ff9000
+  border: 2px solid #ff9000;
 }
 
 .message-dialog.dialog-warning .mat-dialog-container .ico-message-dialog {
@@ -2094,11 +2083,11 @@ button.mat-menu-item {
   height: 100%;
   margin-top: 0;
   margin-left: 0;
-  top: 0
+  top: 0;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content {
-  margin-top: 35vh
+  margin-top: 35vh;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content p {
@@ -2107,21 +2096,25 @@ button.mat-menu-item {
   font-weight: 700;
   text-align: left;
   margin-left: 38%;
-  padding: 0
+  padding: 0;
 }
 
 @media screen and (orientation: portrait) {
   .mobile .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content p {
     width: 100%;
     text-align: center;
-    margin-left: 0
+    margin-left: 0;
   }
 
-  .mobile .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content .dealer-picture {
+  .mobile
+    .message-dialog.dialog-exit
+    .mat-dialog-container
+    .mat-dialog-content
+    .dealer-picture {
     width: 30%;
     padding-bottom: 30%;
     left: 35%;
-    top: 20%
+    top: 20%;
   }
 }
 
@@ -2136,40 +2129,48 @@ button.mat-menu-item {
   left: 25%;
   border-radius: 50%;
   top: 36%;
-  overflow: hidden
+  overflow: hidden;
 }
 
 @media screen and (orientation: landscape) {
   .mobile .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content p {
-    margin-left: 35%
+    margin-left: 35%;
   }
 
-  .mobile .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content .dealer-picture {
+  .mobile
+    .message-dialog.dialog-exit
+    .mat-dialog-container
+    .mat-dialog-content
+    .dealer-picture {
     width: 15%;
     padding-bottom: 15%;
-    left: 20%
+    left: 20%;
   }
 }
 
-.message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content .dealer-picture img {
+.message-dialog.dialog-exit
+  .mat-dialog-container
+  .mat-dialog-content
+  .dealer-picture
+  img {
   width: 100%;
   height: 100%;
-  position: absolute
+  position: absolute;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions {
-  margin-right: .5em;
-  display: inline-block
+  margin-right: 0.5em;
+  display: inline-block;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions:first-of-type {
-  margin-left: 40%
+  margin-left: 40%;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button {
   background-color: transparent;
-  font-size: .8em;
-  padding: .7em 2em;
+  font-size: 0.8em;
+  padding: 0.7em 2em;
   color: #fff;
   font-weight: 700;
   border-radius: 4px;
@@ -2177,9 +2178,9 @@ button.mat-menu-item {
   border-style: solid;
   border-color: #fff !important;
   cursor: pointer;
-  transition: .5s;
+  transition: 0.5s;
   margin-bottom: 5px;
-  outline: 0
+  outline: 0;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button:active,
@@ -2187,31 +2188,34 @@ button.mat-menu-item {
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button:hover {
   border: 2px solid #fff !important;
   color: #d7a024;
-  background-color: #222
+  background-color: #222;
 }
 
-.message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button.closeDisabled {
+.message-dialog.dialog-exit
+  .mat-dialog-container
+  .mat-dialog-actions
+  button.closeDisabled {
   pointer-events: none;
-  opacity: .5
+  opacity: 0.5;
 }
 
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   .message-dialog .mat-dialog-container {
-    margin-top: -28vw
+    margin-top: -28vw;
   }
 
   .message-dialog .mat-dialog-container p {
-    padding: 0 2vw
+    padding: 0 2vw;
   }
 }
 
 @media screen and (orientation: portrait) {
   .message-dialog .mat-dialog-container {
-    margin-top: -45vh
+    margin-top: -45vh;
   }
 
   .message-dialog .mat-dialog-container p {
-    font-size: -.5em
+    font-size: -0.5em;
   }
 }
 </style>

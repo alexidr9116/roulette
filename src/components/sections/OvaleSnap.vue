@@ -383,7 +383,7 @@ export default {
         : [_hovered.trim()];
       const _hoverPannos = [];
       const _coinPannos = [];
-      console.log(_hovers);
+     
       for (const id of _hovers) {
         if (id == "") continue;
         // if(this.selected.filter((f)=>f.refer==id).length == 0){
@@ -429,8 +429,7 @@ export default {
           const _betList = element.getAttribute("bet_list");
           const _outs = _betList.includes(" ") ? _betList.split(" ") : [_betList.trim()];
 
-          // this.selected = this.selected.filter(f=>!_outs.includes(f.refer));
-          // console.log(this.selected)
+        
           this.setHovered(this.selected.map((m) => m.refer).join(" "), true);
         },
         false
