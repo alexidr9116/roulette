@@ -39,7 +39,7 @@
           id="gD2"
           width="400"
           height="70"
-          class="transparent otherBox pulseWinBox"
+          class="transparent otherBox"
           x="500"
           y="300"
         ></rect>
@@ -74,7 +74,7 @@
           id="gMA"
           width="200"
           height="70"
-          class="transparent otherBox pulseWinBox"
+          class="transparent otherBox"
           x="100"
           y="370"
         ></rect>
@@ -128,7 +128,7 @@
           id="gDS"
           width="200"
           height="70"
-          class="transparent otherBox pulseWinBox"
+          class="transparent"
           x="900"
           y="370"
         ></rect>

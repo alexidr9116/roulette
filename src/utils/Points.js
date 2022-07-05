@@ -61,7 +61,7 @@ const blackPoints = [
         "x": "500",
         "id": "gPL13",
         "height": "100",
-        "class": "black blackBox pulseWinBox",
+        "class": "black",
         "y": "200"
     },
     {
