@@ -583,6 +583,7 @@ export default {
   },
   mounted() {
     const snapPoints = document.getElementsByClassName("snap-point");
+    
     for (const element of snapPoints) {
       element.removeEventListener("mouseover", () => {}, false);
       element.addEventListener(
