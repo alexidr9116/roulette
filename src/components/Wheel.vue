@@ -16,20 +16,11 @@
           xmlns:svgjs="http://svgjs.com/svgjs"
           viewBox="0 0 300 300"
           style="transition: all 5s ease"
-          :style="{'transform': `rotate(-${rotateDeg}deg)`}"
+          :style="{ transform: `rotate(-${rotateDeg}deg)` }"
         >
           <defs id="SvgjsDefs1590"></defs>
-          <circle
-            id="SvgjsCircle1591"
-            r="150"
-            cx="150"
-            cy="150"
-            fill="#ffffff"
-          ></circle>
-          <g
-            id="SvgjsG1592"
-            transform="matrix(1,0,0,1,137.25,0)"
-          >
+          <circle id="SvgjsCircle1591" r="150" cx="150" cy="150" fill="#ffffff"></circle>
+          <g id="SvgjsG1592" transform="matrix(1,0,0,1,137.25,0)">
             <polygon
               id="w0"
               points="0,0 25.5,0 12.75,150"
@@ -45,9 +36,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1595" dy="20.8" x="7.4513421058654785">
-                0
-              </tspan>
+              <tspan id="SvgjsTspan1595" dy="20.8" x="7.4513421058654785">0</tspan>
             </text>
             <polygon
               id="w32"
@@ -64,9 +53,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1598" dy="20.8" x="3.7332210540771484">
-                32
-              </tspan>
+              <tspan id="SvgjsTspan1598" dy="20.8" x="3.7332210540771484">32</tspan>
             </text>
             <polygon
               id="w15"
@@ -83,9 +70,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1601" dy="20.8" x="5.333892345428467">
-                15
-              </tspan>
+              <tspan id="SvgjsTspan1601" dy="20.8" x="5.333892345428467">15</tspan>
             </text>
             <polygon
               id="w19"
@@ -102,9 +87,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1604" dy="20.8" x="4.988255023956299">
-                19
-              </tspan>
+              <tspan id="SvgjsTspan1604" dy="20.8" x="4.988255023956299">19</tspan>
             </text>
             <polygon
               id="w4"
@@ -121,9 +104,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1607" dy="20.8" x="7.3808722496032715">
-                4
-              </tspan>
+              <tspan id="SvgjsTspan1607" dy="20.8" x="7.3808722496032715">4</tspan>
             </text>
             <polygon
               id="w21"
@@ -140,9 +121,7 @@
               y="9.998659610748291"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1610" dy="20.8" x="5.317113399505615">
-                21
-              </tspan>
+              <tspan id="SvgjsTspan1610" dy="20.8" x="5.317113399505615">21</tspan>
             </text>
             <polygon
               id="w2"
@@ -159,9 +138,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1613" dy="20.8" x="8.203020095825195">
-                2
-              </tspan>
+              <tspan id="SvgjsTspan1613" dy="20.8" x="8.203020095825195">2</tspan>
             </text>
             <polygon
               id="w25"
@@ -178,9 +155,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1616" dy="20.8" x="3.676176071166992">
-                25
-              </tspan>
+              <tspan id="SvgjsTspan1616" dy="20.8" x="3.676176071166992">25</tspan>
             </text>
             <polygon
               id="w17"
@@ -197,9 +172,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1619" dy="20.8" x="5.149329662322998">
-                17
-              </tspan>
+              <tspan id="SvgjsTspan1619" dy="20.8" x="5.149329662322998">17</tspan>
             </text>
             <polygon
               id="w34"
@@ -216,9 +189,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1622" dy="20.8" x="2.868875503540039">
-                34
-              </tspan>
+              <tspan id="SvgjsTspan1622" dy="20.8" x="2.868875503540039">34</tspan>
             </text>
             <polygon
               id="w6"
@@ -235,9 +206,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1625" dy="20.8" x="7.877516746520996">
-                6
-              </tspan>
+              <tspan id="SvgjsTspan1625" dy="20.8" x="7.877516746520996">6</tspan>
             </text>
             <polygon
               id="w27"
@@ -254,9 +223,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1628" dy="20.8" x="3.508390426635742">
-                27
-              </tspan>
+              <tspan id="SvgjsTspan1628" dy="20.8" x="3.508390426635742">27</tspan>
             </text>
             <polygon
               id="w13"
@@ -273,9 +240,7 @@
               y="9.998659610748291"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1631" dy="20.8" x="5.35067081451416">
-                13
-              </tspan>
+              <tspan id="SvgjsTspan1631" dy="20.8" x="5.35067081451416">13</tspan>
             </text>
             <polygon
               id="w36"
@@ -292,9 +257,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1634" dy="20.8" x="3.364093780517578">
-                36
-              </tspan>
+              <tspan id="SvgjsTspan1634" dy="20.8" x="3.364093780517578">36</tspan>
             </text>
             <polygon
               id="w11"
@@ -311,9 +274,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1637" dy="20.8" x="6.9714765548706055">
-                11
-              </tspan>
+              <tspan id="SvgjsTspan1637" dy="20.8" x="6.9714765548706055">11</tspan>
             </text>
             <polygon
               id="w30"
@@ -330,9 +291,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1640" dy="20.8" x="2.9412755966186523">
-                30
-              </tspan>
+              <tspan id="SvgjsTspan1640" dy="20.8" x="2.9412755966186523">30</tspan>
             </text>
             <polygon
               id="w8"
@@ -349,9 +308,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1643" dy="20.8" x="7.645973205566406">
-                8
-              </tspan>
+              <tspan id="SvgjsTspan1643" dy="20.8" x="7.645973205566406">8</tspan>
             </text>
             <polygon
               id="w23"
@@ -368,9 +325,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1646" dy="20.8" x="3.6929540634155273">
-                23
-              </tspan>
+              <tspan id="SvgjsTspan1646" dy="20.8" x="3.6929540634155273">23</tspan>
             </text>
             <polygon
               id="w10"
@@ -387,9 +342,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1649" dy="20.8" x="4.565436363220215">
-                10
-              </tspan>
+              <tspan id="SvgjsTspan1649" dy="20.8" x="4.565436363220215">10</tspan>
             </text>
             <polygon
               id="w5"
@@ -406,9 +359,7 @@
               y="9.998659610748291"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1652" dy="20.8" x="8.223154067993164">
-                5
-              </tspan>
+              <tspan id="SvgjsTspan1652" dy="20.8" x="8.223154067993164">5</tspan>
             </text>
             <polygon
               id="w24"
@@ -425,9 +376,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1655" dy="20.8" x="3.017946243286133">
-                24
-              </tspan>
+              <tspan id="SvgjsTspan1655" dy="20.8" x="3.017946243286133">24</tspan>
             </text>
             <polygon
               id="w16"
@@ -444,9 +393,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1658" dy="20.8" x="4.988255023956299">
-                16
-              </tspan>
+              <tspan id="SvgjsTspan1658" dy="20.8" x="4.988255023956299">16</tspan>
             </text>
             <polygon
               id="w33"
@@ -463,9 +410,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1661" dy="20.8" x="3.7634239196777344">
-                33
-              </tspan>
+              <tspan id="SvgjsTspan1661" dy="20.8" x="3.7634239196777344">33</tspan>
             </text>
             <polygon
               id="w1"
@@ -482,9 +427,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1664" dy="20.8" x="9.860738277435303">
-                1
-              </tspan>
+              <tspan id="SvgjsTspan1664" dy="20.8" x="9.860738277435303">1</tspan>
             </text>
             <polygon
               id="w20"
@@ -501,9 +444,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1667" dy="20.8" x="2.924497604370117">
-                20
-              </tspan>
+              <tspan id="SvgjsTspan1667" dy="20.8" x="2.924497604370117">20</tspan>
             </text>
             <polygon
               id="w14"
@@ -520,9 +461,7 @@
               y="9.998659610748291"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1670" dy="20.8" x="4.493648529052734">
-                14
-              </tspan>
+              <tspan id="SvgjsTspan1670" dy="20.8" x="4.493648529052734">14</tspan>
             </text>
             <polygon
               id="w31"
@@ -539,9 +478,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1673" dy="20.8" x="5.347316265106201">
-                31
-              </tspan>
+              <tspan id="SvgjsTspan1673" dy="20.8" x="5.347316265106201">31</tspan>
             </text>
             <polygon
               id="w9"
@@ -558,9 +495,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1676" dy="20.8" x="7.877516746520996">
-                9
-              </tspan>
+              <tspan id="SvgjsTspan1676" dy="20.8" x="7.877516746520996">9</tspan>
             </text>
             <polygon
               id="w22"
@@ -577,9 +512,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1679" dy="20.8" x="3.659396171569824">
-                22
-              </tspan>
+              <tspan id="SvgjsTspan1679" dy="20.8" x="3.659396171569824">22</tspan>
             </text>
             <polygon
               id="w18"
@@ -596,9 +529,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1682" dy="20.8" x="4.756712436676025">
-                18
-              </tspan>
+              <tspan id="SvgjsTspan1682" dy="20.8" x="4.756712436676025">18</tspan>
             </text>
             <polygon
               id="w29"
@@ -615,9 +546,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1685" dy="20.8" x="3.333892822265625">
-                29
-              </tspan>
+              <tspan id="SvgjsTspan1685" dy="20.8" x="3.333892822265625">29</tspan>
             </text>
             <polygon
               id="w7"
@@ -634,9 +563,7 @@
               y="9.998658180236816"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1688" dy="20.8" x="8.035235404968262">
-                7
-              </tspan>
+              <tspan id="SvgjsTspan1688" dy="20.8" x="8.035235404968262">7</tspan>
             </text>
             <polygon
               id="w28"
@@ -653,9 +580,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1691" dy="20.8" x="3.0989933013916016">
-                28
-              </tspan>
+              <tspan id="SvgjsTspan1691" dy="20.8" x="3.0989933013916016">28</tspan>
             </text>
             <polygon
               id="w12"
@@ -672,9 +597,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1694" dy="20.8" x="5.317113876342773">
-                12
-              </tspan>
+              <tspan id="SvgjsTspan1694" dy="20.8" x="5.317113876342773">12</tspan>
             </text>
             <polygon
               id="w35"
@@ -691,9 +614,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1697" dy="20.8" x="3.7869129180908203">
-                35
-              </tspan>
+              <tspan id="SvgjsTspan1697" dy="20.8" x="3.7869129180908203">35</tspan>
             </text>
             <polygon
               id="w3"
@@ -710,9 +631,7 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1700" dy="20.8" x="8.236577033996582">
-                3
-              </tspan>
+              <tspan id="SvgjsTspan1700" dy="20.8" x="8.236577033996582">3</tspan>
             </text>
             <polygon
               id="w26"
@@ -729,15 +648,19 @@
               y="9.998657703399658"
               fill="#ffffff"
             >
-              <tspan id="SvgjsTspan1703" dy="20.8" x="3.35067081451416">
-                26
-              </tspan>
+              <tspan id="SvgjsTspan1703" dy="20.8" x="3.35067081451416">26</tspan>
             </text>
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet">NO MORE <br> BETS</h3>
-      <h3 v-show="nobet">NO MORE <br> BET</h3>
+      <h3 v-show="wait && !nobet">
+        NO MORE <br />
+        BETS
+      </h3>
+      <h3 v-show="nobet">
+        NO MORE <br />
+        BET
+      </h3>
     </div>
   </div>
 </template>
@@ -752,16 +675,16 @@ export default Vue.extend({
     msg: String,
     num: String,
     numberList: Array,
-    wait:{
+    wait: {
       type: Boolean,
-      default: false
+      default: false,
     },
     nobet: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
-  data(){
+  data() {
     return {
       rotateDeg: 0,
       // numberList: [
@@ -803,28 +726,29 @@ export default Vue.extend({
       //   "3",
       //   "26"
       // ]
-    }
+    };
   },
   updated: function () {
     // this.$nextTick(() => {
     //   this.$emit('rotateStop')
     // })
   },
-  watch:{
-    num(val){
+  watch: {
+    num(val) {
       // if(!this.wait){
-        let current = this.numberList.indexOf(val)
-        // console.log(current)
-        let rotateDeg = this.rotateDeg + (current <  this.numberList.length / 2 ? 360 : 0) +  (360 / 37) * current
-        setTimeout(() => {
-          this.rotateDeg = rotateDeg
-        }, 100)
-        // console.log(rotateDeg)
+      let current = this.numberList.indexOf(val);
+      // console.log(current)
+      let rotateDeg =
+        this.rotateDeg +
+        (current < this.numberList.length / 2 ? 360 : 0) +
+        (360 / 37) * current;
+      setTimeout(() => {
+        this.rotateDeg = rotateDeg;
+      }, 100);
+      // console.log(rotateDeg)
       // }
-
-
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -866,7 +790,6 @@ export default Vue.extend({
   margin-right: 18%;
   right: 0;
 }
-
 
 #window-wheel.gold {
   border-color: #c90;

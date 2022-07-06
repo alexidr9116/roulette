@@ -307,7 +307,12 @@
       </svg>
     </div>
     <!-- mobile design -->
-    <div _ngcontent-bdp-c0="" id="panno" class="mobile-panno md:hidden absolute" :class="$store.state.showGroupBet?'mobile-panno-zoom':''">
+    <div
+      _ngcontent-bdp-c0=""
+      id="panno"
+      class="mobile-panno md:hidden absolute"
+      :class="$store.state.showGroupBet ? 'mobile-panno-zoom' : ''"
+    >
       <svg
         id="drawPanno"
         width="400px"
@@ -539,7 +544,6 @@
             :size="text.size"
             :x="text.x"
             :y="text.y"
-     
             :transform="text.transform"
           >
             <tspan id="text.tspanId" :dy="text.tspanDy" :x="text.tspanX">
@@ -634,19 +638,15 @@ export default {
       blackPoints,
       textPoints,
       controlTextPoints,
-    
+
       redPoints,
     };
   },
   methods: {
-     
     handleShowGroupBet() {
       this.isShowGroupBet = !this.isShowGroupBet;
     },
-
-   
   },
-  
 };
 </script>
 <style scoped>
@@ -654,10 +654,8 @@ export default {
   transform: rotate(90deg) translateY(-80%) translateX(5%);
   transform-origin: left bottom;
 }
-.mobile-panno-zoom{
-  transform: rotate(90deg) translateY(-30%) translateX(-10%) scale(1.5,1.5);
+.mobile-panno-zoom {
+  transform: rotate(90deg) translateY(-30%) translateX(-10%) scale(1.5, 1.5);
   transform-origin: left bottom;
-  
 }
-
 </style>

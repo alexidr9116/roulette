@@ -5,7 +5,7 @@
     <div class="w-full md:px-32">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="this.$store.state.started"></PannoPanel>
-        <Ovale v-if=" ($store.state.started && !$store.state.showGroupBet)"></Ovale>
+        <Ovale v-if="$store.state.started && !$store.state.showGroupBet"></Ovale>
         <OvaleSnap v-if="!$store.state.showGroupBet"></OvaleSnap>
         <PannoSnap></PannoSnap>
       </div>
@@ -13,7 +13,9 @@
 
     <div
       class="coin-toolbar absolute py-6 w-full items-center justify-center hidden md:flex"
-      :class="!this.$store.state.started ? 'coin-toolbar-close hidden' : 'coin-toolbar-open'"
+      :class="
+        !this.$store.state.started ? 'coin-toolbar-close hidden' : 'coin-toolbar-open'
+      "
     >
       <div class="flex justify-center coin-sub-toolbar">
         <button
@@ -40,7 +42,11 @@
     <!-- mobile -->
     <div
       class="mobile-coin-toolbar flex-col py-6 items-center justify-center flex md:hidden absolute right-4"
-      :class="this.$store.state.started ? 'mobile-coin-toolbar-open ' : 'mobile-coin-toolbar-close '"
+      :class="
+        this.$store.state.started
+          ? 'mobile-coin-toolbar-open '
+          : 'mobile-coin-toolbar-close '
+      "
     >
       <Coin :fillColor="getFillColor(0.5, 1000)" v-bind:value="0.5"></Coin>
       <Coin :fillColor="getFillColor(1, 1000)" v-bind:value="1"></Coin>
@@ -130,7 +136,6 @@ export default {
   data() {
     return {
       isOvaleShow: true,
-
     };
   },
   computed: {
@@ -155,7 +160,7 @@ export default {
           group.classList.remove("hidden");
         }
       }
-  
+
       this.$store.commit("setShowGroupBet", !this.$store.state.showGroupBet);
     },
     formatNumber(value) {
@@ -172,7 +177,6 @@ export default {
       group.classList.add("hidden");
     }
     setTimeout(() => {
-    
       this.$store.commit("setStartedBetting", true);
     }, 3000);
     // setInterval(() => {
@@ -258,7 +262,7 @@ export default {
   bottom: -25%;
 }
 @keyframes slideMobileTop {
-  0%: {
+  0% {
     bottom: -25%;
   }
   100% {
@@ -267,7 +271,7 @@ export default {
 }
 
 @keyframes slideMobileBottom {
-  0%: {
+  0% {
     opacity: 1;
   }
   100% {

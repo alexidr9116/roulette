@@ -70,14 +70,8 @@
         />
       </g>
       <g v-bind:fill="fillColor" stroke="none">
-        <text
-          letter-spacing="-5"
-          font-size="70"
-          x="125"
-          y="122"
-          text-anchor="middle"
-        >
-          {{ (value >= 1000?`${value/1000}K`:value) }}
+        <text letter-spacing="-5" font-size="70" x="125" y="122" text-anchor="middle">
+          {{ value >= 1000 ? `${value / 1000}K` : value }}
         </text>
       </g>
     </svg>
@@ -94,21 +88,17 @@ export default {
       type: Number,
       default: 0.5,
     },
-    maxValue:{
-        type:Number,
-        default:1000,
-    }
+    maxValue: {
+      type: Number,
+      default: 1000,
+    },
   },
   methods: {
     handleSelectCoin() {
       this.$store.commit("setSelectedCoin", this.value);
     },
-    
   },
-  mounted() {
-  
-  },
-  
+  mounted() {},
 };
 </script>
 <style scoped>

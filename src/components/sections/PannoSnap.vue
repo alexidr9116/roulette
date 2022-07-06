@@ -281,7 +281,12 @@
       </svg>
     </div>
     <!-- mobile design -->
-    <div _ngcontent-bdp-c0="" id="snap" class="md:hidden mobile-snap absolute" :class="$store.state.showGroupBet?'mobile-snap-zoom':''">
+    <div
+      _ngcontent-bdp-c0=""
+      id="snap"
+      class="md:hidden mobile-snap absolute"
+      :class="$store.state.showGroupBet ? 'mobile-snap-zoom' : ''"
+    >
       <svg
         id="drawSnap"
         width="400px"
@@ -583,7 +588,6 @@ export default {
       element.addEventListener(
         "mouseover",
         () => {
-          
           // betting hover
           const _ids = this.$store.state.selected.map((m) => m.refer);
           const _hovers = [];
@@ -634,7 +638,6 @@ export default {
       return getFillColor(value, max);
     },
     handleClicked(e) {
-      
       if (!this.$store.state.started) {
         return;
       }
@@ -728,13 +731,11 @@ export default {
 
 <style scoped>
 .mobile-snap {
- transform: rotate(90deg) translateY(-80%) translateX(5%);
+  transform: rotate(90deg) translateY(-80%) translateX(5%);
   transform-origin: left bottom;
 }
-.mobile-snap-zoom{
-  transform: rotate(90deg) translateY(-30%) translateX(-10%) scale(1.5,1.5);
+.mobile-snap-zoom {
+  transform: rotate(90deg) translateY(-30%) translateX(-10%) scale(1.5, 1.5);
   transform-origin: left bottom;
-  
 }
-
 </style>
