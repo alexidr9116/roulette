@@ -172,10 +172,10 @@ export default {
     this.$store.commit("setBalance", 1000);
     this.$store.commit("setMaxBet", 1000);
     // hide group bet control
-    for (const group of document.getElementsByClassName("group-bet")) {
-      group.classList.remove("hidden");
-      group.classList.add("hidden");
-    }
+    // for (const group of document.getElementsByClassName("group-bet")) {
+    //   group.classList.remove("hidden");
+    //   group.classList.add("hidden");
+    // }
     setTimeout(() => {
       this.$store.commit("setStartedBetting", true);
     }, 3000);
