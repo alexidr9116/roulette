@@ -122,10 +122,10 @@ export default {
 </script>
 
 <style lang="scss">
-.ring-container {
-  .ring {
-    transform: rotate(-90deg);
-    transform-origin: 50% 50%;
-  }
-}
+// .ring-container {
+//   .ring {
+//     transform: rotate(-90deg);
+//     transform-origin: 50% 50%;
+//   }
+// }
 </style>
