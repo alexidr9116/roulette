@@ -10,13 +10,13 @@
       xmlns:svgjs="http://svgjs.com/svgjs"
       viewBox="0 0 300 300"
     >
-<!--      <defs id="SvgjsDefs1705"></defs>-->
+      <!--      <defs id="SvgjsDefs1705"></defs>-->
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
           <!-- 进度结束颜色 -->
-          <stop :offset="0" :style="{'stop-color': '#3385D0'}" />
+          <stop :offset="0" :style="{ 'stop-color': '#3385D0' }" />
           <!-- 进度开始颜色 -->
-          <stop offset="100%" :style="{'stop-color': '#5AB7F1'}" />
+          <stop offset="100%" :style="{ 'stop-color': '#5AB7F1' }" />
         </linearGradient>
       </defs>
 
@@ -28,8 +28,7 @@
         fill="#000000"
         fill-opacity="0.8"
         transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,2.842170943040401e-14,300)"
-      >
-      </circle>
+      ></circle>
       <circle
         id="SvgjsCircle1707"
         :r="r"
@@ -43,10 +42,12 @@
         :stroke-dashoffset="circum"
         transform="matrix(-1.8369701987210297e-16,-1,1,-1.8369701987210297e-16,2.842170943040401e-14,300)"
       >
-        <animate attributeName="stroke-dashoffset"
-                 :from="startCircum"
-                 :to="endCircum"
-                 :dur="originCountDown"/>
+        <animate
+          attributeName="stroke-dashoffset"
+          :from="startCircum"
+          :to="endCircum"
+          :dur="originCountDown"
+        />
       </circle>
 
       <text
@@ -63,33 +64,33 @@
         x="150"
         y="35"
       >
-        <tspan id="SvgjsTspan1836" dy="156" x="150">{{seconds}}</tspan>
+        <tspan id="SvgjsTspan1836" dy="156" x="150">{{ seconds }}</tspan>
       </text>
     </svg>
   </div>
 </template>
 
 <script>
-import {gradient, appDown} from '@/utils'
+import { gradient, appDown } from "@/utils";
 export default {
   name: "CounterDesktop",
-  data(){
+  data() {
     return {
-      seconds:30,
+      seconds: 30,
       tid: 0,
-      endCircum:0,
+      endCircum: 0,
       startCircum: 0,
       originCountDown: 30,
       r: 133,
       colorList: [],
       cx: 150,
       cy: 150,
-      stroke: '#66cb32',
+      stroke: "#66cb32",
       strokeColorIndex: 0,
       strokeColorStep: 300,
       strokeColorid: 0,
-      strokeColorSetStepTime: 500
-    }
+      strokeColorSetStepTime: 500,
+    };
   },
   computed: {
     // cx() { // 中心点位置
@@ -99,13 +100,11 @@ export default {
     //   return this.size / 2 - this.width
     // },
     circum() {
-      let c = parseInt(this.r * Math.PI * 2)
-      this.startCircum = 2 * c
-      this.endCircum = c
+      let c = parseInt(this.r * Math.PI * 2);
+      this.startCircum = 2 * c;
+      this.endCircum = c;
       // alert(appDown())
       // if(appDown() == 'iOS'){
-
-
 
       //   this.startCircum = 2 * c
       //   this.endCircum = c
@@ -114,23 +113,26 @@ export default {
       //   this.startCircum = 0
       //   this.endCircum = -c
       // }
-      return c
-    }
+      return c;
+    },
   },
   created() {
-
     const vm = this;
-    var startColor = '#66cb32';
-    var endColor = '#cc0000';
-    this.strokeColorStep = this.originCountDown * 1000 / this.strokeColorSetStepTime;
-    this.colorList = gradient(startColor, endColor, this.strokeColorStep)
+    var startColor = "#66cb32";
+    var endColor = "#cc0000";
+    this.strokeColorStep = (this.originCountDown * 1000) / this.strokeColorSetStepTime;
+    this.colorList = gradient(startColor, endColor, this.strokeColorStep);
+
     vm.tid = setInterval(() => {
       vm.seconds--;
       if (vm.seconds <= 0) {
         clearInterval(vm.tid);
+
         setTimeout(() => {
-          this.$emit('counterDesktopStop')
-        }, 500)
+          this.$emit("counterDesktopStop");
+          this.$store.commit("setStartedBetting", false);
+          this.$store.commit("setShowGroupBet", true);
+        }, 500);
       }
     }, 1000);
     //算出30秒有多少个 500ms    (30 * 1000 / 500)
@@ -145,14 +147,12 @@ export default {
     }, this.strokeColorSetStepTime);
   },
 
-  methods:{
-
-  },
+  methods: {},
   destroyed() {
     const vm = this;
     clearInterval(vm.tid);
     clearInterval(vm.strokeColorid);
-  }
+  },
 };
 </script>
 
@@ -161,8 +161,8 @@ export default {
   width: 17.7vh;
   height: 17.7vh;
   position: absolute;
-  margin-left: 11.3%;
-  margin-top: -3.9%;
+  left: 10px;
+  top: 10px;
   z-index: 12;
 }
 

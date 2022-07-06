@@ -9,7 +9,7 @@
         version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.com/svgjs"
-        viewBox="0 0 1400 680"
+        viewBox="0 0 1400 580"
         style="transform-origin: 10% center; transform: perspective(300em) rotateX(40deg)"
       >
         <defs id="SvgjsDefs1007">
@@ -316,7 +316,7 @@
         version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.com/svgjs"
-        viewBox="0 0 1400 680"
+        viewBox="0 0 1400 580"
       >
         <defs id="SvgjsDefs1007">
           <filter id="brightness-filter">
@@ -651,11 +651,11 @@ export default {
 </script>
 <style scoped>
 .mobile-panno {
-  transform: rotate(90deg) translateY(-60%) translateX(5%);
+  transform: rotate(90deg) translateY(-80%) translateX(5%);
   transform-origin: left bottom;
 }
 .mobile-panno-zoom{
-  transform: rotate(90deg) translateY(-10%) translateX(-10%) scale(1.5,1.5);
+  transform: rotate(90deg) translateY(-30%) translateX(-10%) scale(1.5,1.5);
   transform-origin: left bottom;
   
 }

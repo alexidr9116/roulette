@@ -1,34 +1,19 @@
 <template>
-  <div class="flex w-full">
-    <div class="flex w-full md:px-32">
+  <div class="flex flex-col w-full min-h-[900px] sm:h-full sm:min-h-full">
+    <CounterDesktop v-if="$store.state.started"></CounterDesktop>
+    <Wheel v-if="!$store.state.started"></Wheel>
+    <div class="w-full md:px-32">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
-        <PannoPanel v-bind:startedBetting="startedBetting"></PannoPanel>
-        <Ovale v-if="!$store.state.showGroupBet"></Ovale>
-
+        <PannoPanel v-bind:startedBetting="this.$store.state.started"></PannoPanel>
+        <Ovale v-if=" ($store.state.started && !$store.state.showGroupBet)"></Ovale>
         <OvaleSnap v-if="!$store.state.showGroupBet"></OvaleSnap>
         <PannoSnap></PannoSnap>
       </div>
     </div>
-    <button
-      class="left absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
-    >
-      <Icon icon="carbon:user-avatar-filled-alt" width="40"></Icon>
-    </button>
-    <button
-      @click="handleShowGroupBet()"
-      class="right absolute animate-btn btn top-2/3 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
-    >
-      <Icon icon="ph:coins-duotone" width="40"></Icon>
-    </button>
-    <div class="absolute top-0 right-10 flex gap-2 items-end">
-      <label class="text-lg text-yellow-500">{{
-        formatNumber($store.state.roundBalance)
-      }}</label>
-      <Icon icon="la:coins" width="40" class="text-yellow-500"></Icon>
-    </div>
+
     <div
-      class="coin-toolbar py-6 w-full flex items-center justify-center"
-      :class="!startedBetting ? 'coin-toolbar-close' : ''"
+      class="coin-toolbar absolute py-6 w-full items-center justify-center hidden md:flex"
+      :class="!this.$store.state.started ? 'coin-toolbar-close hidden' : 'coin-toolbar-open'"
     >
       <div class="flex justify-center coin-sub-toolbar">
         <button
@@ -52,6 +37,71 @@
       <Coin :fillColor="getFillColor(500, 1000)" v-bind:value="500"></Coin>
       <Coin :fillColor="getFillColor(1000, 1000)" v-bind:value="1000"></Coin>
     </div>
+    <!-- mobile -->
+    <div
+      class="mobile-coin-toolbar flex-col py-6 items-center justify-center flex md:hidden absolute right-4"
+      :class="this.$store.state.started ? 'mobile-coin-toolbar-open ' : 'mobile-coin-toolbar-close '"
+    >
+      <Coin :fillColor="getFillColor(0.5, 1000)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(1, 1000)" v-bind:value="1"></Coin>
+      <Coin :fillColor="getFillColor(5, 1000)" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(50, 1000)" v-bind:value="50"></Coin>
+      <Coin :fillColor="getFillColor(100, 1000)" v-bind:value="100"></Coin>
+      <Coin :fillColor="getFillColor(500, 1000)" v-bind:value="500"></Coin>
+      <Coin :fillColor="getFillColor(1000, 1000)" v-bind:value="1000"></Coin>
+      <div class="flex items-center mobile-coin-sub-toolbar flex-col mt-4 gap-2">
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
+          @click="handleReset"
+        >
+          <Icon icon="bytesize:reload" width="40"></Icon>
+        </button>
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
+          @click="handleShowGroupBet"
+        >
+          <Icon icon="la:times" width="40"></Icon>
+        </button>
+      </div>
+    </div>
+    <!-- balances -->
+    <div
+      class="flex justify-between w-full px-2 mt-[780px] sm:mt-0 sm:absolute sm:bottom-0 sm:px-6"
+    >
+      <div class="flex gap-0 items-end flex-col font-sm sm:font-normal">
+        <label class="flex gap-2 items-center"
+          ><span class="text-yellow-200">EUR</span
+          ><Icon icon="ci:dot-01-xs" width="10"></Icon
+          ><span class="text-white">BALANCE</span></label
+        >
+        <label class="text-lg text-white">{{
+          formatNumber($store.state.haveBalance)
+        }}</label>
+      </div>
+      <div class="flex gap-0 items-start flex-col font-sm sm:font-normal">
+        <label class="flex gap-2 items-center"
+          ><span class="text-white">BET</span><Icon icon="ci:dot-01-xs" width="10"></Icon
+          ><span class="text-yellow-200">EUR</span></label
+        >
+        <label class="text-lg text-white">{{
+          formatNumber($store.state.roundBalance)
+        }}</label>
+      </div>
+    </div>
+
+    <!-- buttons -->
+    <button
+      class="left-5 absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+    >
+      <Icon icon="entypo:menu" width="40"></Icon>
+    </button>
+    <button
+      :disabled="!this.$store.state.started"
+      @click="handleShowGroupBet()"
+      class="right-5 absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+    >
+      <Icon icon="ph:coins-duotone" width="40"></Icon>
+    </button>
   </div>
 </template>
 
@@ -61,6 +111,8 @@ import OvaleSnap from "./sections/OvaleSnap";
 import PannoPanel from "./sections/PannoPanel";
 import Coin from "./sections/Coin";
 import PannoSnap from "./sections/PannoSnap";
+import CounterDesktop from "./CounterDesktop";
+import Wheel from "./Wheel";
 import { getFillColor } from "../utils/index.js";
 import { Icon } from "@iconify/vue2";
 export default {
@@ -72,11 +124,13 @@ export default {
     Coin,
     PannoSnap,
     Icon,
+    CounterDesktop,
+    Wheel,
   },
   data() {
     return {
       isOvaleShow: true,
-      startedBetting: false,
+
     };
   },
   computed: {
@@ -101,7 +155,7 @@ export default {
           group.classList.remove("hidden");
         }
       }
-
+  
       this.$store.commit("setShowGroupBet", !this.$store.state.showGroupBet);
     },
     formatNumber(value) {
@@ -118,9 +172,13 @@ export default {
       group.classList.add("hidden");
     }
     setTimeout(() => {
-      this.startedBetting = true;
+    
       this.$store.commit("setStartedBetting", true);
     }, 3000);
+    // setInterval(() => {
+    //   this.startedBetting = false;
+    //   this.$store.commit("setStartedBetting", false);
+    // }, 6000);
   },
 };
 </script>
@@ -169,37 +227,71 @@ export default {
 .animate-btn:hover {
   box-shadow: 1px 1px 15px 1px #777;
 }
-
 .coin-toolbar {
-  position: absolute;
-  animation-duration: 1s;
+  bottom: -25%;
+  opacity: 0;
+}
+.coin-toolbar-open {
+  transition: all 1s linear;
   animation-name: slideTop;
-  bottom: 0px;
+  bottom: 0%;
+  opacity: 1;
 }
 .coin-toolbar-close {
-  position: absolute;
-  animation-duration: 1s;
+  transition: all 1s linear;
   animation-name: slideBottom;
-  bottom: -130px;
+  bottom: -25%;
+}
+.mobile-coin-toolbar {
+  bottom: -25%;
+  opacity: 0;
+}
+.mobile-coin-toolbar-open {
+  transition: all 1s linear;
+  animation-name: slideMobileTop;
+  bottom: 25%;
+  opacity: 1;
+}
+.mobile-coin-toolbar-close {
+  transition: all 1s linear;
+  animation-name: slideMobileBottom;
+  bottom: -25%;
+}
+@keyframes slideMobileTop {
+  0%: {
+    bottom: -25%;
+  }
+  100% {
+    bottom: 25%;
+  }
 }
 
+@keyframes slideMobileBottom {
+  0%: {
+    opacity: 1;
+  }
+  100% {
+    bottom: -25%;
+    opacity: 0;
+  }
+}
 @keyframes slideTop {
   from {
-    bottom: -130px;
+    bottom: -25%;
   }
 
   to {
-    bottom: 0px;
+    bottom: 0%;
   }
 }
 
 @keyframes slideBottom {
   from {
-    bottom: 0px;
+    bottom: 0%;
   }
 
   to {
-    bottom: -130px;
+    bottom: -25%;
   }
 }
 </style>

@@ -842,8 +842,8 @@ export default Vue.extend({
   height: 15.95vh;
   position: absolute;
   border-radius: 50%;
-  margin-left: 14.4%;
-  margin-top: -0.8%;
+  left: 10px;
+  top: 30%;
   z-index: 11;
   background: linear-gradient(to left, #000 -2%, rgba(0, 0, 0, 0) 35%),
     linear-gradient(to right, #000 -2%, rgba(0, 0, 0, 0) 35%),
@@ -857,8 +857,8 @@ export default Vue.extend({
   position: absolute;
   overflow: hidden;
   border-radius: 50%;
-  margin-left: 15%;
-  margin-top: 0;
+  left: 10px;
+  top: 30%;
   z-index: 10;
 }
 .desktop.roulette-right #window-wheel {
@@ -922,15 +922,15 @@ export default Vue.extend({
 }
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   #overlay-wheel {
-    width: 9vw;
-    height: 9vw;
+    width: 84px;
+    height: 84px;
   }
   #window-wheel {
-    width: 8.7vw;
-    height: 8.7vw;
+    width: 82px;
+    height: 82px;
   }
   #window-wheel h3 {
-    font-size: 1.14vw;
+    font-size: 16px;
   }
 }
 @-webkit-keyframes changeright {

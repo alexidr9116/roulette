@@ -106,7 +106,7 @@ export default {
     
   },
   mounted() {
-    console.log(this.value == this.$store.state.coin);
+  
   },
   
 };

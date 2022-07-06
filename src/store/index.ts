@@ -9,8 +9,10 @@ export default new Vuex.Store({
     selected:[],
     coin:0.5,
     started:false,
-    showGroupBet:false,
+    showGroupBet:true,
+    
     balance:0,
+    haveBalance:0,
     roundBalance:0,
     maxBet:5,
     betAction:'add',
@@ -31,7 +33,8 @@ export default new Vuex.Store({
     },
     setBalance(state,balance){
       state.balance = balance;
-      state.roundBalance = balance;
+      state.haveBalance = balance;
+      
     },
     setSelectedCoin(state,coin){
       state.coin = coin;
@@ -39,8 +42,8 @@ export default new Vuex.Store({
     setSelected(state,selected){
       state.selected = selected;
       const _betted = selected.reduce((prev:Number,current:any)=>(prev+current.value),0);
-      state.roundBalance = state.balance-_betted;
-
+      state.roundBalance = _betted;
+      state.haveBalance = state.balance-_betted;
     },
     setStartedBetting(state,started){
       state.started = started;

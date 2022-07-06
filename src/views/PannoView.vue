@@ -1,5 +1,5 @@
 <template>
-<div class="panno">
+<div class="panno overflow-y-auto h-full">
   <panno></panno>
 </div>
 </template>
