@@ -1,14 +1,12 @@
 <template>
-  <div class="flex w-full p-4">
-    <div class="flex w-full px-4 sm:px-32 justify-center">
-      <div _ngcontent-bdp-c0="" class="panno-container relative mt-20 sm:mt-5 lg:-mt-10">
+  <div class="flex w-full">
+    <div class="flex w-full md:px-32">
+      <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="startedBetting"></PannoPanel>
+        <Ovale v-if="!$store.state.showGroupBet"></Ovale>
 
-        <Ovale></Ovale>
-
+        <OvaleSnap v-if="!$store.state.showGroupBet"></OvaleSnap>
         <PannoSnap></PannoSnap>
-
-        <OvaleSnap></OvaleSnap>
       </div>
     </div>
     <button
@@ -23,7 +21,9 @@
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
     <div class="absolute top-0 right-10 flex gap-2 items-end">
-      <label class="text-lg text-yellow-500">{{ formatNumber($store.state.roundBalance) }}</label>
+      <label class="text-lg text-yellow-500">{{
+        formatNumber($store.state.roundBalance)
+      }}</label>
       <Icon icon="la:coins" width="40" class="text-yellow-500"></Icon>
     </div>
     <div
@@ -31,7 +31,10 @@
       :class="!startedBetting ? 'coin-toolbar-close' : ''"
     >
       <div class="flex justify-center coin-sub-toolbar">
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1" @click = "handleShowGroupBet">
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1"
+          @click="handleShowGroupBet"
+        >
           <Icon icon="la:times" width="40"></Icon>
         </button>
         <button
@@ -41,13 +44,13 @@
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
-      <Coin fillColor="green" v-bind:value="0.5"></Coin>
-      <Coin fillColor="#13cd0c" v-bind:value="1"></Coin>
-      <Coin fillColor="#fbdb1c" v-bind:value="2"></Coin>
-      <Coin fillColor="#fb931c" v-bind:value="2.5"></Coin>
-      <Coin fillColor="#fb1c1c" v-bind:value="3"></Coin>
-      <Coin fillColor="#de1cfb" v-bind:value="4"></Coin>
-      <Coin fillColor="#1c65fb" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(0.5, 1000)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(1, 1000)" v-bind:value="1"></Coin>
+      <Coin :fillColor="getFillColor(5, 1000)" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(50, 1000)" v-bind:value="50"></Coin>
+      <Coin :fillColor="getFillColor(100, 1000)" v-bind:value="100"></Coin>
+      <Coin :fillColor="getFillColor(500, 1000)" v-bind:value="500"></Coin>
+      <Coin :fillColor="getFillColor(1000, 1000)" v-bind:value="1000"></Coin>
     </div>
   </div>
 </template>
@@ -58,6 +61,7 @@ import OvaleSnap from "./sections/OvaleSnap";
 import PannoPanel from "./sections/PannoPanel";
 import Coin from "./sections/Coin";
 import PannoSnap from "./sections/PannoSnap";
+import { getFillColor } from "../utils/index.js";
 import { Icon } from "@iconify/vue2";
 export default {
   name: "Panno",
@@ -75,14 +79,30 @@ export default {
       startedBetting: false,
     };
   },
+  computed: {
+    getCoinRange() {},
+  },
   methods: {
+    getFillColor(value, max) {
+      return getFillColor(value, max);
+    },
     handleReset() {
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
     },
     handleShowGroupBet() {
-      this.startedBetting = !this.startedBetting;
-      this.$store.commit("setStartedBetting", this.startedBetting);
+      if (this.$store.state.showGroupBet) {
+        for (const group of document.getElementsByClassName("group-bet")) {
+          group.classList.remove("hidden");
+          group.classList.add("hidden");
+        }
+      } else {
+        for (const group of document.getElementsByClassName("group-bet")) {
+          group.classList.remove("hidden");
+        }
+      }
+
+      this.$store.commit("setShowGroupBet", !this.$store.state.showGroupBet);
     },
     formatNumber(value) {
       let val = (value / 1).toFixed(2);
@@ -91,7 +111,16 @@ export default {
   },
   mounted() {
     this.$store.commit("setBalance", 1000);
-    
+    this.$store.commit("setMaxBet", 1000);
+    // hide group bet control
+    for (const group of document.getElementsByClassName("group-bet")) {
+      group.classList.remove("hidden");
+      group.classList.add("hidden");
+    }
+    setTimeout(() => {
+      this.startedBetting = true;
+      this.$store.commit("setStartedBetting", true);
+    }, 3000);
   },
 };
 </script>
@@ -230,13 +259,12 @@ export default {
 .panno-container .ovale-snap-point:focus {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-
-/* .panno-container .snap-point:hover,
+.panno-container .snap-point:hover,
 .panno-container .ovale-snap-point:hover {
   opacity: 0.6;
   fill: #fff;
   fill-opacity: 0.6;
-} */
+}
 
 .BETCLOSE .panno-container.ovaleOn #fiche .fic,
 .BETCLOSE .panno-container.ovaleOn #panno #groupOtherBets {

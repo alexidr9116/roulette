@@ -1,16 +1,31 @@
 <template>
-    <div class="coin  w-10 h-10 md:w-16 md:h-16 " @click="handleSelectCoin"
-        :class="{ 'coin-selected': (this.value == this.$store.state.coin) }">
-        <svg version="1.0" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
-            viewBox="30 0 200.000000 200.000000" preserveAspectRatio="xMidYMid meet">
-            <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" fill="#fff" stroke="none">
-                <circle cx="1261" cy="1006" r="945">
-                </circle>
-
-            </g>
-            <g transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)" v-bind:fill="fillColor"
-                stroke="none">
-                <path d="M1169 1950 c-101 -10 -179 -29 -179 -44 0 -7 20 -54 45 -106 25 -51
+  <div
+    class="coin w-10 h-10 md:w-16 md:h-16"
+    @click="handleSelectCoin"
+    :class="{ 'coin-selected': this.value == this.$store.state.coin }"
+  >
+    <svg
+      version="1.0"
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      height="100%"
+      viewBox="30 0 200.000000 200.000000"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <g
+        transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)"
+        fill="#fff"
+        stroke="none"
+      >
+        <circle cx="1261" cy="1006" r="945"></circle>
+      </g>
+      <g
+        transform="translate(0.000000,200.000000) scale(0.100000,-0.100000)"
+        v-bind:fill="fillColor"
+        stroke="none"
+      >
+        <path
+          d="M1169 1950 c-101 -10 -179 -29 -179 -44 0 -7 20 -54 45 -106 25 -51
 44 -98 41 -105 -2 -6 -23 -17 -47 -24 -24 -7 -79 -33 -122 -58 -43 -24 -83
 -43 -89 -41 -5 2 -31 46 -56 98 -26 52 -53 95 -61 95 -18 0 -116 -87 -172
 -153 -64 -75 -135 -204 -166 -299 -15 -45 -25 -84 -22 -87 2 -3 51 -9 107 -14
@@ -29,8 +44,10 @@
 -170 56 -270 68 -49 5 -94 9 -100 9 -5 -1 -44 -5 -86 -9z m214 -315 c137 -29
 278 -112 363 -214 98 -117 164 -289 164 -426 0 -79 -30 -197 -72 -284 -118
 -246 -409 -390 -684 -340 -261 47 -467 246 -524 506 -24 107 -25 161 -4 261
-49 240 248 446 474 491 30 6 64 13 75 15 46 9 144 5 208 -9z" />
-                <path d="M1111 1614 c-179 -39 -331 -161 -416 -332 -86 -175 -85 -365 5 -548
+49 240 248 446 474 491 30 6 64 13 75 15 46 9 144 5 208 -9z"
+        />
+        <path
+          d="M1111 1614 c-179 -39 -331 -161 -416 -332 -86 -175 -85 -365 5 -548
 77 -157 208 -268 390 -330 43 -15 83 -19 180 -19 109 1 134 4 198 27 300 108
 466 391 409 698 -66 351 -415 581 -766 504z m261 -10 c5 -3 8 -12 8 -19 0 -12
 -15 -13 -82 -8 -46 3 -85 7 -87 9 -2 2 -1 11 3 20 5 14 16 16 78 9 40 -3 76
@@ -49,68 +66,75 @@
 -197 c56 -34 72 -60 43 -70 -16 -5 -136 86 -129 97 10 16 24 12 86 -27z m654
 -43 c-11 -17 -134 -72 -145 -65 -24 15 -5 37 58 69 56 29 69 32 81 21 7 -7 10
 -19 6 -25z m-321 -60 c14 -5 26 -17 26 -26 0 -15 -9 -16 -77 -10 -78 6 -101
-15 -89 35 9 14 106 14 140 1z" />
-
-            </g>
-            <g v-bind:fill="fillColor" stroke="none">
-                <text letter-spacing="-0.5" font-size="70" v-bind:x="(value == 0.5 || value == 2.5) ? 80 : 105" y="122">
-                    {{ value }}
-                </text>
-            </g>
-        </svg>
-    </div>
-
-
+15 -89 35 9 14 106 14 140 1z"
+        />
+      </g>
+      <g v-bind:fill="fillColor" stroke="none">
+        <text
+          letter-spacing="-5"
+          font-size="70"
+          x="125"
+          y="122"
+          text-anchor="middle"
+        >
+          {{ (value >= 1000?`${value/1000}K`:value) }}
+        </text>
+      </g>
+    </svg>
+  </div>
 </template>
 <script>
 export default {
-    props: {
-        fillColor: {
-            type: String,
-            default: 'yellow'
-        },
-        value: {
-            type: Number,
-            default: 0.5
-        }
+  props: {
+    fillColor: {
+      type: String,
+      default: "yellow",
     },
-    methods: {
-        handleSelectCoin() {
-            this.$store.commit('setSelectedCoin', this.value);
-        }
-
+    value: {
+      type: Number,
+      default: 0.5,
     },
-    mounted() {
-        console.log(this.value == this.$store.state.coin)
+    maxValue:{
+        type:Number,
+        default:1000,
     }
-}
+  },
+  methods: {
+    handleSelectCoin() {
+      this.$store.commit("setSelectedCoin", this.value);
+    },
+    
+  },
+  mounted() {
+    console.log(this.value == this.$store.state.coin);
+  },
+  
+};
 </script>
 <style scoped>
 .coin {
-
-    transition: transform;
-    transition-duration: 0.5s;
+  transition: transform;
+  transition-duration: 0.5s;
 }
 
 .coin:hover,
 .coin-selected {
-    animation-duration: 3s;
-    animation-name: scaleAnimation;
-    animation-iteration-count: infinite;
-
+  animation-duration: 3s;
+  animation-name: scaleAnimation;
+  animation-iteration-count: infinite;
 }
 
 @keyframes scaleAnimation {
-    0% {
-        transform: scale(1.4, 1.4);
-    }
-    
-    50% {
-        transform: scale(1.6, 1.6);
-    }
-    
-    100% {
-        transform: scale(1.4, 1.4);
-    }
+  0% {
+    transform: scale(1.4, 1.4);
+  }
+
+  50% {
+    transform: scale(1.6, 1.6);
+  }
+
+  100% {
+    transform: scale(1.4, 1.4);
+  }
 }
 </style>
