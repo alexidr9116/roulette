@@ -618,7 +618,8 @@ export default {
               _hovers.push(document.getElementById(id).getAttribute("hover"));
             }
 
-            this.setHovered(_hovers.join(" "), false);
+            // this.setHovered(_hovers.join(" "), false);
+            this.$store.commit("setHovered", []);
           },
           false
         );
@@ -643,7 +644,7 @@ export default {
       return getFillColor(value, max);
     },
     handleClicked(e) {
-      if (this.$store.state.roundStatus !='started') {
+      if (this.$store.state.roundStatus != "started") {
         return;
       }
       const arr = this.$store.state.selected;
@@ -656,12 +657,18 @@ export default {
         this.selected = arr;
 
         this.$store.commit("setSelected", arr);
+         setTimeout(() => {
+            this.$store.commit("setHovered", []);
+          }, 500);
       } else {
         // remove chip
         if (this.$store.state.betAction == "remove") {
           const _arr = arr.filter((v) => v.refer != e.target.id);
           this.selected = _arr;
           this.$store.commit("setSelected", _arr);
+          setTimeout(() => {
+            this.$store.commit("setHovered", []);
+          }, 500);
         }
         if (this.$store.state.betAction == "add") {
           const _arr = arr.filter((v) => {
@@ -671,6 +678,9 @@ export default {
             return v;
           });
           this.$store.commit("setSelected", _arr);
+           setTimeout(() => {
+            this.$store.commit("setHovered", []);
+          }, 500);
         }
       }
     },

@@ -809,6 +809,9 @@ export default {
           this.setHovered(this.selected.map((m) => m.refer).join(" "), true);
 
           this.$store.commit("setSelected", this.selected);
+          setTimeout(() => {
+            this.$store.commit("setHovered", []);
+          }, 500);
           // }
           // else{
           //     const _arr = arr.filter((v) => v.refer != e.target.id);
