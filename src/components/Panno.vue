@@ -46,22 +46,33 @@
     </div>
     <!-- coin tool bar -->
     <div
-      class="coin-toolbar absolute py-6 w-full items-center justify-center hidden md:flex"
+      class="coin-toolbar absolute py-6 w-full items-end justify-center hidden md:flex"
       :class="
         this.$store.state.roundStatus == 'started'
           ? 'coin-toolbar-open'
           : 'coin-toolbar-close hidden'
       "
     >
-      <div class="flex justify-center coin-sub-toolbar">
+      <div class="flex justify-center coin-sub-toolbar items-end">
         <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1"
-          @click="handleRemoveCoin"
+          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-8"
+          @click="handleReset"
+          :class="$store.state.betAction == 'remove' ? 'flex' : 'hidden'"
         >
-          <Icon icon="la:times" width="40"></Icon>
+          <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
         <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4"
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1 flex"
+          @click="handleRemoveCoin"
+        >
+          <Icon
+            :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'"
+            width="40"
+          ></Icon>
+        </button>
+
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4 flex"
           @click="handleReset"
         >
           <Icon icon="bytesize:reload" width="40"></Icon>
@@ -78,7 +89,7 @@
     </div>
     <!-- mobile -->
     <div
-      class="mobile-coin-toolbar flex-col py-6 items-center justify-center flex md:hidden absolute right-4"
+      class="mobile-coin-toolbar flex-col py-6 items-end justify-start flex md:hidden absolute right-4"
       :class="
         this.$store.state.roundStatus == 'started'
           ? 'mobile-coin-toolbar-open '
@@ -93,32 +104,42 @@
       <Coin :fillColor="getFillColor(50, 200)" v-bind:value="50"></Coin>
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
-      <div class="flex items-center mobile-coin-sub-toolbar flex-col mt-4 gap-2">
+      <div class="flex items-end mobile-coin-sub-toolbar flex-col mt-4 gap-2">
         <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex"
           @click="handleReset"
         >
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
         <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle  flex"
           @click="handleRemoveCoin"
         >
-          <Icon icon="la:times" width="40"></Icon>
+          <Icon
+            :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'"
+            width="40"
+          ></Icon>
+        </button>
+        <button
+          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex"
+          @click="handleReset"
+          :class="$store.state.betAction == 'remove' ? 'flex' : 'hidden'"
+        >
+          <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
       </div>
     </div>
 
     <!-- buttons -->
     <button
-      class="left-5 absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+      class="left-5 flex absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
     >
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button
       :disabled="this.$store.state.roundStatus != 'started'"
       @click="handleShowGroupBet()"
-      class="right-5 absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+      class="right-5 flex absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
     >
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
@@ -150,7 +171,7 @@ export default {
   data() {
     return {
       isOvaleShow: true,
-       numberList: [
+      numberList: [
         "0",
         "32",
         "15",
@@ -187,7 +208,7 @@ export default {
         "12",
         "35",
         "3",
-        "26"
+        "26",
       ],
     };
   },
@@ -214,7 +235,7 @@ export default {
     },
     endRound() {
       console.log("end round");
-      this.$store.commit("setWinNumber", Math.floor(Math.random()*36));
+      this.$store.commit("setWinNumber", Math.floor(Math.random() * 36));
       this.$store.commit("setRoundStatus", "end");
       this.handleReset();
     },
@@ -222,6 +243,7 @@ export default {
       return getFillColor(value, max);
     },
     handleReset() {
+      this.$store.commit("setBetAction", "add");
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
     },
@@ -284,7 +306,6 @@ export default {
 .btn {
   color: white;
   border: 2px solid white;
-  display: flex;
   justify-content: center;
   align-items: center;
 }
