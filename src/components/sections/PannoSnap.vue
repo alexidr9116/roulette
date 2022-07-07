@@ -593,6 +593,8 @@ export default {
         element.addEventListener(
           "mouseover",
           () => {
+            if(this.$store.state.roundStatus !='started')
+            return;
             // betting hover
             // const _ids = this.$store.state.selected.map((m) => m.refer);
             const _hovers = [];
@@ -609,6 +611,8 @@ export default {
         element.addEventListener(
           "mouseout",
           () => {
+            if(this.$store.state.roundStatus !='started')
+            return;
             // betting hover
             // const _ids = this.$store.state.selected.map((m) => m.refer);
             // const _hovers = [];
@@ -633,39 +637,41 @@ export default {
     initSanpAction(elements) {
       for (const element of elements) {
         // element.removeEventListener("mouseover", () => {}, false);
-        // element.addEventListener(
-        //   "mouseover",
-        //   () => {
-        //     // betting hover
-        //     const _ids = this.$store.state.selected.map((m) => m.refer);
-        //     const _hovers = [];
-        //     for (const id of _ids) {
-        //       _hovers.push(document.getElementById(id).getAttribute("hover"));
-        //     }
-        //     if (element.getAttribute("hover") != null) {
-        //       _hovers.push(element.getAttribute("hover"));
-        //       this.setHovered(_hovers.join(" "), false);
-        //     }
-        //   },
-        //   false
-        // );
+        element.addEventListener(
+          "mouseover",
+          () => {
+            if (this.$store.state.roundStatus != "started") return;
+            // betting hover
+            // const _ids = this.$store.state.selected.map((m) => m.refer);
+            const _hovers = [];
+            // for (const id of _ids) {
+            //   _hovers.push(document.getElementById(id).getAttribute("hover"));
+            // }
+            if (element.getAttribute("hover") != null) {
+              _hovers.push(element.getAttribute("hover"));
+              this.setHovered(_hovers.join(" "), false);
+            }
+          },
+          false
+        );
         // element.removeEventListener("mouseout", () => {}, false);
-        // element.addEventListener(
-        //   "mouseout",
-        //   () => {
-        //     // betting hover
-        //     const _ids = this.$store.state.selected.map((m) => m.refer);
-        //     const _hovers = [];
-        //     for (const id of _ids) {
-        //       _hovers.push(document.getElementById(id).getAttribute("hover"));
-        //     }
+        element.addEventListener(
+          "mouseout",
+          () => {
+            // betting hover
+            if (this.$store.state.roundStatus != "started") return;
+            const _ids = this.$store.state.selected.map((m) => m.refer);
+            const _hovers = [];
+            for (const id of _ids) {
+              _hovers.push(document.getElementById(id).getAttribute("hover"));
+            }
 
-        //     // this.setHovered(_hovers.join(" "), false);
-        //     this.$store.commit("setHovered", []);
-        //   },
-        //   false
-        // );
-        element.removeEventListener("click", () => {}, false);
+            // this.setHovered(_hovers.join(" "), false);
+            this.$store.commit("setHovered", []);
+          },
+          false
+        );
+        // element.removeEventListener("click", () => {}, false);
         element.addEventListener(
           "click",
           (e) => {
