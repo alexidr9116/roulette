@@ -849,15 +849,15 @@ export default Vue.extend({
 }
 @media (min-height: 56.25vw) and (max-width: 177.8vh) {
   #overlay-wheel {
-    width: 84px;
-    height: 84px;
+    width: 76px;
+    height: 76px;
   }
   #window-wheel {
-    width: 82px;
-    height: 82px;
+    width: 76px;
+    height: 76px;
   }
   #window-wheel h3 {
-    font-size: 15px;
+    font-size: 14px;
   }
 }
 @-webkit-keyframes changeright {

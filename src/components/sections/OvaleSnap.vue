@@ -360,8 +360,8 @@
     <div _ngcontent-bdp-c0="" id="ovalesnap" class="md:hidden mobile-ovale-snap absolute">
       <svg
         id="drawOvalesnap"
-        width="600px"
-        height="100%"
+        width="80vh"
+        height="40vw"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -749,12 +749,21 @@ export default {
         // }
         if (isOvale) {
           const hover = document.getElementById(id).getAttribute("hover");
+          // select component on panno
           if (hover && hover != null) {
             const hovers = hover.includes(" ") ? hover.split(" ") : [hover.trim()];
 
             for (const pannoId of hovers) {
               _hoverPannos.push({ refer: `g${pannoId}` });
               _coinPannos.push({ refer: pannoId });
+            }
+          }
+          // select component on racetrack
+          else {
+            const elements = document.querySelectorAll(`#${id}`);
+            for (const element of elements) {
+              element.classList.remove("hover-ovale-snap");
+              element.classList.add("hover-ovale-snap");
             }
           }
         }
@@ -771,7 +780,7 @@ export default {
           // betting hover
 
           if (element.getAttribute("hover") != null) {
-            this.setHovered(element.getAttribute("hover"), false);
+            // this.setHovered(element.getAttribute("hover"), false);
           }
           // oval hover
           else {
@@ -784,30 +793,38 @@ export default {
         "mouseout",
         () => {
           // betting hover
+          // const _betList = element.getAttribute("bet_list");
+          // const _outs = _betList.includes(" ") ? _betList.split(" ") : [_betList.trim()];
+
+          // this.setHovered(this.selected.map((m) => m.refer).join(" "), true);
           const _betList = element.getAttribute("bet_list");
           const _outs = _betList.includes(" ") ? _betList.split(" ") : [_betList.trim()];
 
-          this.setHovered(this.selected.map((m) => m.refer).join(" "), true);
+          for (const id of _outs){
+            const elements = document.querySelectorAll(`#${id}`);
+            for (const element of elements) {
+              element.classList.remove("hover-ovale-snap");
+            }
+          }
+           
+          this.$store.commit("setHovered", []);
         },
         false
       );
-      element.removeEventListener("click", () => {});
       element.addEventListener(
         "click",
         (e) => {
-          if (this.$store.state.roundStatus!='started') {
+          if (this.$store.state.roundStatus != "started") {
             return;
           }
-          this.setSelected(element.getAttribute("bet_list"));
-
           // if (arr.filter((v) => v.refer == e.target.id).length == 0){
           //     arr.push({
           //     refer: e.target.id,
           //     value: this.$store.state.coin,
           //     });
           //     this.selected = arr;
-          this.setHovered(this.selected.map((m) => m.refer).join(" "), true);
-
+          this.setHovered(element.getAttribute("bet_list"), true);
+          this.setSelected(element.getAttribute("bet_list"));
           this.$store.commit("setSelected", this.selected);
           setTimeout(() => {
             this.$store.commit("setHovered", []);
@@ -827,7 +844,7 @@ export default {
 </script>
 <style scoped>
 .mobile-ovale-snap {
-  transform: rotate(90deg) translateY(-60%);
+  transform: rotate(90deg) translateY(-40%) translateX(-50px);
   transform-origin: left bottom;
 }
 </style>

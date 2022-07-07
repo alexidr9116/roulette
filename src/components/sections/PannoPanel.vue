@@ -315,8 +315,8 @@
     >
       <svg
         id="drawPanno"
-        width="400px"
-        height="100%"
+        width="50vh"
+        height="40vw"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -651,7 +651,7 @@ export default {
 </script>
 <style scoped>
 .mobile-panno {
-  transform: rotate(90deg) translateY(-80%) translateX(5%);
+  transform: rotate(90deg) translateY(-100%) translateX(15%);
   transform-origin: left bottom;
 }
 .mobile-panno-zoom {

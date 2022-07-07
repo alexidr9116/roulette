@@ -1550,6 +1550,7 @@ const snapPoints = [
         "x": "1300",
         "y": "0",
         "xoffset": "0",
+        "class":"group-snap-point",
         "yoffset": "0",
         "hover": "PL3 PL6 PL9 PL12 PL15 PL18 PL21 PL24 PL27 PL30 PL33 PL36"
     },
@@ -1559,6 +1560,7 @@ const snapPoints = [
         "height": "100",
         "x": "1300",
         "y": "100",
+        "class":"group-snap-point",
         "xoffset": "0",
         "yoffset": "0",
         "hover": "PL2 PL5 PL8 PL11 PL14 PL17 PL20 PL23 PL26 PL29 PL32 PL35"
@@ -1570,6 +1572,7 @@ const snapPoints = [
         "x": "1300",
         "y": "200",
         "xoffset": "0",
+        "class":"group-snap-point",
         "yoffset": "0",
         "hover": "PL1 PL4 PL7 PL10 PL13 PL16 PL19 PL22 PL25 PL28 PL31 PL34"
     }

@@ -133,6 +133,7 @@ export default {
           /// counter === 0 ? show zoom and no more bet
           this.$store.commit("setRoundStatus", 'wait');
           this.$store.commit("setShowGroupBet", true);
+          
         }, 500);
       }
     }, 1000);

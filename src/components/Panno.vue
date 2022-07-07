@@ -22,26 +22,26 @@
     </div>
     <!-- balances -->
     <div
-      class="flex justify-between w-full px-2 mt-[780px] sm:mt-0 sm:absolute sm:bottom-0 sm:px-6"
+      class="flex justify-between w-full px-2    bottom-0 sm:px-6 absolute text-sm sm:text-normal"
     >
-      <div class="flex gap-0 items-end flex-col font-sm sm:font-normal">
-        <label class="flex gap-2 items-center"
+      <div class="flex gap-0 items-end flex-col ">
+        <div class="flex gap-2 items-center"
           ><span class="text-yellow-200">EUR</span
           ><Icon icon="ci:dot-01-xs" width="10"></Icon
-          ><span class="text-white">BALANCE</span></label
+          ><span class="text-white">BALANCE</span></div
         >
-        <label class="text-lg text-white">{{
+        <span class="text-lg text-white  -mt-2 sm:mt-0">{{
           formatNumber($store.state.haveBalance)
-        }}</label>
+        }}</span>
       </div>
       <div class="flex gap-0 items-start flex-col font-sm sm:font-normal">
-        <label class="flex gap-2 items-center"
+        <div class="flex gap-2 items-center"
           ><span class="text-white">BET</span><Icon icon="ci:dot-01-xs" width="10"></Icon
-          ><span class="text-yellow-200">EUR</span></label
+          ><span class="text-yellow-200">EUR</span></div
         >
-        <label class="text-lg text-white">{{
+        <span class="text-lg text-white -mt-2 sm:mt-0">{{
           formatNumber($store.state.roundBalance)
-        }}</label>
+        }}</span>
       </div>
     </div>
     <!-- coin tool bar -->
@@ -132,14 +132,15 @@
 
     <!-- buttons -->
     <button
-      class="left-5 flex absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+      class="left-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
     >
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button
       :disabled="this.$store.state.roundStatus != 'started'"
       @click="handleShowGroupBet()"
-      class="right-5 flex absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+      id = 'btn-show-group-bet'
+      class="right-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
     >
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
@@ -227,7 +228,14 @@ export default {
       }, 50000);
 
       console.log("new start round");
+      
       this.$store.commit("setRoundStatus", "started");
+      setTimeout(
+        ()=>{document.getElementById('btn-show-group-bet').click();}
+        ,200
+      )
+      
+
     },
     waitRound() {
       console.log("wait result of round");
@@ -356,7 +364,7 @@ export default {
 .mobile-coin-toolbar-open {
   transition: all 1s linear;
   animation-name: slideMobileTop;
-  bottom: 25%;
+  bottom: 15%;
   opacity: 1;
 }
 .mobile-coin-toolbar-close {
@@ -369,7 +377,7 @@ export default {
     bottom: -25%;
   }
   100% {
-    bottom: 25%;
+    bottom: 15%;
   }
 }
 
@@ -459,11 +467,12 @@ export default {
 .panno-container .ovale-snap-point:focus {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
+.panno-container .hover-ovale-snap,
 .panno-container .group-snap-point:hover,
 .panno-container .ovale-snap-point:hover {
-  opacity: 0.6;
-  fill: #fff;
-  fill-opacity: 0.6;
+  opacity: 0.6!important;
+  fill: #fff!important;
+  fill-opacity: 0.6!important;
 }
 
 .BETCLOSE .panno-container.ovaleOn #fiche .fic,

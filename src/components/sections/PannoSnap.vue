@@ -127,7 +127,7 @@
           :y="point.y"
           :xoffset="point.xoffset"
           :yoffset="point.yoffset"
-          class="snap-point"
+          :class="point.class ? point.class : 'snap-point'"
           :hover="point.hover"
         ></rect>
         <svg
@@ -289,8 +289,8 @@
     >
       <svg
         id="drawSnap"
-        width="400px"
-        height="100%"
+        width="50vh"
+        height="40vw"
         xmlns="http://www.w3.org/2000/svg"
         version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -412,7 +412,7 @@
           :y="point.y"
           :xoffset="point.xoffset"
           :yoffset="point.yoffset"
-          class="snap-point"
+          :class="point.class ? point.class : 'snap-point'"
           :hover="point.hover"
         ></rect>
         <svg
@@ -585,21 +585,20 @@ export default {
     const snapPoints = document.getElementsByClassName("snap-point");
     const groupSnapPoints = document.getElementsByClassName("group-snap-point");
     this.initSanpAction(snapPoints);
-    this.initSanpAction(groupSnapPoints);
+    this.intGroupSnapAction(groupSnapPoints);
   },
   methods: {
-    initSanpAction(elements) {
+    intGroupSnapAction(elements) {
       for (const element of elements) {
-        element.removeEventListener("mouseover", () => {}, false);
         element.addEventListener(
           "mouseover",
           () => {
             // betting hover
-            const _ids = this.$store.state.selected.map((m) => m.refer);
+            // const _ids = this.$store.state.selected.map((m) => m.refer);
             const _hovers = [];
-            for (const id of _ids) {
-              _hovers.push(document.getElementById(id).getAttribute("hover"));
-            }
+            // for (const id of _ids) {
+            //   _hovers.push(document.getElementById(id).getAttribute("hover"));
+            // }
             if (element.getAttribute("hover") != null) {
               _hovers.push(element.getAttribute("hover"));
               this.setHovered(_hovers.join(" "), false);
@@ -607,22 +606,65 @@ export default {
           },
           false
         );
-        element.removeEventListener("mouseout", () => {}, false);
         element.addEventListener(
           "mouseout",
           () => {
             // betting hover
-            const _ids = this.$store.state.selected.map((m) => m.refer);
-            const _hovers = [];
-            for (const id of _ids) {
-              _hovers.push(document.getElementById(id).getAttribute("hover"));
-            }
+            // const _ids = this.$store.state.selected.map((m) => m.refer);
+            // const _hovers = [];
+            // for (const id of _ids) {
+            //   _hovers.push(document.getElementById(id).getAttribute("hover"));
+            // }
 
             // this.setHovered(_hovers.join(" "), false);
             this.$store.commit("setHovered", []);
           },
           false
         );
+        element.addEventListener(
+          "click",
+          (e) => {
+            this.handleClicked(e);
+          },
+          false
+        );
+      }
+    },
+    initSanpAction(elements) {
+      for (const element of elements) {
+        // element.removeEventListener("mouseover", () => {}, false);
+        // element.addEventListener(
+        //   "mouseover",
+        //   () => {
+        //     // betting hover
+        //     const _ids = this.$store.state.selected.map((m) => m.refer);
+        //     const _hovers = [];
+        //     for (const id of _ids) {
+        //       _hovers.push(document.getElementById(id).getAttribute("hover"));
+        //     }
+        //     if (element.getAttribute("hover") != null) {
+        //       _hovers.push(element.getAttribute("hover"));
+        //       this.setHovered(_hovers.join(" "), false);
+        //     }
+        //   },
+        //   false
+        // );
+        // element.removeEventListener("mouseout", () => {}, false);
+        // element.addEventListener(
+        //   "mouseout",
+        //   () => {
+        //     // betting hover
+        //     const _ids = this.$store.state.selected.map((m) => m.refer);
+        //     const _hovers = [];
+        //     for (const id of _ids) {
+        //       _hovers.push(document.getElementById(id).getAttribute("hover"));
+        //     }
+
+        //     // this.setHovered(_hovers.join(" "), false);
+        //     this.$store.commit("setHovered", []);
+        //   },
+        //   false
+        // );
         element.removeEventListener("click", () => {}, false);
         element.addEventListener(
           "click",
@@ -657,9 +699,9 @@ export default {
         this.selected = arr;
 
         this.$store.commit("setSelected", arr);
-         setTimeout(() => {
-            this.$store.commit("setHovered", []);
-          }, 500);
+        setTimeout(() => {
+          this.$store.commit("setHovered", []);
+        }, 500);
       } else {
         // remove chip
         if (this.$store.state.betAction == "remove") {
@@ -678,7 +720,7 @@ export default {
             return v;
           });
           this.$store.commit("setSelected", _arr);
-           setTimeout(() => {
+          setTimeout(() => {
             this.$store.commit("setHovered", []);
           }, 500);
         }
@@ -746,7 +788,7 @@ export default {
 
 <style scoped>
 .mobile-snap {
-  transform: rotate(90deg) translateY(-80%) translateX(5%);
+  transform: rotate(90deg) translateY(-100%) translateX(15%);
   transform-origin: left bottom;
 }
 .mobile-snap-zoom {
