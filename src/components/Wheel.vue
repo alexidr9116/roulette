@@ -653,7 +653,7 @@
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet" class="top-[15%] sm:top-1/5">
+      <h3 v-show="wait && !nobet" class="top-[15%] sm:top-1/3">
         NO MORE <br />
         BETS
       </h3>
