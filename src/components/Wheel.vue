@@ -653,7 +653,7 @@
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet" class="top-1/3 font-sm lg:font-lg">
+      <h3 v-show="wait && !nobet" class="-top-[20%] font-sm lg:font-lg">
         NO MORE <br />
         BETS
       </h3>
@@ -779,8 +779,8 @@ export default Vue.extend({
     linear-gradient(to bottom, #000 -20%, #00000000 40%);
 }
 #window-wheel {
-  width: 15.4vh;
-  height: 15.4vh;
+  width: 15.95vh;
+  height: 15.95vh;
   box-shadow: 0 0 20px #000;
   position: absolute;
   overflow: hidden;
@@ -814,6 +814,8 @@ export default Vue.extend({
   text-shadow: #fff 0 0 3em;
   position: absolute;
   text-align: center;
+  padding-top:50%;
+  padding-bottom:100%;
   background: rgba(0, 0, 0, 0.8);
 }
 .lang-ru #window-wheel h3 {

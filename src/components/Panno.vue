@@ -244,6 +244,7 @@ export default {
     },
     handleReset() {
       this.$store.commit("setBetAction", "add");
+      this.$store.commit('setShowGroupBet',true);
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
     },

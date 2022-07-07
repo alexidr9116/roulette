@@ -181,8 +181,8 @@ export default {
     font-size: 0.85vw;
   }
   #counter {
-    width: 10vw;
-    height: 10vw;
+    width: 12vw;
+    height: 12vw;
   }
 }
 </style>
