@@ -203,7 +203,7 @@ export default {
     startRound() {
       setTimeout(() => {
         this.endRound();
-      }, 60000);
+      }, 50000);
 
       console.log("new start round");
       this.$store.commit("setRoundStatus", "started");
