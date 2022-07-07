@@ -795,7 +795,7 @@ export default {
       element.addEventListener(
         "click",
         (e) => {
-          if (!this.$store.state.started) {
+          if (this.$store.state.roundStatus!='started') {
             return;
           }
           this.setSelected(element.getAttribute("bet_list"));

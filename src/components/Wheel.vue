@@ -653,14 +653,14 @@
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet">
+      <h3 v-show="wait && !nobet" class="">
         NO MORE <br />
         BETS
       </h3>
-      <h3 v-show="nobet">
+      <h6 v-show="nobet">
         NO MORE <br />
         BET
-      </h3>
+      </h6>
     </div>
   </div>
 </template>
@@ -673,7 +673,7 @@ export default Vue.extend({
   name: "Wheel",
   props: {
     msg: String,
-    num: String,
+    num: Number,
     numberList: Array,
     wait: {
       type: Boolean,
@@ -728,15 +728,17 @@ export default Vue.extend({
       // ]
     };
   },
+  mounted(){
+  },
   updated: function () {
     // this.$nextTick(() => {
     //   this.$emit('rotateStop')
     // })
   },
   watch: {
-    num(val) {
+    num(val){
       // if(!this.wait){
-      let current = this.numberList.indexOf(val);
+      let current = this.numberList.indexOf(`${val}`);
       // console.log(current)
       let rotateDeg =
         this.rotateDeg +
@@ -745,6 +747,7 @@ export default Vue.extend({
       setTimeout(() => {
         this.rotateDeg = rotateDeg;
       }, 100);
+
       // console.log(rotateDeg)
       // }
     },
@@ -805,13 +808,14 @@ export default Vue.extend({
 #window-wheel h3 {
   height: 100%;
   width: 100%;
-  font-size: 2vh;
+  font-size: 2.5vh;
   font-weight: 800;
   color: #fff;
-  text-shadow: #fff 0 0 1em;
+  text-shadow: #fff 0 0 3em;
   position: absolute;
-  top: -13%;
-  padding-top: 37%;
+  text-align: center;
+  top: 15%;
+
   background: rgba(0, 0, 0, 0.8);
 }
 .lang-ru #window-wheel h3 {

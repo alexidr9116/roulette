@@ -1,73 +1,23 @@
 <template>
   <div class="flex flex-col w-full min-h-[900px] sm:h-full sm:min-h-full">
-    <CounterDesktop v-if="$store.state.started"></CounterDesktop>
-    <Wheel v-if="!$store.state.started"></Wheel>
+    <CounterDesktop v-if="$store.state.roundStatus == 'started'"></CounterDesktop>
+    <Wheel
+      :num="$store.state.winNumber"
+      v-if="$store.state.roundStatus != 'started'"
+      :wait="$store.state.roundStatus == 'wait'"
+      :numberList="numberList"
+    >
+    </Wheel>
     <div class="w-full md:px-32">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
-        <PannoPanel v-bind:startedBetting="this.$store.state.started"></PannoPanel>
-        <Ovale v-if="$store.state.started && !$store.state.showGroupBet"></Ovale>
+        <PannoPanel
+          v-bind:startedBetting="$store.state.roundStatus == 'started'"
+        ></PannoPanel>
+        <Ovale
+          v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"
+        ></Ovale>
         <OvaleSnap v-if="!$store.state.showGroupBet"></OvaleSnap>
         <PannoSnap></PannoSnap>
-      </div>
-    </div>
-
-    <div
-      class="coin-toolbar absolute py-6 w-full items-center justify-center hidden md:flex"
-      :class="
-        !this.$store.state.started ? 'coin-toolbar-close hidden' : 'coin-toolbar-open'
-      "
-    >
-      <div class="flex justify-center coin-sub-toolbar">
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1"
-          @click="handleShowGroupBet"
-        >
-          <Icon icon="la:times" width="40"></Icon>
-        </button>
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4"
-          @click="handleReset"
-        >
-          <Icon icon="bytesize:reload" width="40"></Icon>
-        </button>
-      </div>
-      <Coin :fillColor="getFillColor(0.5, 1000)" v-bind:value="0.5"></Coin>
-      <Coin :fillColor="getFillColor(1, 1000)" v-bind:value="1"></Coin>
-      <Coin :fillColor="getFillColor(5, 1000)" v-bind:value="5"></Coin>
-      <Coin :fillColor="getFillColor(50, 1000)" v-bind:value="50"></Coin>
-      <Coin :fillColor="getFillColor(100, 1000)" v-bind:value="100"></Coin>
-      <Coin :fillColor="getFillColor(500, 1000)" v-bind:value="500"></Coin>
-      <Coin :fillColor="getFillColor(1000, 1000)" v-bind:value="1000"></Coin>
-    </div>
-    <!-- mobile -->
-    <div
-      class="mobile-coin-toolbar flex-col py-6 items-center justify-center flex md:hidden absolute right-4"
-      :class="
-        this.$store.state.started
-          ? 'mobile-coin-toolbar-open '
-          : 'mobile-coin-toolbar-close '
-      "
-    >
-      <Coin :fillColor="getFillColor(0.5, 1000)" v-bind:value="0.5"></Coin>
-      <Coin :fillColor="getFillColor(1, 1000)" v-bind:value="1"></Coin>
-      <Coin :fillColor="getFillColor(5, 1000)" v-bind:value="5"></Coin>
-      <Coin :fillColor="getFillColor(50, 1000)" v-bind:value="50"></Coin>
-      <Coin :fillColor="getFillColor(100, 1000)" v-bind:value="100"></Coin>
-      <Coin :fillColor="getFillColor(500, 1000)" v-bind:value="500"></Coin>
-      <Coin :fillColor="getFillColor(1000, 1000)" v-bind:value="1000"></Coin>
-      <div class="flex items-center mobile-coin-sub-toolbar flex-col mt-4 gap-2">
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
-          @click="handleReset"
-        >
-          <Icon icon="bytesize:reload" width="40"></Icon>
-        </button>
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
-          @click="handleShowGroupBet"
-        >
-          <Icon icon="la:times" width="40"></Icon>
-        </button>
       </div>
     </div>
     <!-- balances -->
@@ -94,6 +44,70 @@
         }}</label>
       </div>
     </div>
+    <!-- coin tool bar -->
+    <div
+      class="coin-toolbar absolute py-6 w-full items-center justify-center hidden md:flex"
+      :class="
+        this.$store.state.roundStatus == 'started'
+          ? 'coin-toolbar-open'
+          : 'coin-toolbar-close hidden'
+      "
+    >
+      <div class="flex justify-center coin-sub-toolbar">
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1"
+          @click="handleRemoveCoin"
+        >
+          <Icon icon="la:times" width="40"></Icon>
+        </button>
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4"
+          @click="handleReset"
+        >
+          <Icon icon="bytesize:reload" width="40"></Icon>
+        </button>
+      </div>
+      <Coin :fillColor="getFillColor(0.5, 200)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(1, 200)" v-bind:value="1"></Coin>
+      <Coin :fillColor="getFillColor(5, 200)" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(10, 200)" v-bind:value="10"></Coin>
+      <Coin :fillColor="getFillColor(20, 200)" v-bind:value="20"></Coin>
+      <Coin :fillColor="getFillColor(50, 200)" v-bind:value="50"></Coin>
+      <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
+      <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
+    </div>
+    <!-- mobile -->
+    <div
+      class="mobile-coin-toolbar flex-col py-6 items-center justify-center flex md:hidden absolute right-4"
+      :class="
+        this.$store.state.roundStatus == 'started'
+          ? 'mobile-coin-toolbar-open '
+          : 'mobile-coin-toolbar-close '
+      "
+    >
+      <Coin :fillColor="getFillColor(0.5, 200)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(1, 200)" v-bind:value="1"></Coin>
+      <Coin :fillColor="getFillColor(5, 200)" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(10, 200)" v-bind:value="10"></Coin>
+      <Coin :fillColor="getFillColor(20, 200)" v-bind:value="20"></Coin>
+      <Coin :fillColor="getFillColor(50, 200)" v-bind:value="50"></Coin>
+      <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
+      <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
+      <div class="flex items-center mobile-coin-sub-toolbar flex-col mt-4 gap-2">
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
+          @click="handleReset"
+        >
+          <Icon icon="bytesize:reload" width="40"></Icon>
+        </button>
+        <button
+          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle"
+          @click="handleRemoveCoin"
+        >
+          <Icon icon="la:times" width="40"></Icon>
+        </button>
+      </div>
+    </div>
 
     <!-- buttons -->
     <button
@@ -102,7 +116,7 @@
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button
-      :disabled="!this.$store.state.started"
+      :disabled="this.$store.state.roundStatus != 'started'"
       @click="handleShowGroupBet()"
       class="right-5 absolute animate-btn btn bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
     >
@@ -136,12 +150,73 @@ export default {
   data() {
     return {
       isOvaleShow: true,
+       numberList: [
+        "0",
+        "32",
+        "15",
+        "19",
+        "4",
+        "21",
+        "2",
+        "25",
+        "17",
+        "34",
+        "6",
+        "27",
+        "13",
+        "36",
+        "11",
+        "30",
+        "8",
+        "23",
+        "10",
+        "5",
+        "24",
+        "16",
+        "33",
+        "1",
+        "20",
+        "14",
+        "31",
+        "9",
+        "22",
+        "18",
+        "29",
+        "7",
+        "28",
+        "12",
+        "35",
+        "3",
+        "26"
+      ],
     };
   },
   computed: {
     getCoinRange() {},
   },
   methods: {
+    initialize() {
+      this.$store.commit("setBetAction", "add");
+      this.$store.commit("setBalance", 1000);
+      this.$store.commit("setMaxBet", 200);
+    },
+    startRound() {
+      setTimeout(() => {
+        this.endRound();
+      }, 60000);
+
+      console.log("new start round");
+      this.$store.commit("setRoundStatus", "started");
+    },
+    waitRound() {
+      console.log("wait result of round");
+      this.$store.commit("setRoundStatus", "wait");
+    },
+    endRound() {
+      console.log("end round");
+      this.$store.commit("setWinNumber", Math.floor(Math.random()*36));
+      this.$store.commit("setRoundStatus", "end");
+    },
     getFillColor(value, max) {
       return getFillColor(value, max);
     },
@@ -149,6 +224,11 @@ export default {
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
     },
+    // remove coin button
+    handleRemoveCoin() {
+      this.$store.commit("setBetAction", "remove");
+    },
+    // change bet way
     handleShowGroupBet() {
       if (this.$store.state.showGroupBet) {
         for (const group of document.getElementsByClassName("group-bet")) {
@@ -169,20 +249,20 @@ export default {
     },
   },
   mounted() {
-    this.$store.commit("setBalance", 1000);
-    this.$store.commit("setMaxBet", 1000);
+    this.initialize();
     // hide group bet control
     // for (const group of document.getElementsByClassName("group-bet")) {
     //   group.classList.remove("hidden");
     //   group.classList.add("hidden");
     // }
+
     setTimeout(() => {
-      this.$store.commit("setStartedBetting", true);
+      this.startRound();
+      // 66S start round
+      setInterval(() => {
+        this.startRound();
+      }, 66000);
     }, 3000);
-    // setInterval(() => {
-    //   this.startedBetting = false;
-    //   this.$store.commit("setStartedBetting", false);
-    // }, 6000);
   },
 };
 </script>
@@ -343,19 +423,20 @@ export default {
 }
 
 .panno-container .snap-point,
+.panno-container .group-snap-point,
 .panno-container .ovale-snap-point {
   opacity: 0;
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
   pointer-events: visible;
 }
 
-.panno-container .snap-point:active,
-.panno-container .snap-point:focus,
+.panno-container .group-snap-point:active,
+.panno-container .group-snap-point:focus,
 .panno-container .ovale-snap-point:active,
 .panno-container .ovale-snap-point:focus {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
-.panno-container .snap-point:hover,
+.panno-container .group-snap-point:hover,
 .panno-container .ovale-snap-point:hover {
   opacity: 0.6;
   fill: #fff;

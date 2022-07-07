@@ -8,7 +8,7 @@ export default new Vuex.Store({
     hovered:[],   
     selected:[],
     coin:0.5,
-    started:false,
+    roundStatus:'end',
     showGroupBet:true,
     
     balance:0,
@@ -16,9 +16,13 @@ export default new Vuex.Store({
     roundBalance:0,
     maxBet:5,
     betAction:'add',
+    winNumber:20,
   },
   getters: {},
   mutations: {
+    setWinNumber(state,number){
+      state.winNumber = number;
+    },
     setBetAction(state,action){
       state.betAction = action;
     },
@@ -45,8 +49,8 @@ export default new Vuex.Store({
       state.roundBalance = _betted;
       state.haveBalance = state.balance-_betted;
     },
-    setStartedBetting(state,started){
-      state.started = started;
+    setRoundStatus(state,status){
+      state.roundStatus = status;
     }
   },
   actions: {},

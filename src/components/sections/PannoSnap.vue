@@ -31,7 +31,7 @@
             height="67"
             x="100"
             y="300.5"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL2 PL3 PL4 PL5 PL6 PL7 PL8 PL9 PL10 PL11 PL12"
           ></rect>
@@ -41,7 +41,7 @@
             height="67"
             x="500"
             y="300.5"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL13 PL14 PL15 PL16 PL17 PL18 PL19 PL20 PL21 PL22 PL23 PL24"
           ></rect>
@@ -51,7 +51,7 @@
             height="67"
             x="900"
             y="300.5"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL25 PL26 PL27 PL28 PL29 PL30 PL31 PL32 PL33 PL34 PL35 PL36"
           ></rect>
@@ -61,7 +61,7 @@
             height="70"
             x="100"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL2 PL3 PL4 PL5 PL6 PL7 PL8 PL9 PL10 PL11 PL12 PL13 PL14 PL15 PL16 PL17 PL18"
           ></rect>
@@ -71,7 +71,7 @@
             height="70"
             x="300"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL2 PL4 PL6 PL8 PL10 PL12 PL14 PL16 PL18 PL20 PL22 PL24 PL26 PL28 PL30 PL32 PL34 PL36"
           ></rect>
@@ -81,7 +81,7 @@
             height="70"
             x="500"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL3 PL5 PL7 PL9 PL12 PL14 PL16 PL18 PL19 PL21 PL23 PL25 PL27 PL30 PL32 PL34 PL36"
           ></rect>
@@ -91,7 +91,7 @@
             height="70"
             x="700"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL2 PL4 PL6 PL8 PL10 PL11 PL13 PL15 PL17 PL20 PL22 PL24 PL26 PL29 PL28 PL31 PL33 PL35"
           ></rect>
@@ -101,7 +101,7 @@
             height="70"
             x="900"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL3 PL5 PL7 PL9 PL11 PL13 PL15 PL17 PL19 PL21 PL23 PL25 PL27 PL29 PL31 PL33 PL35"
           ></rect>
@@ -111,7 +111,7 @@
             height="70"
             x="1100"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL19 PL20 PL21 PL22 PL23 PL24 PL25 PL26 PL27 PL28 PL29 PL30 PL31 PL32 PL33 PL34 PL35 PL36"
           ></rect>
@@ -316,7 +316,7 @@
             height="67"
             x="100"
             y="300.5"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL2 PL3 PL4 PL5 PL6 PL7 PL8 PL9 PL10 PL11 PL12"
           ></rect>
@@ -326,7 +326,7 @@
             height="67"
             x="500"
             y="300.5"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL13 PL14 PL15 PL16 PL17 PL18 PL19 PL20 PL21 PL22 PL23 PL24"
           ></rect>
@@ -336,7 +336,7 @@
             height="67"
             x="900"
             y="300.5"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL25 PL26 PL27 PL28 PL29 PL30 PL31 PL32 PL33 PL34 PL35 PL36"
           ></rect>
@@ -346,7 +346,7 @@
             height="70"
             x="100"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL2 PL3 PL4 PL5 PL6 PL7 PL8 PL9 PL10 PL11 PL12 PL13 PL14 PL15 PL16 PL17 PL18"
           ></rect>
@@ -356,7 +356,7 @@
             height="70"
             x="300"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL2 PL4 PL6 PL8 PL10 PL12 PL14 PL16 PL18 PL20 PL22 PL24 PL26 PL28 PL30 PL32 PL34 PL36"
           ></rect>
@@ -366,7 +366,7 @@
             height="70"
             x="500"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL3 PL5 PL7 PL9 PL12 PL14 PL16 PL18 PL19 PL21 PL23 PL25 PL27 PL30 PL32 PL34 PL36"
           ></rect>
@@ -376,7 +376,7 @@
             height="70"
             x="700"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL2 PL4 PL6 PL8 PL10 PL11 PL13 PL15 PL17 PL20 PL22 PL24 PL26 PL29 PL28 PL31 PL33 PL35"
           ></rect>
@@ -386,7 +386,7 @@
             height="70"
             x="900"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL1 PL3 PL5 PL7 PL9 PL11 PL13 PL15 PL17 PL19 PL21 PL23 PL25 PL27 PL29 PL31 PL33 PL35"
           ></rect>
@@ -396,7 +396,7 @@
             height="70"
             x="1100"
             y="370"
-            class="snap-point"
+            class="group-snap-point"
             yoffset="0"
             hover="PL19 PL20 PL21 PL22 PL23 PL24 PL25 PL26 PL27 PL28 PL29 PL30 PL31 PL32 PL33 PL34 PL35 PL36"
           ></rect>
@@ -583,51 +583,55 @@ export default {
   },
   mounted() {
     const snapPoints = document.getElementsByClassName("snap-point");
-    
-    for (const element of snapPoints) {
-      element.removeEventListener("mouseover", () => {}, false);
-      element.addEventListener(
-        "mouseover",
-        () => {
-          // betting hover
-          const _ids = this.$store.state.selected.map((m) => m.refer);
-          const _hovers = [];
-          for (const id of _ids) {
-            _hovers.push(document.getElementById(id).getAttribute("hover"));
-          }
-          if (element.getAttribute("hover") != null) {
-            _hovers.push(element.getAttribute("hover"));
-            this.setHovered(_hovers.join(" "), false);
-          }
-        },
-        false
-      );
-      element.removeEventListener("mouseout", () => {}, false);
-      element.addEventListener(
-        "mouseout",
-        () => {
-          // betting hover
-          const _ids = this.$store.state.selected.map((m) => m.refer);
-          const _hovers = [];
-          for (const id of _ids) {
-            _hovers.push(document.getElementById(id).getAttribute("hover"));
-          }
-
-          this.setHovered(_hovers.join(" "), false);
-        },
-        false
-      );
-      element.removeEventListener("click", () => {}, false);
-      element.addEventListener(
-        "click",
-        (e) => {
-          this.handleClicked(e);
-        },
-        false
-      );
-    }
+    const groupSnapPoints = document.getElementsByClassName("group-snap-point");
+    this.initSanpAction(snapPoints);
+    this.initSanpAction(groupSnapPoints);
   },
   methods: {
+    initSanpAction(elements) {
+      for (const element of elements) {
+        element.removeEventListener("mouseover", () => {}, false);
+        element.addEventListener(
+          "mouseover",
+          () => {
+            // betting hover
+            const _ids = this.$store.state.selected.map((m) => m.refer);
+            const _hovers = [];
+            for (const id of _ids) {
+              _hovers.push(document.getElementById(id).getAttribute("hover"));
+            }
+            if (element.getAttribute("hover") != null) {
+              _hovers.push(element.getAttribute("hover"));
+              this.setHovered(_hovers.join(" "), false);
+            }
+          },
+          false
+        );
+        element.removeEventListener("mouseout", () => {}, false);
+        element.addEventListener(
+          "mouseout",
+          () => {
+            // betting hover
+            const _ids = this.$store.state.selected.map((m) => m.refer);
+            const _hovers = [];
+            for (const id of _ids) {
+              _hovers.push(document.getElementById(id).getAttribute("hover"));
+            }
+
+            this.setHovered(_hovers.join(" "), false);
+          },
+          false
+        );
+        element.removeEventListener("click", () => {}, false);
+        element.addEventListener(
+          "click",
+          (e) => {
+            this.handleClicked(e);
+          },
+          false
+        );
+      }
+    },
     checkGroupBet(point) {
       if (this.$store.state.showGroupBet) {
         return true;
@@ -639,7 +643,7 @@ export default {
       return getFillColor(value, max);
     },
     handleClicked(e) {
-      if (!this.$store.state.started) {
+      if (this.$store.state.roundStatus !='started') {
         return;
       }
       const arr = this.$store.state.selected;
