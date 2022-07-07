@@ -53,11 +53,11 @@
           : 'coin-toolbar-close hidden'
       "
     >
-      <div class="flex justify-center coin-sub-toolbar items-end">
+      <div class="flex justify-center coin-sub-toolbar items-end relative ">
         <button
-          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-8"
+          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-16"
           @click="handleReset"
-          :class="$store.state.betAction == 'remove' ? 'flex' : 'hidden'"
+          :class="$store.state.betAction == 'remove' ? 'absolute -left-6 flex ' : 'hidden'"
         >
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
@@ -104,7 +104,7 @@
       <Coin :fillColor="getFillColor(50, 200)" v-bind:value="50"></Coin>
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
-      <div class="flex items-end mobile-coin-sub-toolbar flex-col mt-4 gap-2">
+      <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
         <button
           class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex"
           @click="handleReset"
@@ -121,9 +121,9 @@
           ></Icon>
         </button>
         <button
-          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex"
+          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute"
           @click="handleReset"
-          :class="$store.state.betAction == 'remove' ? 'flex' : 'hidden'"
+          :class="$store.state.betAction == 'remove' ? 'flex -bottom-4' : 'hidden'"
         >
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
