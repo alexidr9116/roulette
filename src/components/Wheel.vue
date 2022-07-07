@@ -738,6 +738,7 @@ export default Vue.extend({
   watch: {
     num(val){
       // if(!this.wait){
+        console.log(val);
       let current = this.numberList.indexOf(`${val}`);
       // console.log(current)
       let rotateDeg =
