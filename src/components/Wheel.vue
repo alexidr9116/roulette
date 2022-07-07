@@ -653,7 +653,7 @@
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet" class="top-[15%] md:top-1/3">
+      <h3 v-show="wait && !nobet" class="top-1/3 font-sm lg:font-lg">
         NO MORE <br />
         BETS
       </h3>
@@ -814,7 +814,6 @@ export default Vue.extend({
   text-shadow: #fff 0 0 3em;
   position: absolute;
   text-align: center;
-
   background: rgba(0, 0, 0, 0.8);
 }
 .lang-ru #window-wheel h3 {
@@ -856,7 +855,7 @@ export default Vue.extend({
     height: 82px;
   }
   #window-wheel h3 {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 @-webkit-keyframes changeright {
