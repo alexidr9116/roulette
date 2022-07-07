@@ -1,15 +1,6 @@
 <template>
   <div class="mlc-container desktop BETTIME roulette-left">
-    <div id="mlc-video-div">
-<!--      <video id="h5live-mlc-video-div" playsinline=""-->
-<!--             style="background-color: black; width: 100%; height: 100%; position: absolute; left: 50%; top: 50%; margin-right: -50%; transform: translate(-50%, -50%) scaleX(1) scaleY(1) rotate(0deg);">-->
-<!--        <source src="https://bintu-h5live.nanocosmos.de/h5live/http/stream.mp4?url=rtmp%3A%2F%2Fbintu-play.nanocosmos.de%2Fplay&stream=4w1yK-ZTJKP&cid=280412&pid=7012713639">-->
-<!--      </video>-->
-<!--      <video id="h5live-playerDiv" playsinline=""-->
-<!--             style="background-color: black; width: 100%; height: 100%; position: absolute; left: 50%; top: 50%; margin-right: -50%; transform: translate(-50%, -50%) scaleX(1) scaleY(1) rotate(0deg);">-->
-<!--        <source src="blob:https://api.asian888.club/ad9d6d72-2e13-4b3e-a628-561db4ce0683">-->
-<!--      </video>-->
-    </div>
+  
     <div class="mlc-header"><!---->
       <div class="ng-star-inserted">
         <div class="infotavolo">

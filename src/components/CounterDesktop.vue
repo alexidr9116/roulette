@@ -160,8 +160,8 @@ export default {
 
 <style scoped lang="scss">
 #counter {
-  width: 17.7vh;
-  height: 17.7vh;
+  width: 15.95vh;
+  height:  15.95vh;
   position: absolute;
   left: 10px;
   top: 10px;
@@ -182,8 +182,8 @@ export default {
     font-size: 0.85vw;
   }
   #counter {
-    width: 12vw;
-    height: 12vw;
+    width: 76px;
+    height: 76px;
   }
 }
 </style>

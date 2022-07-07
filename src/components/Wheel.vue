@@ -653,14 +653,11 @@
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet" class="-top-[20%] font-sm lg:font-lg">
-        NO MORE <br />
+      <h3 v-show="wait && !nobet" class="-top-[20%] font-sm lg:font-lg leading-4 md:leading-6	" >
+        NO MORE 
         BETS
       </h3>
-      <h6 v-show="nobet">
-        NO MORE <br />
-        BET
-      </h6>
+     
     </div>
   </div>
 </template>
@@ -786,7 +783,7 @@ export default Vue.extend({
   overflow: hidden;
   border-radius: 50%;
   left: 10px;
-  top: 30%;
+  top: 10px;
   z-index: 10;
 }
 .desktop.roulette-right #window-wheel {
