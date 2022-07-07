@@ -215,7 +215,9 @@ export default {
     endRound() {
       console.log("end round");
       this.$store.commit("setWinNumber", Math.floor(Math.random()*36));
+
       this.$store.commit("setRoundStatus", "end");
+      this.handleReset();
     },
     getFillColor(value, max) {
       return getFillColor(value, max);
