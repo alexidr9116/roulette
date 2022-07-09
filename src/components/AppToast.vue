@@ -52,7 +52,7 @@ export default {
     border-radius: 0 3vh 7vh 0;
     z-index: 0;
     opacity: 0;
-    animation: 5s ease 0s normal forwards  1 toast;
+    animation: 7s ease 0s normal forwards  1 toast;
 }
 
 @keyframes toast {

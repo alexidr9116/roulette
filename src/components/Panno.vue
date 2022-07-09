@@ -404,20 +404,24 @@ export default {
       this.$store.commit("setMaxBet", 200);
     },
     startRound() {
+      this.showToast = false;
       setTimeout(() => {
-        this.endRound();
-      }, 50000);
 
-      console.log("new start round");
-      this.handleReset();
-      this.showToast = true;
-      this.toastTitle = 'Bet Opens';
-      this.toastMessage = '<p>Please Bet within 30S</p>';
-      this.$store.commit("setRoundStatus", "started");
-      setTimeout(
-        () => { document.getElementById('btn-show-group-bet').click(); }
-        , 200
-      )
+        setTimeout(() => {
+          this.endRound();
+        }, 50000);
+
+        console.log("new start round");
+        this.handleReset();
+        this.showToast = true;
+        this.toastTitle = 'Bet Opens';
+        this.toastMessage = '<p>Please Bet within 30S</p>';
+        this.$store.commit("setRoundStatus", "started");
+        setTimeout(
+          () => { document.getElementById('btn-show-group-bet').click(); }
+          , 200
+        )
+      }, 1000);
 
 
     },
