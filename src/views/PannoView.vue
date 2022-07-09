@@ -1,6 +1,6 @@
 <template>
 <div class="panno overflow-y-auto h-full">
-  <panno></panno>
+  <Panno></Panno>
 </div>
 </template>
 

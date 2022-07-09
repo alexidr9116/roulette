@@ -1,7 +1,17 @@
 <template>
-    <div id="info-panel" class="app-toast text-right w-1/2 md:w-1/3 h-[76px] md:h-[15.95vh]" v-if="showMessage">
-        <h3 class="pr-4">{{ title }}</h3>
-        <div v-html="message" class="pr-4"></div>
+    <div class="app-toast p-1 md:p-2 w-3/4 md:w-1/3 h-[76px] md:h-[15.95vh] flex flex-col items-between justify-between" v-if="showMessage">
+        <div class="pr-8 w-full text-right">
+            <h3 class="text-xl font-bold">{{ title }}</h3>
+        </div>
+        
+        <div class="pr-4 flex ">
+            <div class="w-1/3 md:flex-0">
+
+            </div>
+            <div v-html="message" class="w-2/3 md:flex-1 justify-end flex">
+                
+            </div>
+        </div>
     </div>
 </template>
 <script>
@@ -36,15 +46,12 @@ export default {
     background: linear-gradient(90deg,
             rgba(184, 182, 182, 0.5) 0%,
             rgba(75, 74, 74, 0.5) 100%);
-   
     position: absolute;
     top: 10px;
     color: #fff;
     border-radius: 0 3vh 7vh 0;
-    padding: 2vh 1vh;
     z-index: 0;
     opacity: 0;
-     
     animation: 5s ease 0s normal forwards  1 toast;
 }
 

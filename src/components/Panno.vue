@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-h-[900px] md:h-full md:min-h-full md:mt-10">
+  <div class="flex flex-col w-full min-h-[900px] md:h-full md:min-h-full md:mt-20">
     <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
     <CounterDesktop v-if="$store.state.roundStatus == 'started'"></CounterDesktop>
     <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus != 'started'"
@@ -126,6 +126,230 @@ export default {
   data() {
     return {
       isOvaleShow: true,
+      numberObj: {
+        "0": {
+          color: 'Green',
+          type: 'Zero',
+          text1: '1° Dozen',
+          text2: '2° Column'
+        },
+        "32": {
+          color: 'Red',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '2° Column'
+        },
+        "15": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '2° Dozen',
+          text2: '3° Column'
+        },
+        "19": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '2° Dozen',
+          text2: '1° Column'
+        },
+        "4": {
+          color: 'Black',
+          type: 'Even',
+          text1: '1° Dozen',
+          text2: '1° Column'
+        },
+        "21": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '2° Dozen',
+          text2: '3° Column'
+        },
+        "2": {
+          color: 'Black',
+          type: 'Even',
+          text1: '1° Dozen',
+          text2: '2° Column'
+        },
+        "25": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '3° Dozen',
+          text2: '1° Column'
+        },
+        "17": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '2° Dozen',
+          text2: '2° Column'
+        },
+        "34": {
+          color: 'Red',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '1° Column'
+        },
+        "6": {
+          color: 'Black',
+          type: 'Even',
+          text1: '1° Dozen',
+          text2: '3° Column'
+        },
+        "27": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '3° Dozen',
+          text2: '3° Column'
+        },
+        "13": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '2° Dozen',
+          text2: '1° Column'
+        },
+        "36": {
+          color: 'Red',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '3° Column'
+        },
+        "11": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '1° Dozen',
+          text2: '2° Column'
+        },
+        "30": {
+          color: 'Red',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '3° Column'
+        },
+        "8": {
+          color: 'Black',
+          type: 'Even',
+          text1: '1° Dozen',
+          text2: '2° Column'
+        },
+        "23": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '2° Dozen',
+          text2: '2° Column'
+        },
+        "10": {
+          color: 'Black',
+          type: 'Even',
+          text1: '1° Dozen',
+          text2: '1° Column'
+        },
+        "5": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '1° Dozen',
+          text2: '2° Column'
+        },
+        "24": {
+          color: 'Black',
+          type: 'Even',
+          text1: '2° Dozen',
+          text2: '3° Column'
+        },
+        "16": {
+          color: 'Red',
+          type: 'Even',
+          text1: '2° Dozen',
+          text2: '1° Column'
+        },
+        "33": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '3° Dozen',
+          text2: '3° Column'
+        },
+        "1": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '1° Dozen',
+          text2: '1° Column'
+        },
+        "20": {
+          color: 'Black',
+          type: 'Even',
+          text1: '2° Dozen',
+          text2: '2° Column'
+        },
+        "14": {
+          color: 'Red',
+          type: 'Even',
+          text1: '2° Dozen',
+          text2: '2° Column'
+        },
+        "31": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '3° Dozen',
+          text2: '2° Column'
+        },
+        "9": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '1° Dozen',
+          text2: '3° Column'
+        },
+        "22": {
+          color: 'Black',
+          type: 'Even',
+          text1: '2° Dozen',
+          text2: '1° Column'
+        },
+        "18": {
+          color: 'Red',
+          type: 'Even',
+          text1: '2° Dozen',
+          text2: '3° Column'
+        },
+        "29": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '3° Dozen',
+          text2: '2° Column'
+        },
+        "7": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '1° Dozen',
+          text2: '1° Column'
+        },
+        "28": {
+          color: 'Black',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '1° Column'
+        },
+        "12": {
+          color: 'Red',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '1° Column'
+        },
+        "35": {
+          color: 'Black',
+          type: 'Odd',
+          text1: '3° Dozen',
+          text2: '2° Column'
+        },
+        "3": {
+          color: 'Red',
+          type: 'Odd',
+          text1: '1° Dozen',
+          text2: '3° Column'
+        },
+        "26": {
+          color: 'Black',
+          type: 'Even',
+          text1: '3° Dozen',
+          text2: '2° Column'
+        }
+      },
       numberList: [
         "0",
         "32",
@@ -185,9 +409,10 @@ export default {
       }, 50000);
 
       console.log("new start round");
+      this.handleReset();
       this.showToast = true;
       this.toastTitle = 'Bet Opens';
-      this.toastMessage = '<p>you can bet</p>';
+      this.toastMessage = '<p>Please Bet within 30S</p>';
       this.$store.commit("setRoundStatus", "started");
       setTimeout(
         () => { document.getElementById('btn-show-group-bet').click(); }
@@ -205,15 +430,16 @@ export default {
     endRound() {
       this.showToast = false;
       console.log("end round");
-      
-      this.$store.commit("setWinNumber", Math.floor(Math.random() * 36));
+      const winNumber = Math.floor(Math.random() * 36);
+      const winObj = this.numberObj[`${winNumber}`];
+      this.$store.commit("setWinNumber", winNumber);
       this.$store.commit("setRoundStatus", "end");
       setTimeout(() => {
         this.showToast = true;
-        this.toastTitle = 'Bet Ended';
-        this.toastMessage = '<p>you can bet</p>';
-        this.handleReset();
-      }, 1500);
+
+        this.toastTitle = `${winObj.type} / ${winObj.color}`;
+        this.toastMessage = `<p class='pr-4'>${winObj.text1}<br/>${winObj.text2}</p>`;
+      }, 2000);
 
     },
     getFillColor(value, max) {
