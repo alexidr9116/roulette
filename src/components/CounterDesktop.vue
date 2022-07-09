@@ -93,26 +93,12 @@ export default {
     };
   },
   computed: {
-    // cx() { // 中心点位置
-    //   return this.size / 2
-    // },
-    // r() { // 半径
-    //   return this.size / 2 - this.width
-    // },
+   
     circum() {
       let c = parseInt(this.r * Math.PI * 2);
       this.startCircum = 2 * c;
       this.endCircum = c;
-      // alert(appDown())
-      // if(appDown() == 'iOS'){
-
-      //   this.startCircum = 2 * c
-      //   this.endCircum = c
-      //
-      // } else {
-      //   this.startCircum = 0
-      //   this.endCircum = -c
-      // }
+    
       return c;
     },
   },

@@ -1,80 +1,53 @@
 <template>
-  <div class="flex flex-col w-full min-h-[900px] sm:h-full sm:min-h-full">
+  <div class="flex flex-col w-full min-h-[900px] md:h-full md:min-h-full md:mt-10">
+    <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
     <CounterDesktop v-if="$store.state.roundStatus == 'started'"></CounterDesktop>
-    <Wheel
-      :num="$store.state.winNumber"
-      v-if="$store.state.roundStatus != 'started'"
-      :wait="$store.state.roundStatus == 'wait'"
-      :numberList="numberList"
-    >
+    <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus != 'started'"
+      :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
     </Wheel>
     <div class="w-full md:px-32">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
-        <PannoPanel
-          v-bind:startedBetting="$store.state.roundStatus == 'started'"
-        ></PannoPanel>
-        <Ovale
-          v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"
-        ></Ovale>
+        <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
+        <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>
         <OvaleSnap v-if="!$store.state.showGroupBet"></OvaleSnap>
         <PannoSnap></PannoSnap>
       </div>
     </div>
     <!-- balances -->
-    <div
-      class="flex justify-between w-full px-2    bottom-0 sm:px-6 absolute text-sm sm:text-normal"
-    >
+    <div class="flex justify-between w-full px-2    bottom-0 sm:px-6 absolute text-sm sm:text-normal">
       <div class="flex gap-0 items-end flex-col ">
-        <div class="flex gap-2 items-center"
-          ><span class="text-yellow-200">EUR</span
-          ><Icon icon="ci:dot-01-xs" width="10"></Icon
-          ><span class="text-white">BALANCE</span></div
-        >
+        <div class="flex gap-2 items-center"><span class="text-yellow-200">EUR</span>
+          <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-white">BALANCE</span>
+        </div>
         <span class="text-lg text-white  -mt-2 sm:mt-0">{{
-          formatNumber($store.state.haveBalance)
+            formatNumber($store.state.haveBalance)
         }}</span>
       </div>
       <div class="flex gap-0 items-start flex-col font-sm sm:font-normal">
-        <div class="flex gap-2 items-center"
-          ><span class="text-white">BET</span><Icon icon="ci:dot-01-xs" width="10"></Icon
-          ><span class="text-yellow-200">EUR</span></div
-        >
+        <div class="flex gap-2 items-center"><span class="text-white">BET</span>
+          <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-yellow-200">EUR</span>
+        </div>
         <span class="text-lg text-white -mt-2 sm:mt-0">{{
-          formatNumber($store.state.roundBalance)
+            formatNumber($store.state.roundBalance)
         }}</span>
       </div>
     </div>
     <!-- coin tool bar -->
-    <div
-      class="coin-toolbar absolute py-6 w-full items-end justify-center hidden md:flex"
-      :class="
-        this.$store.state.roundStatus == 'started'
-          ? 'coin-toolbar-open'
-          : 'coin-toolbar-close hidden'
-      "
-    >
+    <div class="coin-toolbar absolute py-6 w-full items-end justify-center hidden md:flex" :class="
+      this.$store.state.roundStatus == 'started'
+        ? 'coin-toolbar-open'
+        : 'coin-toolbar-close hidden'
+    ">
       <div class="flex justify-center coin-sub-toolbar items-end relative ">
-        <button
-          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-16"
-          @click="handleReset"
-          :class="$store.state.betAction == 'remove' ? 'absolute -left-6 flex ' : 'hidden'"
-        >
+        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-16" @click="handleReset"
+          :class="$store.state.betAction == 'remove' ? 'absolute -left-6 flex ' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1 flex"
-          @click="handleRemoveCoin"
-        >
-          <Icon
-            :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'"
-            width="40"
-          ></Icon>
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1 flex" @click="handleRemoveCoin">
+          <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
 
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4 flex"
-          @click="handleReset"
-        >
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4 flex" @click="handleReset">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
@@ -87,15 +60,12 @@
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
     </div>
-    <!-- mobile -->
-    <div
-      class="mobile-coin-toolbar flex-col py-6 items-end justify-start flex md:hidden absolute right-4"
-      :class="
-        this.$store.state.roundStatus == 'started'
-          ? 'mobile-coin-toolbar-open '
-          : 'mobile-coin-toolbar-close '
-      "
-    >
+    <!-- mobile toolbar-->
+    <div class="mobile-coin-toolbar flex-col py-6 items-end justify-start flex md:hidden absolute right-4" :class="
+      this.$store.state.roundStatus == 'started'
+        ? 'mobile-coin-toolbar-open '
+        : 'mobile-coin-toolbar-close '
+    ">
       <Coin :fillColor="getFillColor(0.5, 200)" v-bind:value="0.5"></Coin>
       <Coin :fillColor="getFillColor(1, 200)" v-bind:value="1"></Coin>
       <Coin :fillColor="getFillColor(5, 200)" v-bind:value="5"></Coin>
@@ -105,43 +75,25 @@
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex"
-          @click="handleReset"
-        >
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex" @click="handleReset">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
-        <button
-          class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle  flex"
-          @click="handleRemoveCoin"
-        >
-          <Icon
-            :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'"
-            width="40"
-          ></Icon>
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle  flex" @click="handleRemoveCoin">
+          <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
-        <button
-          class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute"
-          @click="handleReset"
-          :class="$store.state.betAction == 'remove' ? 'flex -bottom-4' : 'hidden'"
-        >
+        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute" @click="handleReset"
+          :class="$store.state.betAction == 'remove' ? 'flex -bottom-4' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
       </div>
     </div>
 
     <!-- buttons -->
-    <button
-      class="left-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
-    >
+    <button class="left-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
-    <button
-      :disabled="this.$store.state.roundStatus != 'started'"
-      @click="handleShowGroupBet()"
-      id = 'btn-show-group-bet'
-      class="right-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
-    >
+    <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
+      class="right-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
   </div>
@@ -155,6 +107,7 @@ import Coin from "./sections/Coin";
 import PannoSnap from "./sections/PannoSnap";
 import CounterDesktop from "./CounterDesktop";
 import Wheel from "./Wheel";
+import AppToast from './AppToast';
 import { getFillColor } from "../utils/index.js";
 import { Icon } from "@iconify/vue2";
 export default {
@@ -168,6 +121,7 @@ export default {
     Icon,
     CounterDesktop,
     Wheel,
+    AppToast
   },
   data() {
     return {
@@ -211,10 +165,13 @@ export default {
         "3",
         "26",
       ],
+      showToast: false,
+      toastTitle: '',
+      toastMessage: '',
     };
   },
   computed: {
-    getCoinRange() {},
+    getCoinRange() { },
   },
   methods: {
     initialize() {
@@ -228,31 +185,43 @@ export default {
       }, 50000);
 
       console.log("new start round");
-      
+      this.showToast = true;
+      this.toastTitle = 'Bet Opens';
+      this.toastMessage = '<p>you can bet</p>';
       this.$store.commit("setRoundStatus", "started");
       setTimeout(
-        ()=>{document.getElementById('btn-show-group-bet').click();}
-        ,200
+        () => { document.getElementById('btn-show-group-bet').click(); }
+        , 200
       )
-      
+
 
     },
     waitRound() {
+
+
       console.log("wait result of round");
       this.$store.commit("setRoundStatus", "wait");
     },
     endRound() {
+      this.showToast = false;
       console.log("end round");
+      
       this.$store.commit("setWinNumber", Math.floor(Math.random() * 36));
       this.$store.commit("setRoundStatus", "end");
-      this.handleReset();
+      setTimeout(() => {
+        this.showToast = true;
+        this.toastTitle = 'Bet Ended';
+        this.toastMessage = '<p>you can bet</p>';
+        this.handleReset();
+      }, 1500);
+
     },
     getFillColor(value, max) {
       return getFillColor(value, max);
     },
     handleReset() {
       this.$store.commit("setBetAction", "add");
-      this.$store.commit('setShowGroupBet',true);
+      this.$store.commit('setShowGroupBet', true);
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
     },
@@ -342,40 +311,48 @@ export default {
 .animate-btn:hover {
   box-shadow: 1px 1px 15px 1px #777;
 }
+
 .coin-toolbar {
   bottom: -25%;
   opacity: 0;
 }
+
 .coin-toolbar-open {
   transition: all 1s linear;
   animation-name: slideTop;
   bottom: 0%;
   opacity: 1;
 }
+
 .coin-toolbar-close {
   transition: all 1s linear;
   animation-name: slideBottom;
   bottom: -25%;
 }
+
 .mobile-coin-toolbar {
   bottom: -25%;
   opacity: 0;
 }
+
 .mobile-coin-toolbar-open {
   transition: all 1s linear;
   animation-name: slideMobileTop;
   bottom: 15%;
   opacity: 1;
 }
+
 .mobile-coin-toolbar-close {
   transition: all 1s linear;
   animation-name: slideMobileBottom;
   bottom: -25%;
 }
+
 @keyframes slideMobileTop {
   0% {
     bottom: -25%;
   }
+
   100% {
     bottom: 15%;
   }
@@ -385,11 +362,13 @@ export default {
   0% {
     opacity: 1;
   }
+
   100% {
     bottom: -25%;
     opacity: 0;
   }
 }
+
 @keyframes slideTop {
   from {
     bottom: -25%;
@@ -467,12 +446,13 @@ export default {
 .panno-container .ovale-snap-point:focus {
   -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
 }
+
 .panno-container .hover-ovale-snap,
 .panno-container .group-snap-point:hover,
 .panno-container .ovale-snap-point:hover {
-  opacity: 0.6!important;
-  fill: #fff!important;
-  fill-opacity: 0.6!important;
+  opacity: 0.6 !important;
+  fill: #fff !important;
+  fill-opacity: 0.6 !important;
 }
 
 .BETCLOSE .panno-container.ovaleOn #fiche .fic,
@@ -603,6 +583,7 @@ export default {
 }
 
 @media screen and (orientation: portrait) {
+
   .mobile .panno-container.ovaleOn #ovale,
   .mobile .panno-container.ovaleOn #ovalesnap {
     transform: scale3D(1, 1, 1) translate(0, 20%);
@@ -646,6 +627,7 @@ export default {
 }
 
 @media screen and (orientation: portrait) {
+
   .SRMR01 .mobile #mlc-video-div.videoRL-zoom,
   .SRMR01 .mobile #mlc-video-tag.videoRL-zoom,
   .SRMR02 .mobile #mlc-video-div.videoRL-zoom,
@@ -666,6 +648,7 @@ export default {
 }
 
 @media screen and (orientation: portrait) {
+
   .HITR01 .mobile #mlc-video-div.videoRL-zoom,
   .HITR01 .mobile #mlc-video-tag.videoRL-zoom {
     width: 100% !important;
@@ -684,6 +667,7 @@ export default {
 }
 
 @media screen and (orientation: portrait) {
+
   .RL_AUTO1 .mobile #mlc-video-div.videoRL-zoom,
   .RL_AUTO1 .mobile #mlc-video-tag.videoRL-zoom {
     width: 100% !important;
@@ -711,6 +695,7 @@ export default {
 }
 
 @media screen and (orientation: portrait) {
+
   .RL_GREEN .mobile #mlc-video-div.videoRL-zoom,
   .RL_GREEN .mobile #mlc-video-tag.videoRL-zoom {
     width: 250% !important;
@@ -737,6 +722,7 @@ export default {
 }
 
 @media screen and (orientation: portrait) {
+
   .RL_AUTO1 .mobile #mlc-video-div.videoRL-santino,
   .RL_AUTO1 .mobile #mlc-video-tag.videoRL-santino {
     width: 100% !important;
@@ -956,6 +942,7 @@ export default {
 }
 
 @-webkit-keyframes pulseWin-redbox {
+
   0%,
   100% {
     fill: #c90;
@@ -967,6 +954,7 @@ export default {
 }
 
 @keyframes pulseWin-redbox {
+
   0%,
   100% {
     fill: #c90;
@@ -978,6 +966,7 @@ export default {
 }
 
 @-webkit-keyframes pulseWin-blackbox {
+
   0%,
   100% {
     fill: #c90;
@@ -989,6 +978,7 @@ export default {
 }
 
 @keyframes pulseWin-blackbox {
+
   0%,
   100% {
     fill: #c90;
@@ -1000,6 +990,7 @@ export default {
 }
 
 @-webkit-keyframes pulseWin-greenbox {
+
   0%,
   100% {
     fill: #c90;
@@ -1011,6 +1002,7 @@ export default {
 }
 
 @keyframes pulseWin-greenbox {
+
   0%,
   100% {
     fill: #c90;
@@ -1022,6 +1014,7 @@ export default {
 }
 
 @-webkit-keyframes pulseWin-otherbox {
+
   0%,
   100% {
     fill: #666;
@@ -1033,6 +1026,7 @@ export default {
 }
 
 @keyframes pulseWin-otherbox {
+
   0%,
   100% {
     fill: #666;
@@ -1044,6 +1038,7 @@ export default {
 }
 
 @-webkit-keyframes jpGold {
+
   0%,
   100% {
     fill: #fff;
@@ -1059,6 +1054,7 @@ export default {
 }
 
 @keyframes jpGold {
+
   0%,
   100% {
     fill: #fff;
@@ -1074,6 +1070,7 @@ export default {
 }
 
 @-webkit-keyframes jpSilver {
+
   0%,
   100% {
     fill: #fff;
@@ -1089,6 +1086,7 @@ export default {
 }
 
 @keyframes jpSilver {
+
   0%,
   100% {
     fill: #fff;
@@ -1104,6 +1102,7 @@ export default {
 }
 
 @-webkit-keyframes jpBronze {
+
   0%,
   100% {
     fill: #fff;
@@ -1119,6 +1118,7 @@ export default {
 }
 
 @keyframes jpBronze {
+
   0%,
   100% {
     fill: #fff;
@@ -2085,6 +2085,7 @@ export default {
 }
 
 @media (-ms-high-contrast: active) {
+
   .mat-menu-item-highlighted,
   .mat-menu-item.cdk-keyboard-focused,
   .mat-menu-item.cdk-program-focused {
@@ -2212,17 +2213,17 @@ button.mat-menu-item {
   justify-content: center;
 }
 
-.mat-dialog-actions .mat-button + .mat-button,
-.mat-dialog-actions .mat-button + .mat-raised-button,
-.mat-dialog-actions .mat-raised-button + .mat-button,
-.mat-dialog-actions .mat-raised-button + .mat-raised-button {
+.mat-dialog-actions .mat-button+.mat-button,
+.mat-dialog-actions .mat-button+.mat-raised-button,
+.mat-dialog-actions .mat-raised-button+.mat-button,
+.mat-dialog-actions .mat-raised-button+.mat-raised-button {
   margin-left: 8px;
 }
 
-[dir="rtl"] .mat-dialog-actions .mat-button + .mat-button,
-[dir="rtl"] .mat-dialog-actions .mat-button + .mat-raised-button,
-[dir="rtl"] .mat-dialog-actions .mat-raised-button + .mat-button,
-[dir="rtl"] .mat-dialog-actions .mat-raised-button + .mat-raised-button {
+[dir="rtl"] .mat-dialog-actions .mat-button+.mat-button,
+[dir="rtl"] .mat-dialog-actions .mat-button+.mat-raised-button,
+[dir="rtl"] .mat-dialog-actions .mat-raised-button+.mat-button,
+[dir="rtl"] .mat-dialog-actions .mat-raised-button+.mat-raised-button {
   margin-left: 0;
   margin-right: 8px;
 }
@@ -2343,11 +2344,7 @@ button.mat-menu-item {
     margin-left: 0;
   }
 
-  .mobile
-    .message-dialog.dialog-exit
-    .mat-dialog-container
-    .mat-dialog-content
-    .dealer-picture {
+  .mobile .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content .dealer-picture {
     width: 30%;
     padding-bottom: 30%;
     left: 35%;
@@ -2374,22 +2371,14 @@ button.mat-menu-item {
     margin-left: 35%;
   }
 
-  .mobile
-    .message-dialog.dialog-exit
-    .mat-dialog-container
-    .mat-dialog-content
-    .dealer-picture {
+  .mobile .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content .dealer-picture {
     width: 15%;
     padding-bottom: 15%;
     left: 20%;
   }
 }
 
-.message-dialog.dialog-exit
-  .mat-dialog-container
-  .mat-dialog-content
-  .dealer-picture
-  img {
+.message-dialog.dialog-exit .mat-dialog-container .mat-dialog-content .dealer-picture img {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -2428,10 +2417,7 @@ button.mat-menu-item {
   background-color: #222;
 }
 
-.message-dialog.dialog-exit
-  .mat-dialog-container
-  .mat-dialog-actions
-  button.closeDisabled {
+.message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button.closeDisabled {
   pointer-events: none;
   opacity: 0.5;
 }
