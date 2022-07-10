@@ -40,7 +40,7 @@ export default {
       let token = this.$store.state.token;
       if (token == '')
         token = localStorage.getItem('userToken');
-      console.log(token)
+      // console.log(token)
       return token;
     },
     async getLastBet() {
@@ -48,7 +48,7 @@ export default {
         const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
           this.$store.commit("setLastBetInfo", response.data.result);
-        console.log(response)
+        // console.log(response)
       }
       catch (err) {
         console.log(err)
@@ -59,7 +59,7 @@ export default {
         const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
         this.$store.commit("setBalance", response.data.result.amount);
-        console.log(response)
+        // console.log(response)
       }
       catch (err) {
         console.log(err)
@@ -70,7 +70,7 @@ export default {
         const response = await request.post('/api/game/codeRank');
         // const response = await request.post('/game/codeRank');
         this.$store.commit("setHotCoolNumbers", response.data.result);
-        console.log(response)
+        // console.log(response)
       }
       catch (err) {
         console.log(err)

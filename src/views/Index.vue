@@ -451,8 +451,10 @@ export default {
           }
         }).then(res => {
           this.t = res.data["result"]["token"];
+
           this.$store.commit('setUserToken',this.t);
           localStorage.setItem('userToken',this.t);
+
           this.ws = new WebSocket("wss://api.asian888.club:2348?token=" + this.t);
           vm.ws.onopen = function () {
             vm.isLogin = true;
@@ -462,7 +464,7 @@ export default {
             // oUl.innerHTML += "<li>" + evt.data + "</li>";
 
             let data = JSON.parse(evt.data)
-            console.log(data)
+            console.log(data, " is received from ws")
 
             // get game number;
 
@@ -478,7 +480,7 @@ export default {
           };
           vm.ws.onclose = function () {
             // oUl.innerHTML += "<li>客户端已断开连接</li>";
-            console.log('客户端已断开连接', vm.ws)
+            console.log('web socket is closed', vm.ws)
           };
           vm.ws.onerror = function (evt) {
             // oUl.innerHTML += "<li>" + evt.data + "</li>";
@@ -497,8 +499,7 @@ export default {
       //   this.t = text["result"]["token"];
       //   console.log(t);
       // });
-    })
-    console.log("mounted")
+    }) 
     this.getGameConfig();
   },
 
