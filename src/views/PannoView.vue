@@ -45,8 +45,8 @@ export default {
     },
     async getLastBet() {
       try {
-        // const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
-        const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
+        const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
+        // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
           this.$store.commit("setLastBetInfo", response.data.result);
         console.log(response)
       }
@@ -56,8 +56,8 @@ export default {
     },
     async getUserBalance() {
       try {
-        // const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
-        const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
+        const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
+        // const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
         this.$store.commit("setBalance", response.data.result.amount);
         console.log(response)
       }
@@ -67,8 +67,8 @@ export default {
     },
     async getHotCoolNumbers(){
       try {
-        // const response = await request.post('/api/game/codeRank');
-        const response = await request.post('/game/codeRank');
+        const response = await request.post('/api/game/codeRank');
+        // const response = await request.post('/game/codeRank');
         this.$store.commit("setHotCoolNumbers", response.data.result);
         console.log(response)
       }
