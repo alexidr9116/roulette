@@ -14,7 +14,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: '', // api 的 base_url
+  baseURL: 'https://api.asian888.club', // api 的 base_url
   timeout: 30000 // 请求超时时间
 })
 

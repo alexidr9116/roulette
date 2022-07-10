@@ -12,7 +12,7 @@ module.exports = defineConfig({
   devServer:{
     proxy:{
       '/api': {
-        target: 'https://api.asian888.club',
+        //target: 'https://api.asian888.club',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

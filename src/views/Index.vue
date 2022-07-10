@@ -442,7 +442,8 @@ export default {
     this.$nextTick(() => {
       if (!this.ws) {
         request({
-          url: '/api/member/login',
+          // url: '/api/member/login',
+          url: '/member/login',
           method: 'post',
           data: {
             username: "bba222",
