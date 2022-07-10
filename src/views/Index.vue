@@ -1,7 +1,10 @@
 <template>
   <div class="mlc-container desktop BETTIME roulette-left">
-  
-    <div class="mlc-header"><!---->
+    <div id="mlc-video-div">
+
+    </div>
+    <div class="mlc-header">
+      <!---->
       <div class="ng-star-inserted">
         <div class="infotavolo">
           <h1>
@@ -13,10 +16,14 @@
       </div>
       <!--      <jackpot-boxes class="ng-star-inserted">&lt;!&ndash;&ndash;&gt;</jackpot-boxes>-->
       <div class="ng-star-inserted">
-        <div class="infogioco"><!----><!---->
+        <div class="infogioco">
+          <!---->
+          <!---->
           <div class="mlc-btn ico-exit pevents-on ng-star-inserted"></div>
           <div class="dati-gioco">
-            <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br><!----><!---->
+            <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br>
+              <!---->
+              <!---->
               <button id="eventId" class="ng-star-inserted">48863933</button>
               : EVENT ID
             </p>
@@ -26,43 +33,40 @@
             <button id="partecipationId"></button>
             : Ticket ADM <br>
             <button id="sessionId"></button>
-            : <span>Session ADM</span></div>
+            : <span>Session ADM</span>
+          </div>
         </div>
       </div>
     </div>
     <div class="mlc-main">
-      <div class="mlc-left pevents-off">
-        <wheel v-if="isShowWheel" :numberList="numberList" :num="num" :wait="wait" :nobet="nobet"></wheel>
-        <counter-desktop v-if="isShowCounterDesktop" @counterDesktopStop="counterDesktopStop"></counter-desktop>
-        <div id="info-panel" class="animated" :class="fadeLeft">
-          <!----><!---->
-          <h2 v-if="isShowCounterDesktop"> BETS OPEN </h2>
-          <h3 v-if="isShowWheel && num">{{ numberObj[num].color }} / {{ numberObj[num].type }}</h3>
-          <p v-if="isShowWheel && num">{{ numberObj[num].text1 }}</p>
-          <p v-if="isShowWheel && num">{{ numberObj[num].text2 }}</p>
-        </div>
-      </div>
-
       <div class="panno-container">
 
       </div>
+    </div>
+    <!-- game info -->
+    <div class="absolute p-4 top-10 container mx-auto z-50  justify-center flex ">
+      <div class = 'border rounded-lg p-4 flex flex-col  md:w-1/3   w-full  gap-4'>
+        <h3>Name:{{ gameInfo.name }}</h3>
+        <h5>Live Stream:{{ gameInfo.live_stream }}</h5>
+        <p class="w-full break-all hidden md:block">User Token: {{ $store.state.token }}</p>
+        <button  @click="router.push({ name: 'panno' })">Play Now</button>
+      </div>
+
     </div>
   </div>
 </template>
 
 <script>
-import Wheel from "@/components/Wheel";
-import wheel from "@/components/Wheel";
-import CounterDesktop from "@/components/CounterDesktop";
+
 import request from "@/utils/request";
+import router from '@/router'
 export default {
   name: "Index",
-  components: {
-    wheel,
-    CounterDesktop
-  },
+
   data() {
     return {
+      router,
+      gameInfo: { name: '', live_stream: '' },
       isShowCounterDesktop: true,
       isShowWheel: true,
       isShowInfoPanel: false,
@@ -352,7 +356,9 @@ export default {
       logCount: 0,
       ws: '',
       isLogin: '',
-      t: ''
+      t: '',
+
+
     };
   },
   mounted() {
@@ -374,27 +380,28 @@ export default {
         //videoId: 'video'
       },
       events: {
-        onReady: function(e) {
+        onReady: function (e) {
           vm.log("ready");
         },
-        onPlay: function(e) {
+        onPlay: function (e) {
           vm.log("playing");
           vm.playing = true;
         },
-        onPause: function(e) {
+        onPause: function (e) {
           vm.log("pause - " + e.data.reason);
           vm.playing = false;
         },
-        onLoading: function(e) {
+        onLoading: function (e) {
           vm.log("loading");
         },
-        onStartBuffering: function(e) {
+        onStartBuffering: function (e) {
           vm.log("buffering");
         },
-        onStopBuffering: function(e) {
+        onStopBuffering: function (e) {
           vm.log("resume playing");
         },
-        onError: function(e) {
+        onError: function (e) {
+
           try {
             var err = JSON.stringify(e);
             if (err === "{}") {
@@ -405,12 +412,12 @@ export default {
           }
           vm.log("Error: " + e);
         },
-        onMetaData: function(e) {
+        onMetaData: function (e) {
           var metadata = JSON.stringify(e.data);
           vm.log("onMetaData");
           vm.log(metadata);
         },
-        onStreamInfo: function(e) {
+        onStreamInfo: function (e) {
           vm.isShowWheel = true;
 
           var streamInfo = JSON.stringify(e.data.streamInfo);
@@ -426,13 +433,14 @@ export default {
     };
 
     var cap = window.NanoPlayer.capabilities;
-    !cap.length ? console.log("no supported player tech") : cap.forEach(function(c) {
+    !cap.length ? console.log("no supported player tech") : cap.forEach(function (c) {
       console.log("supported player tech: " + c);
     });
     this.player = new window.NanoPlayer("mlc-video-div");
     this.init();
+
     this.$nextTick(() => {
-      if(!this.ws){
+      if (!this.ws) {
         request({
           url: '/api/member/login',
           method: 'post',
@@ -441,35 +449,39 @@ export default {
             password: "123456"
           }
         }).then(res => {
-          console.log(res)
           this.t = res.data["result"]["token"];
+          this.$store.commit('setUserToken',this.t);
+          localStorage.setItem('userToken',this.t);
           this.ws = new WebSocket("wss://api.asian888.club:2348?token=" + this.t);
-          vm.ws.onopen = function() {
+          vm.ws.onopen = function () {
             vm.isLogin = true;
 
           };
-          vm.ws.onmessage = function(evt) {
+          vm.ws.onmessage = function (evt) {
             // oUl.innerHTML += "<li>" + evt.data + "</li>";
-            console.log(evt.data)
+
             let data = JSON.parse(evt.data)
             console.log(data)
-            if(data.type === 'game'){
-              if(data.status === 'result'){
+
+            // get game number;
+
+            if (data.type === 'game') {
+              if (data.status === 'result') {
                 let num = data.number
-                if(num.slice(0, 1) == 0){
+                if (num.slice(0, 1) == 0) {
                   num = num.slice(1, 2)
                 }
                 vm.updataNum(num)
               }
             }
           };
-          vm.ws.onclose = function() {
+          vm.ws.onclose = function () {
             // oUl.innerHTML += "<li>客户端已断开连接</li>";
             console.log('客户端已断开连接', vm.ws)
           };
-          vm.ws.onerror = function(evt) {
+          vm.ws.onerror = function (evt) {
             // oUl.innerHTML += "<li>" + evt.data + "</li>";
-            console.log(evt.data)
+            console.log(evt.data, " is ws error")
           };
           // console.log(t);
 
@@ -485,8 +497,30 @@ export default {
       //   console.log(t);
       // });
     })
+    console.log("mounted")
+    this.getGameConfig();
   },
+
   methods: {
+    getGameConfig() {
+      try {
+        const vm = this;
+        const result = request.post('api/game/config').then(res => {
+          const { name, live_stream } = res.data.result;
+          vm.gameInfo = { name, live_stream }
+
+        }).catch(err => {
+          console.log(err)
+        });
+
+
+
+      }
+      catch (err) {
+        console.log(err)
+      }
+
+    },
     updataNum(num) {
       console.log(num);
       if (this.numberList.indexOf(num) === -1) {
@@ -536,11 +570,13 @@ export default {
     init() {
       const vm = this;
       let tweaksQ = this.getHTTPParam("tweaks") || this.getHTTPParam("tweaks.buffer");
+
       if (tweaksQ) {
         var tweaks;
         try {
           tweaks = JSON.parse(tweaksQ);
           vm.config.tweaks = tweaks;
+
         } catch (e) {
           if (tweaksQ.length) {
             vm.config.tweaks = {}, vm.config.tweaks.buffer = {};
@@ -551,7 +587,8 @@ export default {
             }
           }
         }
-      } else {
+      }
+      else {
         tweaksQ = { buffer: {} };
         var min = vm.getHTTPParam("tweaks.buffer.min");
         var start = vm.getHTTPParam("tweaks.buffer.start");
@@ -567,6 +604,7 @@ export default {
           vm.config.tweaks.buffer.limit = parseFloat(limit);
         }
       }
+
       var rawcontrols = vm.getHTTPParam("rawcontrols");
       if (rawcontrols) {
         video.controls = true;
@@ -580,7 +618,9 @@ export default {
           if (!isNaN(tweaks[i])) vm.config.tweaks.bufferDynamic[typed[i]] = parseFloat(tweaks[i]);
         }
       }
+
       var reconnect = vm.getHTTPParam("reconnect") || vm.getHTTPParam("playback.reconnect");
+      // reconnect start
       if (reconnect) {
         var reconnect;
         try {
@@ -596,7 +636,9 @@ export default {
             }
           }
         }
-      } else {
+      }
+      // no reconnect
+      else {
         var minDelay = vm.getHTTPParam("playback.reconnect.minDelay");
         var maxDelay = vm.getHTTPParam("playback.reconnect.maxDelay");
         var delaySteps = vm.getHTTPParam("playback.reconnect.delaySteps");
@@ -609,12 +651,15 @@ export default {
           vm.config.playback.reconnect.maxRetries = parseFloat(maxRetries);
         }
       }
+      // end reconnect
       // TODO fix forcing in playerfactory
       var force = vm.getHTTPParam("force") || vm.getHTTPParam("playback.forceTech");
+      //force
       if (force) {
         vm.config.playback.forceTech = force;
       }
       var muted = vm.getHTTPParam("muted") || vm.getHTTPParam("playback.muted");
+      // muted
       if (muted) {
         vm.forceMuted = (muted === "true" || muted === "1");
       }
@@ -667,17 +712,22 @@ export default {
         vm.config.style = vm.config.style || {};
         vm.config.style.height = isNaN(height) ? height : height + "px";
       }
+      // get BintuQ
       var bintuQ = vm.getHTTPParam("bintu");
+
       if (bintuQ) {
         bintuQ = JSON.parse(bintuQ);
-      } else {
+      }
+      // no bint Q
+      else {
         bintuQ = {};
         bintuQ.apiurl = vm.getHTTPParam("bintu.apiurl") || "https://bintu.nanocosmos.de";
         bintuQ.streamid = vm.getHTTPParam("bintu.streamid");
-        //bintuQ.streamname = getHTTPParam('bintu.streamname');
+        // bintuQ.streamname =vm. getHTTPParam('bintu.streamname');
         bintuQ.streamname = "4w1yK-ZTJKP";
 
       }
+      // bintuQ stream ID
       if (bintuQ.streamid) {
         vm.config.source.bintu = {};
         if (bintuQ.apiurl)
@@ -686,7 +736,9 @@ export default {
         vm.checkH5Live();
         vm.checkSecurity();
         vm.startPlayer(vm.config);
-      } else if (bintuQ.streamname) {
+      }
+      // bintuQ stream name
+      else if (bintuQ.streamname) {
         vm.config.source.h5live = vm.config.source.h5live || {};
         vm.config.source.h5live.rtmp = {
           url: "rtmp://bintu-play.nanocosmos.de:80/play",
@@ -700,7 +752,11 @@ export default {
         vm.checkH5Live();
         vm.checkSecurity();
         vm.startPlayer(vm.config);
-      } else {
+      }
+      // no have anythings(bintQ id or name)
+
+      else {
+
         vm.checkH5Live();
         var h5liveQ = {};
         h5liveQ.rtmp = {};
@@ -721,6 +777,7 @@ export default {
         vm.checkSecurity();
         vm.startPlayer(vm.config);
       }
+
     },
     getHTTPParam(paramKey) {
       const vm = this;
@@ -732,6 +789,7 @@ export default {
           var pos = document.location.href.indexOf("?") + 1;
           strGET = document.location.href.slice(pos);
         }
+
         if (strGET !== "") {
           var gArr = strGET.split("&");
           for (var i = 0; i < gArr.length; ++i) {
@@ -786,9 +844,10 @@ export default {
     //   vm.startPlayer(vm.config);
     // },
     checkH5Live() {
-      const  vm = this;
+      const vm = this;
       var h5liveQ = {};
       h5liveQ.server = vm.getHTTPParam("h5live.server");
+
       if (h5liveQ.server) {
         vm.config.source.h5live = vm.config.source.h5live || {};
         vm.config.source.h5live.server = {};
@@ -818,7 +877,9 @@ export default {
           vm.config.source.h5live.server.hls = route.hls[0] + h5liveQ.server + route.hls[1];
           vm.config.source.h5live.server.progressive = route.progressive[0] + h5liveQ.server + route.progressive[1];
         }
-      } else { // try parse seperately
+      }
+
+      else { // try parse seperately
         h5liveQ.server = {};
         h5liveQ.server.websocket = vm.getHTTPParam("h5live.server.websocket");
         h5liveQ.server.progressive = vm.getHTTPParam("h5live.server.progressive");
@@ -911,14 +972,14 @@ export default {
       if (vm.player) {
         vm.player.destroy();
       }
-      vm.player.setup(config).then(function(conf) {
+      vm.player.setup(config).then(function (conf) {
         try {
           conf = JSON.stringify(conf);
         } catch (err) {
         }
-        vm.log("setup ok: " + conf);
+        vm.log("setup vm.player ok: ");
 
-      }, function(error) {
+      }, function (error) {
         if (error.message) {
           error = error.message;
         } else {
@@ -972,7 +1033,8 @@ export default {
   overflow: hidden;
 }
 
-.mlc-footer, .mlc-header {
+.mlc-footer,
+.mlc-header {
   width: 100%;
   position: absolute;
   pointer-events: none;
@@ -1004,7 +1066,7 @@ export default {
 }
 
 
-.infotavolo h1 > i {
+.infotavolo h1>i {
   color: #fff;
   font-size: .3em;
   font-style: normal;
@@ -1018,7 +1080,7 @@ export default {
   text-shadow: #000 0 0 0.4em;
 }
 
-.infotavolo h1 > span {
+.infotavolo h1>span {
   color: #fff;
   font-size: .4em;
   text-transform: uppercase;
@@ -1099,10 +1161,11 @@ export default {
 }
 
 button {
+  cursor:pointer;
   padding: 0;
   align-items: flex-start;
   text-align: center;
-  cursor: default;
+  
   background-color: transparent;
   box-sizing: border-box;
   border-radius: 4px;
@@ -1153,7 +1216,8 @@ button {
   border-right: 0.8vh solid transparent;
 }
 
-.mlc-main .mlc-left, .mlc-main .mlc-right {
+.mlc-main .mlc-left,
+.mlc-main .mlc-right {
   width: 16%;
   height: 85%;
   position: absolute;
@@ -1174,7 +1238,8 @@ button {
   pointer-events: none;
 }
 
-.mlc-main .mlc-left, .mlc-main .mlc-right {
+.mlc-main .mlc-left,
+.mlc-main .mlc-right {
   width: 16%;
   height: 85%;
   position: absolute;
@@ -1192,12 +1257,10 @@ button {
   /*visibility: hidden;*/
   opacity: 0;
   background: rgba(0, 0, 0, 0.5);
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0) 0,
-    rgba(0, 0, 0, 0.5) 15%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0) 0,
+      rgba(0, 0, 0, 0.5) 15%,
+      rgba(0, 0, 0, 0.5) 100%);
   width: 26vh;
   height: 7.87vh;
   position: absolute;
@@ -1241,6 +1304,7 @@ button {
   margin: 0.5%;
   font-weight: 400;
 }
+
 .roulette-right #info-panel {
   left: unset;
   right: 53%;
@@ -1268,7 +1332,8 @@ button {
 }
 
 
-#mlc-video-div, #mlc-video-tag {
+#mlc-video-div,
+#mlc-video-tag {
   display: block;
   overflow: hidden;
   background-color: #000;
@@ -1280,6 +1345,7 @@ button {
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
+
 /*#mlc-video-div video{*/
 /*  width: 100%;*/
 /*  height: 100%;*/
@@ -1354,27 +1420,30 @@ button {
     border-radius: 0 1.71vw 3.99vw 0;
     padding: 1.14vw 0.57vw;
   }
+
   #info-panel h1 {
     font-size: 2vw;
   }
+
   #info-panel h2 {
     font-size: 1.4vw;
     margin: 0.6vw 0 0;
   }
+
   #info-panel h3 {
     font-size: 1.4vw;
     margin-bottom: 0.6vw;
   }
+
   #info-panel p {
     font-size: 1vw;
   }
 
 }
-
 </style>
 
 <style>
-video{
+video {
   width: 100%;
   height: 100%;
 }

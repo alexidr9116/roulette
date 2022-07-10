@@ -8,8 +8,8 @@ Vue.use(VueRouter);
 const routes: Array<RouteConfig> = [
   {
     path: "/",
-    name: "Home",
-    component: HomeView,
+    name: "Index",
+    component: Index,
   },
   
   {

@@ -400,7 +400,7 @@ export default {
   methods: {
     initialize() {
       this.$store.commit("setBetAction", "add");
-      this.$store.commit("setBalance", 1000);
+  
       this.$store.commit("setMaxBet", 200);
     },
     startRound() {
