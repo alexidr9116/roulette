@@ -5,9 +5,11 @@
     <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
       :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
     </Wheel>
-    <div class="absolute top-[120px] md:top-[150px] left-[10px] flex flex-col gap-2 h-1/2 md:h-2/5">
-      <div v-if="number!==''" v-for="number in $store.state.winNumbers" class="text-center rounded-full flex items-center justify-center w-8 h-8  shadow-white shadow-lg" :class = "numberObj[number].color==='Black'?'ml-8 bg-gray-700':(numberObj[number].color==='Green'?'ml-4 bg-green-700':'bg-red-700')">
-        {{number}}
+    <div class="absolute top-[120px] md:top-[150px] left-[10px] flex flex-col-reverse gap-2 h-1/2 md:h-2/5">
+      <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
+        class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
+        :class="numberObj[number].color === 'Black' ? 'ml-8 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-4 bg-green-700' : 'bg-red-700')">
+        {{ number }}
       </div>
     </div>
     <div class="w-full md:px-32">
@@ -422,7 +424,7 @@ export default {
       for (const e of document.querySelectorAll('.pulseWinBox')) {
 
         e.classList.remove('otherBox', 'redBox', 'greenBox', 'blackBox', 'pulseWinBox');
-        
+
         // e.classList.remove('pulseWinBox');
       }
       setTimeout(() => {
@@ -2757,6 +2759,10 @@ button.mat-menu-item {
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions:first-of-type {
   margin-left: 40%;
+}
+
+.win-number {
+  box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 4px 0px, rgba(255, 255, 255, 0.56) 0px 2px 16px 0px;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button {

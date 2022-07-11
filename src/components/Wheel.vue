@@ -768,7 +768,7 @@ export default Vue.extend({
   position: absolute;
   border-radius: 50%;
   left: 10px;
-  top: 30%;
+  top: 10px;
   z-index: 59;
   background: linear-gradient(to left, #000 -2%, rgba(0, 0, 0, 0) 35%),
     linear-gradient(to right, #000 -2%, rgba(0, 0, 0, 0) 35%),

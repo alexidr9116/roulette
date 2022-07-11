@@ -60,7 +60,7 @@ export default {
             bet_amount: selected.value
           }
           console.log(bet)
-          // this.ws.send(bet);
+          this.ws.send(JSON.stringify(bet));
         }
       // }
     },
