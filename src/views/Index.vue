@@ -60,8 +60,10 @@
 
 import request from "@/utils/request";
 import router from '@/router'
+import { mapState } from 'vuex';
 export default {
   name: "Index",
+  computed: mapState(['roundStatus']),
 
   data() {
     return {
@@ -1010,6 +1012,11 @@ export default {
     warning(message) {
       const vm = this;
       vm.log("Warning: " + message);
+    }
+  },
+  watch:{
+    roundStatus(current, old){
+      console.log(current,old, " is watch");
     }
   }
 };

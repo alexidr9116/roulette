@@ -151,7 +151,7 @@ export default {
   position: absolute;
   left: 10px;
   top: 10px;
-  z-index: 12;
+  z-index: 60;
 }
 
 .roulette-right #counter {

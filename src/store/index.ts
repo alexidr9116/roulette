@@ -17,6 +17,7 @@ export default new Vuex.Store({
     maxBet:5,
     betAction:'add',
     winNumber:20,
+    winNumbers:[""],
     token:'',
     hotCoolNumbers:null,  // {hot:[], cool:[]}
     lastBetInfo:null, // array [{bet_code:'PL1',bet_amount:'100.00'}]
@@ -32,8 +33,9 @@ export default new Vuex.Store({
     setUserToken(state,token){
       state.token = token;
     },
-    setWinNumber(state,number){
-      state.winNumber = number;
+    setWinNumber(state,value){
+      state.winNumber = value; 
+      state.winNumbers.push(`${value}`);
     },
     setBetAction(state,action){
       state.betAction = action;

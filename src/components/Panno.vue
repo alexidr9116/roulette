@@ -1,10 +1,15 @@
 <template>
   <div class="flex flex-col w-full min-h-[900px] md:h-full md:min-h-full md:mt-20">
     <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
-    <CounterDesktop v-if="$store.state.roundStatus == 'started'"></CounterDesktop>
-    <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus != 'started'"
+    <CounterDesktop v-if="($store.state.roundStatus === 'started')"></CounterDesktop>
+    <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
       :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
     </Wheel>
+    <div class="absolute top-[120px] md:top-[150px] left-[10px] flex flex-col gap-2 h-1/2 md:h-2/5">
+      <div v-if="number!==''" v-for="number in $store.state.winNumbers" class="text-center rounded-full flex items-center justify-center w-8 h-8  shadow-white shadow-lg" :class = "numberObj[number].color==='Black'?'ml-8 bg-gray-700':(numberObj[number].color==='Green'?'ml-4 bg-green-700':'bg-red-700')">
+        {{number}}
+      </div>
+    </div>
     <div class="w-full md:px-32">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
@@ -110,6 +115,7 @@ import Wheel from "./Wheel";
 import AppToast from './AppToast';
 import { getFillColor } from "../utils/index.js";
 import { Icon } from "@iconify/vue2";
+import { mapState } from 'vuex';
 export default {
   name: "Panno",
   components: {
@@ -394,21 +400,38 @@ export default {
       toastMessage: '',
     };
   },
-  computed: {
-    getCoinRange() { },
+  computed: mapState(['roundStatus']),
+  watch: {
+    roundStatus(status, old) {
+      if (status === 'end') {
+        this.endRound();
+      }
+      if (status === 'started') {
+        this.startRound();
+      }
+    }
   },
   methods: {
     initialize() {
       this.$store.commit("setBetAction", "add");
-  
+
       this.$store.commit("setMaxBet", 200);
     },
     startRound() {
       this.showToast = false;
+      for (const e of document.querySelectorAll('.pulseWinBox')) {
+
+        e.classList.remove('otherBox', 'redBox', 'greenBox', 'blackBox', 'pulseWinBox');
+        
+        // e.classList.remove('pulseWinBox');
+      }
       setTimeout(() => {
 
         setTimeout(() => {
-          this.endRound();
+          const winNumber = Math.floor(Math.random() * 36);
+          this.$store.commit("setWinNumber", winNumber);
+          this.$store.commit("setRoundStatus", "end");
+          // this.endRound();
         }, 50000);
 
         console.log("new start round");
@@ -416,33 +439,134 @@ export default {
         this.showToast = true;
         this.toastTitle = 'Bet Opens';
         this.toastMessage = '<p>Please Bet within 30S</p>';
-        this.$store.commit("setRoundStatus", "started");
-        setTimeout(
-          () => { document.getElementById('btn-show-group-bet').click(); }
-          , 200
-        )
+        // this.$store.commit("setRoundStatus", "started");
+
       }, 1000);
 
 
     },
     waitRound() {
-
-
       console.log("wait result of round");
       this.$store.commit("setRoundStatus", "wait");
     },
     endRound() {
       this.showToast = false;
       console.log("end round");
-      const winNumber = Math.floor(Math.random() * 36);
+      const winNumber = this.$store.state.winNumber;
       const winObj = this.numberObj[`${winNumber}`];
-      this.$store.commit("setWinNumber", winNumber);
-      this.$store.commit("setRoundStatus", "end");
+      // change the panno pluse
+      // if (winObj.type === 'green') {
+
+      // }
+
+      // this.$store.commit("setWinNumber", winNumber);
+      // this.$store.commit("setRoundStatus", "end");
       setTimeout(() => {
         this.showToast = true;
-
         this.toastTitle = `${winObj.type} / ${winObj.color}`;
         this.toastMessage = `<p class='pr-4'>${winObj.text1}<br/>${winObj.text2}</p>`;
+        if (winObj.type === 'Even') {
+          for (const e of document.querySelectorAll('#gRR')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.type === 'Odd') {
+          for (const e of document.querySelectorAll('#gDS')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.text1 === '1° Dozen') {
+          for (const e of document.querySelectorAll('#gD1')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.text1 === '2° Dozen') {
+          for (const e of document.querySelectorAll('#gD2')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.text1 === '3° Dozen') {
+          for (const e of document.querySelectorAll('#gD3')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.text2 === '1° Column') {
+          for (const e of document.querySelectorAll('#gC1')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.text2 === '2° Column') {
+          for (const e of document.querySelectorAll('#gC2')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.text2 === '3° Column') {
+          for (const e of document.querySelectorAll('#gC3')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+        if (winObj.color === 'Green') {
+          for (const e of document.querySelectorAll(`#gPL${winNumber}`)) {
+            e.classList.remove('greenBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('greenBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+
+        if (winObj.color === 'Red') {
+          for (const e of document.querySelectorAll('#gRO')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+          for (const e of document.querySelectorAll(`#gPL${winNumber}`)) {
+            e.classList.remove('redBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('redBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
+
+        if (winObj.color === 'Black') {
+          for (const e of document.querySelectorAll('#gNO')) {
+            e.classList.remove('otherBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('otherBox');
+            e.classList.add('pulseWinBox');
+          }
+          for (const e of document.querySelectorAll(`#gPL${winNumber}`)) {
+            e.classList.remove('blackBox');
+            e.classList.remove('pulseWinBox');
+            e.classList.add('blackBox');
+            e.classList.add('pulseWinBox');
+          }
+        }
       }, 2000);
 
     },
@@ -450,24 +574,35 @@ export default {
       return getFillColor(value, max);
     },
     handleReset() {
+      console.log("reset...");
       this.$store.commit("setBetAction", "add");
       this.$store.commit('setShowGroupBet', true);
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
+      setTimeout(
+        () => { document.getElementById('btn-show-group-bet').click(); }
+        , 200
+      )
     },
     // remove coin button
     handleRemoveCoin() {
-      this.$store.commit("setBetAction", "remove");
+      if (this.$store.state.betAction === 'remove') {
+        this.$store.commit("setBetAction", "add");
+      }
+      else {
+        this.$store.commit("setBetAction", "remove");
+      }
+
     },
     // change bet way
     handleShowGroupBet() {
       if (this.$store.state.showGroupBet) {
-        for (const group of document.getElementsByClassName("group-bet")) {
+        for (const group of document.querySelectorAll(".group-bet")) {
           group.classList.remove("hidden");
           group.classList.add("hidden");
         }
       } else {
-        for (const group of document.getElementsByClassName("group-bet")) {
+        for (const group of document.querySelectorAll(".group-bet")) {
           group.classList.remove("hidden");
         }
       }
@@ -486,12 +621,13 @@ export default {
     //   group.classList.remove("hidden");
     //   group.classList.add("hidden");
     // }
-
     setTimeout(() => {
-      this.startRound();
+      this.$store.commit('setRoundStatus', 'started')
+      // this.startRound();
       // 66S start round
       setInterval(() => {
-        this.startRound();
+        this.$store.commit('setRoundStatus', 'started')
+        //this.startRound();
       }, 66000);
     }, 3000);
   },

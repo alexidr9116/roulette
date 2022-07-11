@@ -769,7 +769,7 @@ export default Vue.extend({
   border-radius: 50%;
   left: 10px;
   top: 30%;
-  z-index: 11;
+  z-index: 59;
   background: linear-gradient(to left, #000 -2%, rgba(0, 0, 0, 0) 35%),
     linear-gradient(to right, #000 -2%, rgba(0, 0, 0, 0) 35%),
     linear-gradient(to top, #000 -20%, rgba(0, 0, 0, 0) 40%),
@@ -784,7 +784,7 @@ export default Vue.extend({
   border-radius: 50%;
   left: 10px;
   top: 10px;
-  z-index: 10;
+  z-index: 58;
 }
 .desktop.roulette-right #window-wheel {
   margin-left: unset;
@@ -824,7 +824,7 @@ export default Vue.extend({
   position: absolute;
   top: -3%;
   left: -240%;
-  z-index: 9;
+  z-index: 57;
 }
 #window-wheel #wheel .black {
   fill: #000;
@@ -857,17 +857,5 @@ export default Vue.extend({
     font-size: 14px;
   }
 }
-@-webkit-keyframes changeright {
-  0% {
-    -webkit-transform: rotate(0deg);
-  }
 
-  50% {
-    -webkit-transform: rotate(180deg);
-  }
-
-  100% {
-    -webkit-transform: rotate(360deg);
-  }
-}
 </style>

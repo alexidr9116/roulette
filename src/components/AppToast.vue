@@ -1,5 +1,5 @@
 <template>
-    <div class="app-toast p-1 md:p-2 w-3/4 md:w-1/3 h-[76px] md:h-[15.95vh] flex flex-col items-between justify-between" v-if="showMessage">
+    <div class="app-toast p-1 lg:p-2 w-3/4 md:w-1/3   flex flex-col items-between justify-between" v-if="showMessage">
         <div class="pr-8 w-full text-right">
             <h3 class="text-xl font-bold">{{ title }}</h3>
         </div>
@@ -50,11 +50,16 @@ export default {
     top: 10px;
     color: #fff;
     border-radius: 0 3vh 7vh 0;
-    z-index: 0;
+    z-index: 50;
     opacity: 0;
+    height:15.95vh;
     animation: 7s ease 0s normal forwards  1 toast;
 }
-
+@media (min-height: 56.25vw) and (max-width: 177.8vh) {
+  .app-toast{
+    height: 76px;
+  }
+}
 @keyframes toast {
     0% {
         left: -33%;

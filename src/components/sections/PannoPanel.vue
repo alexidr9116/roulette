@@ -47,7 +47,7 @@
             id="gD2"
             width="400"
             height="70"
-            class="transparent otherBox"
+            class="transparent "
             x="500"
             y="300"
           ></rect>
@@ -89,7 +89,7 @@
             id="gMA"
             width="200"
             height="70"
-            class="transparent otherBox"
+            class="transparent "
             x="100"
             y="370"
           ></rect>
@@ -144,7 +144,7 @@
             id="gNO"
             width="200"
             height="70"
-            class="transparent otherBox"
+            class="transparent "
             x="700"
             y="370"
           ></rect>
@@ -286,7 +286,7 @@
             id="gC1"
             width="70"
             height="100"
-            class="transparent otherBox pulseWinBox"
+            class="transparent  "
             x="1300"
             y="200"
           ></rect>
@@ -358,7 +358,7 @@
             id="gD2"
             width="400"
             height="70"
-            class="transparent otherBox"
+            class="transparent "
             x="500"
             y="300"
           ></rect>
@@ -400,7 +400,7 @@
             id="gMA"
             width="200"
             height="70"
-            class="transparent otherBox"
+            class="transparent "
             x="100"
             y="370"
           ></rect>
@@ -455,7 +455,7 @@
             id="gNO"
             width="200"
             height="70"
-            class="transparent otherBox"
+            class="transparent "
             x="700"
             y="370"
           ></rect>
@@ -556,6 +556,7 @@
             width="70"
             height="100"
             class="transparent"
+            
             x="1300"
             y="0"
           ></rect>
@@ -597,7 +598,7 @@
             id="gC1"
             width="70"
             height="100"
-            class="transparent otherBox pulseWinBox"
+            class="transparent"
             x="1300"
             y="200"
           ></rect>
