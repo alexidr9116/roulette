@@ -26,7 +26,6 @@ export default {
       if (status === "started") {
         this.$store.commit('setGameStatus','BET');
         this.getUserBalance();
-
         // this.getLastBet();
       }
 
