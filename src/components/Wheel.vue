@@ -19,7 +19,7 @@
           :style="{ transform: `rotate(-${rotateDeg}deg)` }"
         >
           <defs id="SvgjsDefs1590"></defs>
-          <circle id="SvgjsCircle1591" r="150" cx="150" cy="150" fill="#ffffff"></circle>
+          <circle id="SvgjsCircle1591" r="150" cx="150" cy="150" ></circle>
           <g id="SvgjsG1592" transform="matrix(1,0,0,1,137.25,0)">
             <polygon
               id="w0"

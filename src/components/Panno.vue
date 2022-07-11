@@ -436,10 +436,10 @@ export default {
         const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         const arr = [];
-        console.log(response.message)
-        if (response.message === 'success') {
+        
+        if (response.data.message === 'success') {
           for (const bet of response.data.result) {
-            arr.push({ refer: bet.bet_code, value: bet.bet_amount });
+            arr.push({ refer: bet.bet_code, value: eval(bet.bet_amount) });
           }
           console.log(arr)
           this.$store.commit('setSelected', arr);
