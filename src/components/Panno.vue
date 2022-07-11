@@ -5,9 +5,8 @@
     <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
       :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
     </Wheel>
-    <div
-      class="absolute top-[120px] md:top-[150px] left-0 md:left-3  h-3/5 md:h-1/2 overflow-y-hidden">
-      <div class="flex flex-col-reverse gap-2 p-3">
+    <div class="absolute top-[120px] md:top-[140px] left-0 md:left-3  h-3/5 md:h-[59vh] overflow-y-hidden">
+      <div class="flex flex-col-reverse gap-1 p-3">
         <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
           class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
           :class="numberObj[number].color === 'Black' ? 'ml-6 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
@@ -15,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full md:px-32">
+    <div class="w-full md:px-4 md:w-3/5 md:ml-[40%] md:mt-[10%]">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
         <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>
@@ -57,7 +56,7 @@
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
 
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4 flex" @click="handleReset">
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4 flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
@@ -85,7 +84,7 @@
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex" @click="handleReset">
+        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
         <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle  flex" @click="handleRemoveCoin">
@@ -99,11 +98,11 @@
     </div>
 
     <!-- buttons -->
-    <button class="left-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+    <button class="left-5 flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
-      class="right-5 flex absolute animate-btn btn bottom-16 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+      class="right-5 flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
   </div>
@@ -121,6 +120,7 @@ import AppToast from './AppToast';
 import { getFillColor } from "../utils/index.js";
 import { Icon } from "@iconify/vue2";
 import { mapState } from 'vuex';
+import request from "@/utils/request";
 export default {
   name: "Panno",
   components: {
@@ -417,6 +417,44 @@ export default {
     }
   },
   methods: {
+    getAxoisTokenHeader() {
+      const headers = {
+        'Content-Type': 'application/json',
+        'token': this.getUserToken()
+      }
+      return headers;
+    },
+    getUserToken() {
+      let token = this.$store.state.token;
+      if (token == '')
+        token = localStorage.getItem('userToken');
+      // console.log(token)
+      return token;
+    },
+    async getLastBet() {
+      try {
+        const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
+        // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
+        const arr = [];
+        console.log(response.message)
+        if (response.message === 'success') {
+          for (const bet of response.data.result) {
+            arr.push({ refer: bet.bet_code, value: bet.bet_amount });
+          }
+          console.log(arr)
+          this.$store.commit('setSelected', arr);
+        }
+
+        // this.$store.commit("setLastBetInfo", response.data.result);
+        // console.log(response)
+      }
+      catch (err) {
+        console.log(err)
+      }
+    },
+    handleFetchLast() {
+      this.getLastBet();
+    },
     initialize() {
       this.$store.commit("setBetAction", "add");
 
@@ -443,7 +481,8 @@ export default {
         this.handleReset();
         this.showToast = true;
         this.toastTitle = 'Bet Opens';
-        this.toastMessage = '<p>Please Bet within 30S</p>';
+        this.toastMessage = '';
+        // this.toastMessage = '<p>Please Bet within 30S</p>';
         // this.$store.commit("setRoundStatus", "started");
 
       }, 1000);
@@ -572,6 +611,7 @@ export default {
             e.classList.add('pulseWinBox');
           }
         }
+
       }, 2000);
 
     },

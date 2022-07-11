@@ -1,7 +1,7 @@
 <template>
-  <div class="panno overflow-y-auto h-full">
+  
     <Panno></Panno>
-  </div>
+  
 </template>
 
 <script>
@@ -25,7 +25,7 @@ export default {
       console.log(status, old)
       if (status === "started") {
         this.getUserBalance();
-        
+
         // this.getLastBet();
       }
 
@@ -48,8 +48,8 @@ export default {
   },
   methods: {
     uploadBets() {
-      
-      // if (this.isConnected) {
+
+      if (this.isConnected) {
         for (const selected of this.$store.state.selected) {
           if (selected.refer.startsWith('o')) {
             continue;
@@ -62,14 +62,15 @@ export default {
           console.log(bet)
           this.ws.send(JSON.stringify(bet));
         }
-      // }
+      }
     },
     initWebsocket() {
+      const vm = this;
       if (this.ws == null) {
         this.ws = new WebSocket("wss://api.asian888.club:2348?token=" + this.getUserToken());
         this.ws.onopen = function () {
           // vm.isLogin = true;
-          this.isConnected = true;
+          vm.isConnected = true;
 
         };
         this.ws.onmessage = function (evt) {
@@ -107,11 +108,11 @@ export default {
         };
         this.ws.onclose = function () {
           // oUl.innerHTML += "<li>客户端已断开连接</li>";
-          this.isConnected = false;
+          vm.isConnected = false;
           console.log('web socket is closed', this.ws)
         };
         this.ws.onerror = function (evt) {
-          this.isConnected = false;
+          vm.isConnected = false;
           // oUl.innerHTML += "<li>" + evt.data + "</li>";
           console.log(evt.data, " is ws error")
         };
@@ -133,17 +134,7 @@ export default {
       // console.log(token)
       return token;
     },
-    async getLastBet() {
-      try {
-        const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
-        // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
-        this.$store.commit("setLastBetInfo", response.data.result);
-        // console.log(response)
-      }
-      catch (err) {
-        console.log(err)
-      }
-    },
+    
     async getUserBalance() {
       try {
         const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });

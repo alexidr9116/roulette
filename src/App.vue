@@ -14,7 +14,7 @@
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #000;
+  background-color: rgb(0, 0, 0);
   // background-image:url('./assets/background.jpg');
   margin: 0;
   color: #fff;

@@ -1,59 +1,31 @@
 <template>
-  <div class="mlc-container desktop BETTIME roulette-left">
-    <div id="mlc-video-div">
 
-    </div>
-    <div class="mlc-header">
-      <!---->
-      <div class="ng-star-inserted">
-        <div class="infotavolo">
-          <h1>
-            LIVE<i><span class="game">roulette</span> FROM </i><span>MALTA</span></h1>
-          <p>DEALER
-            <button>Mihajlo</button>
-          </p>
+  <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
+
+
+
+  <div class="panno overflow-y-auto h-full w-full">
+    <div class="absolute w-full h-full ">
+      <div id="mlc-video-div">
+
+      </div>
+
+      <!-- game info -->
+      <div  class="fixed p-4 top-0 container mx-auto z-50  justify-end flex " v-if="(gameInfo.live_stream != '') && (!play)">
+        <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/4   w-1/2  gap-4 bg-red-500/30'>
+          <!-- @click="router.push({ name: 'panno' })" -->
+          <button 
+           @click ="play = true;"
+           >Play Now</button>
         </div>
-      </div>
-      <!--      <jackpot-boxes class="ng-star-inserted">&lt;!&ndash;&ndash;&gt;</jackpot-boxes>-->
-      <div class="ng-star-inserted">
-        <div class="infogioco">
-          <!---->
-          <!---->
-          <div class="mlc-btn ico-exit pevents-on ng-star-inserted"></div>
-          <div class="dati-gioco">
-            <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br>
-              <!---->
-              <!---->
-              <button id="eventId" class="ng-star-inserted">48863933</button>
-              : EVENT ID
-            </p>
-          </div>
-          <div class="tooltip-datigioco">
-            <div class="triangolo"></div>
-            <button id="partecipationId"></button>
-            : Ticket ADM <br>
-            <button id="sessionId"></button>
-            : <span>Session ADM</span>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="mlc-main">
-      <div class="panno-container">
 
-      </div>
-    </div>
-    <!-- game info -->
-    <div class="absolute p-4 top-10 container mx-auto z-50  justify-center flex ">
-      <div class = 'border rounded-lg p-4 flex flex-col  md:w-1/3   w-full  gap-4'>
-        <h3>Name:{{ gameInfo.name }}</h3>
-        <h5>Live Stream:{{ gameInfo.live_stream }}</h5>
-        <p class="w-full break-all hidden md:block">User Token: {{ $store.state.token }}</p>
-        <button  @click="router.push({ name: 'panno' })">Play Now</button>
       </div>
 
     </div>
+
+    <PannoView v-if="this.play"></PannoView>
   </div>
+
 </template>
 
 <script>
@@ -61,13 +33,18 @@
 import request from "@/utils/request";
 import router from '@/router'
 import { mapState } from 'vuex';
+import PannoView from './PannoView';
 export default {
   name: "Index",
+  components: {
+    PannoView
+  },
   computed: mapState(['roundStatus']),
 
   data() {
     return {
       router,
+      play:false,
       gameInfo: { name: '', live_stream: '' },
       isShowCounterDesktop: true,
       isShowWheel: true,
@@ -439,7 +416,9 @@ export default {
       console.log("supported player tech: " + c);
     });
     this.player = new window.NanoPlayer("mlc-video-div");
-    this.init();
+    this.getGameConfig();
+
+
 
     this.$nextTick(() => {
       if (!this.ws) {
@@ -454,8 +433,8 @@ export default {
         }).then(res => {
           this.t = res.data["result"]["token"];
 
-          this.$store.commit('setUserToken',this.t);
-          localStorage.setItem('userToken',this.t);
+          this.$store.commit('setUserToken', this.t);
+          localStorage.setItem('userToken', this.t);
 
           this.ws = new WebSocket("wss://api.asian888.club:2348?token=" + this.t);
           vm.ws.onopen = function () {
@@ -501,8 +480,7 @@ export default {
       //   this.t = text["result"]["token"];
       //   console.log(t);
       // });
-    }) 
-    this.getGameConfig();
+    })
   },
 
   methods: {
@@ -512,7 +490,7 @@ export default {
         const result = request.post('api/game/config').then(res => {
           const { name, live_stream } = res.data.result;
           vm.gameInfo = { name, live_stream }
-
+          this.init();
         }).catch(err => {
           console.log(err)
         });
@@ -728,8 +706,8 @@ export default {
         bintuQ.apiurl = vm.getHTTPParam("bintu.apiurl") || "https://bintu.nanocosmos.de";
         bintuQ.streamid = vm.getHTTPParam("bintu.streamid");
         // bintuQ.streamname =vm. getHTTPParam('bintu.streamname');
-        bintuQ.streamname = "4w1yK-ZTJKP";
-
+        //bintuQ.streamname = "4w1yK-cJ3Kq";
+        bintuQ.streamname = vm.gameInfo.live_stream;
       }
       // bintuQ stream ID
       if (bintuQ.streamid) {
@@ -1014,9 +992,9 @@ export default {
       vm.log("Warning: " + message);
     }
   },
-  watch:{
-    roundStatus(current, old){
-      console.log(current,old, " is watch");
+  watch: {
+    roundStatus(current, old) {
+      console.log(current, old, " is watch");
     }
   }
 };
@@ -1170,11 +1148,11 @@ export default {
 }
 
 button {
-  cursor:pointer;
+  cursor: pointer;
   padding: 0;
   align-items: flex-start;
   text-align: center;
-  
+
   background-color: transparent;
   box-sizing: border-box;
   border-radius: 4px;
