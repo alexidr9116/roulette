@@ -10,7 +10,7 @@
       <div class="flex flex-col-reverse gap-2 p-3">
         <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
           class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
-          :class="numberObj[number].color === 'Black' ? 'ml-8 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-4 bg-green-700' : 'bg-red-700')">
+          :class="numberObj[number].color === 'Black' ? 'ml-6 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
           {{ number }}
         </div>
       </div>
