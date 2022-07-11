@@ -5,14 +5,14 @@
 
 
   <div class="panno overflow-y-auto h-full w-full">
-    <div class="absolute w-full h-full ">
+    <div class="absolute w-full h-full z-0 ">
       <div id="mlc-video-div">
 
       </div>
 
-      <!-- game info -->
-      <div  class="fixed p-4 top-0 container mx-auto z-50  justify-end flex " v-if="(gameInfo.live_stream != '') && (!play)">
-        <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/4   w-1/2  gap-4 bg-red-500/30'>
+      <!-- play now button -->
+      <div  class="fixed p-4 bottom-10 sm:top-0 container mx-auto z-50 items-end justify-start flex  h-15  flex-col " v-if="(gameInfo.live_stream != '') && (!play)">
+        <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/3 md:w-1/4  w-full  gap-4 bg-red-500/30'>
           <!-- @click="router.push({ name: 'panno' })" -->
           <button 
            @click ="play = true;"

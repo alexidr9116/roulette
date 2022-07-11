@@ -1,7 +1,7 @@
 <template>
-  
-    <Panno></Panno>
-  
+
+  <Panno></Panno>
+
 </template>
 
 <script>
@@ -24,6 +24,7 @@ export default {
     roundStatus(status, old) {
       console.log(status, old)
       if (status === "started") {
+        this.$store.commit('setGameStatus','BET');
         this.getUserBalance();
 
         // this.getLastBet();
@@ -50,17 +51,20 @@ export default {
   methods: {
     uploadBets() {
 
+            // this.$store.commit('setGameStatus','WIN');
+            // this.$store.commit('setRoundBalance',eval('1230'));
       if (this.isConnected) {
         for (const selected of this.$store.state.selected) {
           if (selected.refer.startsWith('o')) {
             continue;
           }
           const bet = {
-            seqplay: '40158451',
+            type: 'bet',
+            seqplay: this.$store.state.seqPlay,
             bet_code: selected.refer,
             bet_amount: selected.value
           }
-          console.log(bet)
+          // console.log(bet)
           this.ws.send(JSON.stringify(bet));
         }
       }
@@ -79,13 +83,17 @@ export default {
 
           let data = JSON.parse(evt.data)
           console.log(data, " is received from ws")
-
+          if (data.type === 'win') {
+            this.$store.commit('setGameStatus','WIN');
+            this.$store.commit('setRoundBalance',eval(data.amount));
+          }
           // get game number;
 
           if (data.type === 'game') {
             if (data.status === 'go') {
               // start round
               this.$store.commit("setRoundStatus", "started");
+              this.$store.commit('setSeqPlay', data.seqPlay);
 
             }
             if (data.status === 'stop') {
@@ -96,6 +104,7 @@ export default {
               // end
               // this.$store.commit("setRoundStatus", "end");
             }
+
             if (data.status === 'result') {
               let num = data.number
               if (num.slice(0, 1) == 0) {
@@ -135,7 +144,7 @@ export default {
       // console.log(token)
       return token;
     },
-    
+
     async getUserBalance() {
       try {
         const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });

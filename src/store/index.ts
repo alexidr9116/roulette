@@ -10,7 +10,7 @@ export default new Vuex.Store({
     coin:0.5,
     roundStatus:'end',
     showGroupBet:true,
-    
+    gameStatus:"BET",
     balance:0,
     haveBalance:0,
     roundBalance:0,
@@ -19,11 +19,18 @@ export default new Vuex.Store({
     winNumber:20,
     winNumbers:[""],
     token:'',
+    seqPlay:0,
     hotCoolNumbers:null,  // {hot:[], cool:[]}
     lastBetInfo:null, // array [{bet_code:'PL1',bet_amount:'100.00'}]
   },
   getters: {},
   mutations: {
+    setGameStatus(state,status){
+      state.gameStatus = status;
+    },
+    setSeqPlay(state,seqPlay){
+      state.seqPlay = seqPlay;
+    },
     setLastBetInfo(state,info){
       state.lastBetInfo = info;
     },
@@ -60,6 +67,9 @@ export default new Vuex.Store({
     },
     setSelectedCoin(state,coin){
       state.coin = coin;
+    },
+    setRoundBalance(state,balance){
+      state.roundBalance = balance;
     },
     setSelected(state,selected){
       state.selected = selected;

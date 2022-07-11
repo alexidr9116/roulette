@@ -1,6 +1,6 @@
 <template>
   <div
-    class="coin w-10 h-10 md:w-16 md:h-16"
+    class="coin w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16"
     @click="handleSelectCoin"
     :class="{ 'coin-selected': this.value == this.$store.state.coin }"
   >

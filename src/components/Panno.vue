@@ -9,7 +9,7 @@
       <div class="flex flex-col-reverse gap-1 p-3">
         <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
           class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
-          :class="numberObj[number].color === 'Black' ? 'ml-6 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
+          :class="numberObj[number].color === 'Black' ? 'ml-6 bg-black' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
           {{ number }}
         </div>
       </div>
@@ -33,7 +33,7 @@
         }}</span>
       </div>
       <div class="flex gap-0 items-start flex-col font-sm sm:font-normal">
-        <div class="flex gap-2 items-center"><span class="text-white">BET</span>
+        <div class="flex gap-2 items-center"><span class="text-white">{{$store.state.gameStatus}}</span>
           <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-yellow-200">EUR</span>
         </div>
         <span class="text-lg text-white -mt-2 sm:mt-0">{{
@@ -52,11 +52,11 @@
           :class="$store.state.betAction == 'remove' ? 'absolute -left-6 flex ' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-1 flex" @click="handleRemoveCoin">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-1 flex" @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
 
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle mr-4 flex" @click="handleFetchLast">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-4 flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
@@ -84,10 +84,10 @@
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle flex" @click="handleFetchLast">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
-        <button class="animate-btn btn w-10 h-10 md:w-16 md:h-16 btn-circle  flex" @click="handleRemoveCoin">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle  flex" @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
         <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute" @click="handleReset"
@@ -407,6 +407,7 @@ export default {
   },
   computed: mapState(['roundStatus']),
   watch: {
+   
     roundStatus(status, old) {
       if (status === 'end') {
         this.endRound();
