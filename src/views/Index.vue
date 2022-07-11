@@ -347,9 +347,9 @@ export default {
     // }, 5000)
     // this.rotateStop()
     const vm = this;
-    setInterval(() => {
-      vm.myrefresh()
-    }, 30000); //指定1秒刷新一次
+    // setInterval(() => {
+    //   vm.myrefresh()
+    // }, 30000); //指定1秒刷新一次
     this.config = {
       source: {},
       playback: {
@@ -436,39 +436,7 @@ export default {
           this.$store.commit('setUserToken', this.t);
           localStorage.setItem('userToken', this.t);
 
-          this.ws = new WebSocket("wss://api.asian888.club:2348?token=" + this.t);
-          vm.ws.onopen = function () {
-            vm.isLogin = true;
-
-          };
-          vm.ws.onmessage = function (evt) {
-            // oUl.innerHTML += "<li>" + evt.data + "</li>";
-
-            let data = JSON.parse(evt.data)
-            console.log(data, " is received from ws")
-
-            // get game number;
-
-            if (data.type === 'game') {
-              if (data.status === 'result') {
-                let num = data.number
-                if (num.slice(0, 1) == 0) {
-                  num = num.slice(1, 2)
-                }
-                vm.updataNum(num)
-              }
-            }
-          };
-          vm.ws.onclose = function () {
-            // oUl.innerHTML += "<li>客户端已断开连接</li>";
-            console.log('web socket is closed', vm.ws)
-          };
-          vm.ws.onerror = function (evt) {
-            // oUl.innerHTML += "<li>" + evt.data + "</li>";
-            console.log(evt.data, " is ws error")
-          };
-          // console.log(t);
-
+          // 
         })
       }
 
@@ -503,52 +471,7 @@ export default {
       }
 
     },
-    updataNum(num) {
-      console.log(num);
-      if (this.numberList.indexOf(num) === -1) {
-        this.nobet = true;
-        return;
-      }
-      this.nobet = false;
-      this.wait = false;
-      this.num = num;
-      setTimeout(() => {
-        this.fadeLeft = "fadeInLeft";
-      }, 5000);
-      this.isUpdataNum = false;
-      this.rotateStop();
-    },
-    rotateStop() {
-      console.log("停止");
-      setTimeout(() => {
-        this.fadeLeft = "fadeOutLeft";
-        setTimeout(() => {
-          this.isShowWheel = true;
-          this.isShowCounterDesktop = true;
-          setTimeout(() => {
-            this.fadeLeft = "fadeInLeft";
-            setTimeout(() => {
-              this.fadeLeft = "fadeOutLeft";
-            }, 4000);
-          }, 2000);
-        }, 500);
-        // 5s + 5s
-      }, 10000);
-    },
-    counterDesktopStop() {
-      console.log("倒计时");
-      this.wait = true;
-      this.isShowWheel = true;
-      this.isShowCounterDesktop = false;
-      this.isUpdataNum = true;
-    },
-    myrefresh() {
-
-      if (this.isLogin) {
-        var ping = { "type": "ping" };
-        this.ws.send(JSON.stringify(ping));
-      }
-    },
+    
     init() {
       const vm = this;
       let tweaksQ = this.getHTTPParam("tweaks") || this.getHTTPParam("tweaks.buffer");
@@ -992,11 +915,11 @@ export default {
       vm.log("Warning: " + message);
     }
   },
-  watch: {
-    roundStatus(current, old) {
-      console.log(current, old, " is watch");
-    }
-  }
+  // watch: {
+  //   roundStatus(current, old) {
+  //     console.log(current, old, " is watch");
+  //   }
+  // }
 };
 </script>
 

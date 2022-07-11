@@ -38,9 +38,10 @@ export default {
   mounted() {
     this.initWebsocket();
     // this.getHotCoolNumbers();
-    setTimeout(() => {
+    setInterval(() => {
       if (this.isConnected) {
         const ping = { "type": "ping" };
+        console.log("ping...")
         this.ws.send(JSON.stringify(ping));
       }
 
