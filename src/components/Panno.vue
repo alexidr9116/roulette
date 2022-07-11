@@ -5,11 +5,14 @@
     <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
       :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
     </Wheel>
-    <div class="absolute top-[120px] md:top-[150px] left-[10px] flex flex-col-reverse gap-2 h-1/2 md:h-2/5 overflow-y-hidden">
-      <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
-        class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
-        :class="numberObj[number].color === 'Black' ? 'ml-8 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-4 bg-green-700' : 'bg-red-700')">
-        {{ number }}
+    <div
+      class="absolute top-[120px] md:top-[150px] left-0 md:left-3  h-3/5 md:h-1/2 overflow-y-hidden">
+      <div class="flex flex-col-reverse gap-2 p-3">
+        <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
+          class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
+          :class="numberObj[number].color === 'Black' ? 'ml-8 bg-gray-900' : (numberObj[number].color === 'Green' ? 'ml-4 bg-green-700' : 'bg-red-700')">
+          {{ number }}
+        </div>
       </div>
     </div>
     <div class="w-full md:px-32">

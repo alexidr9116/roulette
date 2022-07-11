@@ -36,6 +36,10 @@ export default new Vuex.Store({
     setWinNumber(state,value){
       state.winNumber = value; 
       state.winNumbers.push(`${value}`);
+      
+      state.winNumbers=state.winNumbers.slice(Math.max(0,state.winNumbers.length-9),state.winNumbers.length);
+      
+      
     },
     setBetAction(state,action){
       state.betAction = action;
