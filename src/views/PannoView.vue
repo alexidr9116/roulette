@@ -59,7 +59,7 @@ export default {
           }
           const bet = {
             type: 'bet',
-            seqplay: this.$store.state.seqPlay,
+            seqplay: `${this.$store.state.seqPlay}`,
             bet_code: selected.refer,
             bet_amount: selected.value
           }
