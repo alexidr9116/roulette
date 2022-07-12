@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     hovered:[],   
     selected:[],
+    updated:[],
     coin:0.5,
     roundStatus:'end',
     showGroupBet:true,
@@ -25,6 +26,9 @@ export default new Vuex.Store({
   },
   getters: {},
   mutations: {
+    setUpdated(state,updated){
+      state.updated = updated;
+    },
     setGameStatus(state,status){
       state.gameStatus = status;
     },

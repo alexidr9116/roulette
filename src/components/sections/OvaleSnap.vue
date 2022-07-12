@@ -729,11 +729,14 @@ export default {
         ? _selected.split(" ")
         : [_selected.trim()];
       this.selected = this.$store.state.selected;
+      const updated = [];
       for (const id of _hovers) {
+        updated.push({ refer: id, value: this.$store.state.coin });
         if (this.selected.filter((f) => f.refer == id).length == 0) {
           this.selected.push({ refer: id, value: this.$store.state.coin });
         }
       }
+      this.$store.commit('setUpdated',updated);
     },
     setHovered(_hovered, isOvale) {
       const _hovers = _hovered.trim().includes(" ")

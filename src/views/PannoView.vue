@@ -18,9 +18,19 @@ export default {
       isConnected: false,
     }
   },
-  computed: mapState(['roundStatus', 'selected']),
+  computed: mapState(['roundStatus', 'updated']),
 
   watch: {
+    updated(status,old){
+      console.log(status,old)
+      // clear
+      if(status.length === 0){
+
+      }
+      if(status.length >0 ){
+        this.uploadBets();
+      }
+    },
     roundStatus(status, old) {
       console.log(status, old)
       if (status === "started") {
@@ -30,7 +40,7 @@ export default {
       }
 
       if (status === 'wait') {
-        this.uploadBets();
+        // this.uploadBets();
       }
 
     }
@@ -53,15 +63,18 @@ export default {
             // this.$store.commit('setGameStatus','WIN');
             // this.$store.commit('setRoundBalance',eval('1230'));
       if (this.isConnected) {
-        for (const selected of this.$store.state.selected) {
+        for (const selected of this.$store.state.updated) {
           if (selected.refer.startsWith('o')) {
             continue;
           }
           const bet = {
-            type: 'bet',
+            type: (this.$store.state.betAction === 'remove'?'cancel':'bet'),
             seqplay: `${this.$store.state.seqPlay}`,
             bet_code: selected.refer,
-            bet_amount: selected.value
+            
+          }
+          if(this.$store.state.betAction ==='add'){
+            bet.bet_amount =  selected.value;
           }
           console.log(bet)
           this.ws.send(JSON.stringify(bet));
