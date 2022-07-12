@@ -21,27 +21,25 @@ export default {
   computed: mapState(['roundStatus', 'updated']),
 
   watch: {
-    updated(status,old){
-      console.log(status,old)
+    updated(status, old) {
+      console.log(status, old)
       // clear
-      if(status.length === 0){
-
+      if (status.length === 0 && this.$store.state.betAction === 'add') {
+        this.clearAll();
       }
-      if(status.length >0 ){
+      if (status.length > 0) {
         this.uploadBets();
       }
     },
     roundStatus(status, old) {
       console.log(status, old)
       if (status === "started") {
-        this.$store.commit('setGameStatus','BET');
+        this.$store.commit('setGameStatus', 'BET');
         this.getUserBalance();
         // this.getLastBet();
       }
 
-      if (status === 'wait') {
-        // this.uploadBets();
-      }
+
 
     }
   },
@@ -58,23 +56,30 @@ export default {
     }, 30000);
   },
   methods: {
+    clearAll() {
+      if (this.isConnected) {
+        console.log('send cancle all')
+        this.ws.send(JSON.stringify({ type: 'all_cancel', seqPlay: `${this.$store.state.seqPlay}` }));
+      }
+
+    },
     uploadBets() {
 
-            // this.$store.commit('setGameStatus','WIN');
-            // this.$store.commit('setRoundBalance',eval('1230'));
+      // this.$store.commit('setGameStatus','WIN');
+      // this.$store.commit('setRoundBalance',eval('1230'));
       if (this.isConnected) {
         for (const selected of this.$store.state.updated) {
           if (selected.refer.startsWith('o')) {
             continue;
           }
           const bet = {
-            type: (this.$store.state.betAction === 'remove'?'cancel':'bet'),
+            type: (this.$store.state.betAction === 'remove' ? 'cancel' : 'bet'),
             seqPlay: `${this.$store.state.seqPlay}`,
             bet_code: selected.refer,
-            
+
           }
-          if(this.$store.state.betAction ==='add'){
-            bet.bet_amount =  selected.value;
+          if (this.$store.state.betAction === 'add') {
+            bet.bet_amount = selected.value;
           }
           console.log(bet)
           this.ws.send(JSON.stringify(bet));
@@ -96,8 +101,8 @@ export default {
           let data = JSON.parse(evt.data)
           console.log(data, " is received from ws")
           if (data.type === 'win') {
-            vm.$store.commit('setGameStatus','WIN');
-            vm.$store.commit('setRoundBalance',eval(data.amount));
+            vm.$store.commit('setGameStatus', 'WIN');
+            vm.$store.commit('setRoundBalance', eval(data.amount));
           }
           // get game number;
 
@@ -105,7 +110,7 @@ export default {
             if (data.status === 'go') {
               // start round
               vm.$store.commit("setRoundStatus", "started");
-            
+
               vm.$store.commit('setSeqPlay', data.seqPlay);
 
             }

@@ -426,6 +426,7 @@ export default {
           value: this.$store.state.coin,
         }]);
       if (arr.filter((v) => v.refer == e.target.id).length == 0) {
+        this.$store.commit('setBetAction','add');
         arr.push({
           refer: e.target.id,
           value: this.$store.state.coin,

@@ -33,7 +33,7 @@
         }}</span>
       </div>
       <div class="flex gap-0 items-start flex-col font-sm sm:font-normal">
-        <div class="flex gap-2 items-center"><span class="text-white">{{$store.state.gameStatus}}</span>
+        <div class="flex gap-2 items-center"><span class="text-white">{{ $store.state.gameStatus }}</span>
           <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-yellow-200">EUR</span>
         </div>
         <span class="text-lg text-white -mt-2 sm:mt-0">{{
@@ -48,15 +48,17 @@
         : 'coin-toolbar-close hidden'
     ">
       <div class="flex justify-center coin-sub-toolbar items-end relative ">
-        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-16" @click="handleReset"
+        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mb-16" @click="handleClearAll"
           :class="$store.state.betAction == 'remove' ? 'absolute -left-6 flex ' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-1 flex" @click="handleRemoveCoin">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-1 flex"
+          @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
 
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-4 flex" @click="handleFetchLast">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-4 flex"
+          @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
@@ -84,13 +86,15 @@
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle flex" @click="handleFetchLast">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle flex"
+          @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle  flex" @click="handleRemoveCoin">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle  flex"
+          @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
-        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute" @click="handleReset"
+        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute" @click="handleClearAll"
           :class="$store.state.betAction == 'remove' ? 'flex -bottom-4' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
@@ -407,13 +411,17 @@ export default {
   },
   computed: mapState(['roundStatus']),
   watch: {
-   
+
     roundStatus(status, old) {
       if (status === 'end') {
         this.endRound();
       }
       if (status === 'started') {
         this.startRound();
+      }
+      if (status === 'wait') {
+        // this.uploadBets();
+        this.waitRound();
       }
     }
   },
@@ -437,7 +445,7 @@ export default {
         const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         const arr = [];
-        
+
         if (response.data.message === 'success') {
           for (const bet of response.data.result) {
             arr.push({ refer: bet.bet_code, value: eval(bet.bet_amount) });
@@ -492,7 +500,8 @@ export default {
     },
     waitRound() {
       console.log("wait result of round");
-      this.$store.commit("setRoundStatus", "wait");
+      this.$store.commit("setShowGroupBet", true);
+
     },
     endRound() {
       this.showToast = false;
@@ -619,6 +628,13 @@ export default {
     getFillColor(value, max) {
       return getFillColor(value, max);
     },
+    handleClearAll() {
+      console.log("clear all...");
+      this.$store.commit("setBetAction", "add");
+      this.$store.commit("setHovered", []);
+      this.$store.commit("setSelected", []);
+      this.$store.commit('setUpdated',[]);
+    },
     handleReset() {
       console.log("reset...");
       this.$store.commit("setBetAction", "add");
@@ -627,7 +643,7 @@ export default {
       this.$store.commit("setSelected", []);
       setTimeout(
         () => { document.getElementById('btn-show-group-bet').click(); }
-        , 200
+        , 300
       )
     },
     // remove coin button

@@ -118,7 +118,7 @@ export default {
           this.$emit("counterDesktopStop");
           /// counter === 0 ? show zoom and no more bet
           this.$store.commit("setRoundStatus", 'wait');
-          this.$store.commit("setShowGroupBet", true);
+          //this.$store.commit("setShowGroupBet", true);
           
         }, 500);
       }
