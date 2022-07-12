@@ -63,7 +63,7 @@ export default {
             bet_code: selected.refer,
             bet_amount: selected.value
           }
-          // console.log(bet)
+          console.log(bet)
           this.ws.send(JSON.stringify(bet));
         }
       }
@@ -92,6 +92,7 @@ export default {
             if (data.status === 'go') {
               // start round
               vm.$store.commit("setRoundStatus", "started");
+            
               vm.$store.commit('setSeqPlay', data.seqPlay);
 
             }
