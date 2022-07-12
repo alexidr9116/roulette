@@ -83,21 +83,21 @@ export default {
           let data = JSON.parse(evt.data)
           console.log(data, " is received from ws")
           if (data.type === 'win') {
-            this.$store.commit('setGameStatus','WIN');
-            this.$store.commit('setRoundBalance',eval(data.amount));
+            vm.$store.commit('setGameStatus','WIN');
+            vm.$store.commit('setRoundBalance',eval(data.amount));
           }
           // get game number;
 
           if (data.type === 'game') {
             if (data.status === 'go') {
               // start round
-              this.$store.commit("setRoundStatus", "started");
-              this.$store.commit('setSeqPlay', data.seqPlay);
+              vm.$store.commit("setRoundStatus", "started");
+              vm.$store.commit('setSeqPlay', data.seqPlay);
 
             }
             if (data.status === 'stop') {
               // no betting
-              this.$store.commit("setRoundStatus", "wait");
+              vm.$store.commit("setRoundStatus", "wait");
             }
             if (data.status === 'end') {
               // end
@@ -109,8 +109,8 @@ export default {
               if (num.slice(0, 1) == 0) {
                 num = num.slice(1, 2)
               }
-              this.$store.commit("setWinNumber", parseInt(num));
-              this.$store.commit("setRoundStatus", "end");
+              vm.$store.commit("setWinNumber", parseInt(num));
+              vm.$store.commit("setRoundStatus", "end");
               // vm.updataNum(num)
             }
           }

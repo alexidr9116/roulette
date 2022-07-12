@@ -1,8 +1,5 @@
 <template>
-
   <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
-
-
 
   <div class="panno overflow-y-auto h-full w-full">
     <div class="absolute w-full h-full z-0 ">

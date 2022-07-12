@@ -471,12 +471,12 @@ export default {
       }
       setTimeout(() => {
 
-        setTimeout(() => {
-          const winNumber = Math.floor(Math.random() * 36);
-          this.$store.commit("setWinNumber", winNumber);
-          this.$store.commit("setRoundStatus", "end");
-          // this.endRound();
-        }, 50000);
+        // setTimeout(() => {
+        //   const winNumber = Math.floor(Math.random() * 36);
+        //   this.$store.commit("setWinNumber", winNumber);
+        //   this.$store.commit("setRoundStatus", "end");
+        //   // this.endRound();
+        // }, 50000);
 
         console.log("new start round");
         this.handleReset();
@@ -667,6 +667,7 @@ export default {
     //   group.classList.remove("hidden");
     //   group.classList.add("hidden");
     // }
+    /**
     setTimeout(() => {
       this.$store.commit('setRoundStatus', 'started')
       // this.startRound();
@@ -676,6 +677,7 @@ export default {
         //this.startRound();
       }, 66000);
     }, 3000);
+     */
   },
 };
 </script>
