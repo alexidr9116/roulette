@@ -69,7 +69,7 @@ export default {
           }
           const bet = {
             type: (this.$store.state.betAction === 'remove'?'cancel':'bet'),
-            seqplay: `${this.$store.state.seqPlay}`,
+            seqPlay: `${this.$store.state.seqPlay}`,
             bet_code: selected.refer,
             
           }
