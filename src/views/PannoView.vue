@@ -100,8 +100,9 @@ export default {
 
           let data = JSON.parse(evt.data)
           console.log(data, " is received from ws")
-          if (data.type === 'win') {
+          if (data.type === 'win' && data.amount >0) {
             vm.$store.commit('setGameStatus', 'WIN');
+            vm.$store.commit('setWinCoin',{refer:data.bet_code, value:data.amount});
             vm.$store.commit('setRoundBalance', eval(data.amount));
           }
           // get game number;

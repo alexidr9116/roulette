@@ -3,7 +3,7 @@
     <div _ngcontent-bdp-c0="" id="snap" class="hidden md:block">
       <svg id="drawSnap" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0 0 1400 580"
-        style="transform-origin: 10% center; transform: perspective(300em) rotateX(40deg)">
+        style="transform-origin: 20% center; transform: perspective(50em) rotateX(40deg)">
         <defs id="SvgjsDefs1009">
           <filter id="dropshadow" x="-30%" y="-40%" width="200%" height="200%">
             <feColorMatrix in="SourceAlpha" type="matrix" values="-1 0 0 0 1, 0 -1 0 0 1, 0 0 -1 0 1, 0 0 0 1 0"
@@ -426,7 +426,7 @@ export default {
           value: this.$store.state.coin,
         }]);
       if (arr.filter((v) => v.refer == e.target.id).length == 0) {
-        this.$store.commit('setBetAction','add');
+        this.$store.commit('setBetAction', 'add');
         arr.push({
           refer: e.target.id,
           value: this.$store.state.coin,
@@ -494,6 +494,7 @@ export default {
       const selectedCoins = this.$store.state.selected;
       const coins = [];
 
+
       for (const point of this.controlPoints) {
         for (const coin of selectedCoins) {
           if (coin.refer == point.refer) {
@@ -502,6 +503,12 @@ export default {
               value: coin.value,
             });
           }
+        }
+        if (this.$store.state.winCoin !== null && point.refer === this.$store.state.winCoin.refer) {
+          coins.push({
+            ...point,
+            value: this.$store.state.winCoin.value,
+          });
         }
       }
 
@@ -513,6 +520,12 @@ export default {
               value: coin.value,
             });
           }
+        }
+        if (this.$store.state.winCoin !== null && point.refer === this.$store.state.winCoin.refer) {
+          coins.push({
+            ...point,
+            value: this.$store.state.winCoin.value,
+          });
         }
       }
 

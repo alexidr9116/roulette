@@ -10,7 +10,7 @@
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.com/svgjs"
         viewBox="0 0 1400 580"
-        style="transform-origin: 10% center; transform: perspective(300em) rotateX(40deg)"
+        style="transform-origin: 20% center; transform: perspective(50em) rotateX(40deg)"
       >
         <defs id="SvgjsDefs1007">
           <filter id="brightness-filter">

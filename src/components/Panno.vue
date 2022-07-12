@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full md:px-4 md:w-3/5 md:ml-[40%] md:mt-[10%]">
+    <div class="w-full md:px-4 md:w-3/5 md:ml-[40%] md:mt-[25%]">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
         <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>
@@ -634,9 +634,11 @@ export default {
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
       this.$store.commit('setUpdated',[]);
+      
     },
     handleReset() {
       console.log("reset...");
+      this.$store.commit("setWinCoin", null);
       this.$store.commit("setBetAction", "add");
       this.$store.commit('setShowGroupBet', true);
       this.$store.commit("setHovered", []);
