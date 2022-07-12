@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full md:px-4 md:w-3/5 md:ml-[40%] md:mt-[25%]">
+    <div class="w-full md:px-4 md:w-3/5 md:ml-[40%] md:mt-[18%]">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
         <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>

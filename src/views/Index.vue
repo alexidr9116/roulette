@@ -2,11 +2,11 @@
   <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
 
   <div class="panno overflow-y-auto h-full w-full overflow-x-hidden">
-     <div class="absolute w-full h-full z-0 ">
-      <div id="mlc-video-div" class="-top-[10%] absolute z-0">
+     <div class="absolute w-full h-full  z-0 ">
+      <div id="mlc-video-div" class="top-0 md:-top-[25%] absolute z-0">
 
       </div>
-      <div class='absolute -top-[10%] w-full mt-[5%] z-1'>
+      <div class='absolute md:-top-[25%] w-full mt-[5%] z-1 md:h-4/5'>
         <img src = '/assets/panel.png' alt = 'banner' class='w-full '/>
       </div>
 
