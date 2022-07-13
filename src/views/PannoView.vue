@@ -121,7 +121,7 @@ export default {
             }
             if (data.status === 'end') {
               // end
-              this.$store.commit("setRoundStatus", "end");
+              vm.$store.commit("setRoundStatus", "end");
             }
 
             if (data.status === 'result') {
