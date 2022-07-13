@@ -415,6 +415,9 @@ export default {
       if (status === 'end') {
         this.endRound();
       }
+      if(status === 'result'){
+        this.resultRound();
+      }
       if (status === 'started') {
         this.startRound();
       }
@@ -502,9 +505,9 @@ export default {
       this.$store.commit("setShowGroupBet", true);
 
     },
-    endRound() {
+    resultRound() {
       this.showToast = false;
-      console.log("end round");
+      console.log("result round");
       const winNumber = this.$store.state.winNumber;
       const winObj = this.numberObj[`${winNumber}`];
       // change the panno pluse
@@ -621,7 +624,10 @@ export default {
           }
         }
         this.$store.commit("setWinNumbers", winNumber);
-      }, 2000);
+      }, 500);
+
+    },
+    endRound() {
 
     },
     getFillColor(value, max) {

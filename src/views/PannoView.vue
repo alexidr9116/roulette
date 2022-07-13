@@ -130,7 +130,7 @@ export default {
                 num = num.slice(1, 2)
               }
               vm.$store.commit("setWinNumber", parseInt(num));
-              // vm.$store.commit("setRoundStatus", "end");
+              vm.$store.commit("setRoundStatus", "result");
               // vm.updataNum(num)
             }
           }
