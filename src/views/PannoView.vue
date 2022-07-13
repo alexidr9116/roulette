@@ -16,6 +16,7 @@ export default {
     return {
       ws: null,
       isConnected: false,
+      selected:[],
     }
   },
   computed: mapState(['roundStatus', 'updated']),
@@ -102,6 +103,19 @@ export default {
           console.log(data, " is received from ws")
           if (data.type === 'win' && data.amount >0) {
             vm.$store.commit('setGameStatus', 'WIN');
+            const selected = vm.selected.filter(f=>{
+              const ele = document.getElementById(f.refer);
+              const hover = ele.getAttribute('hover');
+              console.log(ele,hover);
+              const arr = hover.includes(" ")?hover.split(" "):[hover];
+
+              return arr.includes(`PL${vm.$store.state.winNumber}`);
+            });
+            if(selected.length === 1){
+              selected[0].value = data.amount;
+            }
+            console.log(selected);
+            vm.$store.commit('setSelected',selected);
             vm.$store.commit('setWinCoin',{refer:data.bet_code, value:data.amount});
             vm.$store.commit('setRoundBalance', eval(data.amount));
           }

@@ -3,7 +3,7 @@
 
   <div class="panno relative  overflow-hidden h-full w-full">
     <div class="w-full h-full flex items-center justify-center ">
-      <div id="mlc-video-div" class="  -mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center">
+      <div id="mlc-video-div" class="  -mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center " :class = "($store.state.roundStatus !=='started') ?'w-[200%] h-[200%] -top-[280px]  ':''">
 
       </div>
 
