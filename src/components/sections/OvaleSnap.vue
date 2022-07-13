@@ -9,7 +9,7 @@
         version="1.1"
         xmlns:xlink="http://www.w3.org/1999/xlink"
         xmlns:svgjs="http://svgjs.com/svgjs"
-        viewBox="0 0 1400 880"
+        viewBox="0 0 1400 700"
         style="transform-origin: 20% center; transform: perspective(50em) rotateX(40deg)"
       >
         <g transform="translate(290 300) scale(0.6 0.6)">

@@ -1,5 +1,5 @@
 <template>
-  <div id="counter">
+  <div id="counter" class="w-20 h-20 md:w-24 md:h-24">
     <svg
       id="SvgjsSvg1704"
       width="100%"
@@ -146,8 +146,7 @@ export default {
 
 <style scoped lang="scss">
 #counter {
-  width: 96px;
-  height:  96px;
+  
   position: absolute;
 
   z-index: 60;
@@ -157,18 +156,5 @@ export default {
   margin-left: 26% !important;
 }
 
-@media (min-height: 56.25vw) and (max-width: 177.8vh) {
-  #game-state h3,
-  #game-state-firstime h3 {
-    font-size: 1.14vw;
-  }
-  .lang-ru #game-state h3,
-  .lang-ru #game-state-firstime h3 {
-    font-size: 0.85vw;
-  }
-  #counter {
-    width: 76px;
-    height: 76px;
-  }
-}
+
 </style>

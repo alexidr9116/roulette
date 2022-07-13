@@ -1,8 +1,9 @@
 <template>
   <div class="wheel-box">
-    <div id="overlay-wheel" style="visibility: visible; display: block"></div>
+    <div id="overlay-wheel" class="w-20 h-20 md:w-24 md:h-24" style="visibility: visible; display: block"></div>
     <div
       id="window-wheel"
+      class="w-20 h-20 md:w-24 md:h-24"
       style="visibility: visible; box-shadow: rgb(0, 0, 0) 0px 0px 20px"
     >
       <div id="wheel" v-show="!wait">
@@ -653,7 +654,7 @@
           </g>
         </svg>
       </div>
-      <h3 v-show="wait && !nobet" class="-top-[20%] font-sm lg:font-lg leading-4 md:leading-6	" >
+      <h3 v-show="wait && !nobet" class="-top-[20%] text-sm lg:text-lg leading-4 md:leading-6	" >
         NO MORE 
         BETS
       </h3>
@@ -735,7 +736,7 @@ export default Vue.extend({
   watch: {
     num(val){
       // if(!this.wait){
-        console.log(val);
+       
       let current = this.numberList.indexOf(`${val}`);
       // console.log(current)
       let rotateDeg =
@@ -763,8 +764,7 @@ export default Vue.extend({
 //  z-index: 1;
 //}
 #overlay-wheel {
-  width: 96px;
-  height: 96px;
+ 
   position: absolute;
   border-radius: 50%;
   z-index: 59;
@@ -774,8 +774,7 @@ export default Vue.extend({
     linear-gradient(to bottom, #000 -20%, #00000000 40%);
 }
 #window-wheel {
-  width: 96px;
-  height: 96px;
+ 
   box-shadow: 0 0 20px #000;
   position: absolute;
   overflow: hidden;
@@ -840,19 +839,6 @@ export default Vue.extend({
 
 #window-wheel #wheel svg text {
   font-family: Montserrat, sans-serif !important;
-}
-@media (min-height: 56.25vw) and (max-width: 177.8vh) {
-  #overlay-wheel {
-    width: 76px;
-    height: 76px;
-  }
-  #window-wheel {
-    width: 76px;
-    height: 76px;
-  }
-  #window-wheel h3 {
-    font-size: 14px;
-  }
 }
 
 </style>

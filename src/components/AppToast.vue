@@ -47,7 +47,7 @@ export default {
             rgba(0, 0, 0, 0) 0,
             rgba(0, 0, 0, 0.5) 15%,
             rgba(0, 0, 0, 0.5) 100%);
-    height: 90px;
+    height: 72px;
     position: absolute;
     top: 12px;
     color: #fff;
@@ -58,13 +58,7 @@ export default {
     animation: 7s ease 0s normal forwards 1 toast;
 }
 
-@media (min-height: 56.25vw) and (max-width: 177.8vh) {
-    .app-toast {
-        top: 12px;
-        height: 70px;
-        width: 210px;
-    }
-}
+
 
 @keyframes toast {
     0% {

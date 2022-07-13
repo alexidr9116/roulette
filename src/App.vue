@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class = "container mx-auto">
 <!--    <nav>-->
 <!--      <router-link to="/">Wheel</router-link> |-->
 <!--      <router-link to="/about">About</router-link> |-->
@@ -15,8 +15,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(0, 0, 0);
-  // background-image:url('./assets/background.jpg');
-  margin: 0;
+
   color: #fff;
   overflow: hidden;
   height: 101%;

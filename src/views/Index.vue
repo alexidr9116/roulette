@@ -1,14 +1,14 @@
 <template>
   <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
 
-  <div class="panno overflow-y-auto h-full w-full overflow-x-hidden">
-    <div class="absolute  w-full h-full flex items-center justify-center ">
-      <div id="mlc-video-div" class="  z-0 w-full h-full flex items-start md:items-center justify-center">
+  <div class="panno relative  overflow-hidden h-full w-full">
+    <div class="w-full h-full flex items-center justify-center ">
+      <div id="mlc-video-div" class="  -mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center">
 
       </div>
 
     </div>
-    <div class="mlc-header z-50">
+    <div class="mlc-header z-50 absolute top-0">
       <!---->
       <div class="ng-star-inserted">
         <div class="infotavolo">
@@ -43,8 +43,8 @@
         </div>
       </div>
     </div>
-    <div class="absolute  w-full h-full  items-center justify-center hidden md:flex ">
-      <img src='/assets/panel.png' alt='banner' class=" z-0 w-full mt-[8.5%] pointer-events-none	" />
+    <div class="absolute top-0 w-full h-full  items-center justify-center hidden md:flex ">
+      <img src='/assets/panel.png' alt='banner' class=" z-0 w-full pointer-events-none	" />
     </div>
 
 
@@ -1287,7 +1287,6 @@ button {
   opacity: 1;
   width: 100%;
   height: 100%;
-  margin: auto;
   transition: all .2s linear;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;

@@ -1,5 +1,5 @@
 <template>
-  <div class="flex  w-full h-full md:items-center">
+  <div class="flex absolute top-0  w-full h-full md:items-center">
     <div class="flex flex-col justify-center h-full overflow-y-hidden absolute w-full md:w-1/2 ">
       <div class="flex flex-col  h-1/2 md:h-2/3 relative">
         <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
@@ -15,11 +15,9 @@
           </div>
         </div>
       </div>
-
     </div>
 
-
-    <div class="w-full md:px-8 md:w-3/5 md:ml-[38%] md:mt-[15%] ">
+    <div class="w-full md:p-12 md:w-3/5 md:ml-[38%] md:mt-[6%]">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
         <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>
@@ -28,7 +26,7 @@
       </div>
     </div>
     <!-- balances -->
-    <div class="flex justify-between w-full px-2    bottom-0 sm:px-6 absolute text-xs leading-none">
+    <div class="flex justify-between w-full px-2 bottom-4  absolute text-xs leading-none">
       <div class="flex gap-0 items-end flex-col ">
         <div class="flex gap-2 items-center"><span class="text-yellow-200">EUR</span>
           <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-white">BALANCE</span>
@@ -47,7 +45,7 @@
       </div>
     </div>
     <!-- coin tool bar -->
-    <div class="coin-toolbar absolute py-6 w-full items-end justify-center hidden md:flex" :class="
+    <div class="coin-toolbar absolute pb-2 md:pl-[30%]  w-full items-end justify-center hidden md:flex" :class="
       this.$store.state.roundStatus == 'started'
         ? 'coin-toolbar-open'
         : 'coin-toolbar-close hidden'
@@ -57,13 +55,11 @@
           :class="$store.state.betAction == 'remove' ? 'absolute -left-6 flex ' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-1 flex"
-          @click="handleRemoveCoin">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12   btn-circle mr-1 flex" @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
 
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle mr-4 flex"
-          @click="handleFetchLast">
+        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12   btn-circle mr-4 flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
@@ -91,15 +87,13 @@
       <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
       <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle flex"
-          @click="handleFetchLast">
+        <button class="animate-btn btn w-10 h-10  btn-circle flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
-        <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16 btn-circle  flex"
-          @click="handleRemoveCoin">
+        <button class="animate-btn btn w-10 h-10    btn-circle  flex" @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
         </button>
-        <button class="animate-btn btn w-6 h-6 md:w-12 md:h-12 btn-circle mr-8  flex absolute" @click="handleClearAll"
+        <button class="animate-btn btn w-6 h-6   btn-circle mr-8  flex absolute" @click="handleClearAll"
           :class="$store.state.betAction == 'remove' ? 'flex -bottom-4' : 'hidden'">
           <Icon icon="ri:brush-line" width="30"></Icon>
         </button>
@@ -107,11 +101,11 @@
     </div>
 
     <!-- buttons -->
-    <button class=" flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+    <button class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
-      class=" right-0 flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+      class=" right-0 flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
   </div>
@@ -518,7 +512,7 @@ export default {
 
       // }
 
-      // this.$store.commit("setWinNumber", winNumber);
+
       // this.$store.commit("setRoundStatus", "end");
       setTimeout(() => {
         this.showToast = true;
@@ -626,7 +620,7 @@ export default {
             e.classList.add('pulseWinBox');
           }
         }
-
+        this.$store.commit("setWinNumbers", winNumber);
       }, 2000);
 
     },
@@ -690,17 +684,17 @@ export default {
     //   group.classList.remove("hidden");
     //   group.classList.add("hidden");
     // }
-    /**
-    setTimeout(() => {
-      this.$store.commit('setRoundStatus', 'started')
-      // this.startRound();
-      // 66S start round
-      setInterval(() => {
-        this.$store.commit('setRoundStatus', 'started')
-        //this.startRound();
-      }, 66000);
-    }, 3000);
-     */
+    /*
+   setTimeout(() => {
+     this.$store.commit('setRoundStatus', 'started')
+     // this.startRound();
+     // 66S start round
+     setInterval(() => {
+       this.$store.commit('setRoundStatus', 'started')
+       //this.startRound();
+     }, 66000);
+   }, 3000);
+  */
   },
 };
 </script>
@@ -757,7 +751,7 @@ export default {
 .coin-toolbar-open {
   transition: all 1s linear;
   animation-name: slideTop;
-  bottom: 0%;
+  bottom: 1rem;
   opacity: 1;
 }
 
@@ -812,13 +806,13 @@ export default {
   }
 
   to {
-    bottom: 0%;
+    bottom: 1rem;
   }
 }
 
 @keyframes slideBottom {
   from {
-    bottom: 0%;
+    bottom: 1rem;
   }
 
   to {

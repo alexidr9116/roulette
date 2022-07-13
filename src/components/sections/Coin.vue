@@ -1,6 +1,6 @@
 <template>
   <div
-    class="coin w-10 h-10 md:w-12 md:h-12 lg:w-16 lg:h-16"
+    class="coin w-10 h-10 md:w-12 md:h-12 "
     @click="handleSelectCoin"
     :class="{ 'coin-selected': this.value == this.$store.state.coin }"
   >
@@ -116,15 +116,15 @@ export default {
 
 @keyframes scaleAnimation {
   0% {
-    transform: scale(1.4, 1.4);
+    transform: scale(1.2, 1.2);
   }
 
   50% {
-    transform: scale(1.6, 1.6);
+    transform: scale(1.3, 1.3);
   }
 
   100% {
-    transform: scale(1.4, 1.4);
+    transform: scale(1.2, 1.2);
   }
 }
 </style>

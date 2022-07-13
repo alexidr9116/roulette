@@ -50,6 +50,9 @@ export default new Vuex.Store({
     },
     setWinNumber(state,value){
       state.winNumber = value; 
+      
+    },
+    setWinNumbers(state,value){
       state.winNumbers.push(`${value}`);
       state.winNumbers=state.winNumbers.slice(Math.max(0,state.winNumbers.length-9),state.winNumbers.length);
     },
