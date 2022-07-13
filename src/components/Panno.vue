@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col w-full min-h-[900px] md:h-full md:min-h-full md:mt-20">
+  <div class="flex w-full md:h-full justify-center items-center">
     <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
     <CounterDesktop v-if="($store.state.roundStatus === 'started')"></CounterDesktop>
     <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="w-full md:px-4 md:w-3/5 md:ml-[40%] md:mt-[18%]">
+    <div class="w-full md:px-8 md:w-3/5 md:ml-[38%] md:mt-[13%]">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
         <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>

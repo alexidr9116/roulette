@@ -2,25 +2,27 @@
   <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
 
   <div class="panno overflow-y-auto h-full w-full overflow-x-hidden">
-     <div class="absolute w-full h-full  z-0 ">
-      <div id="mlc-video-div" class="top-0 md:-top-[25%] absolute z-0">
+    <div class="absolute  w-full h-full flex items-center justify-center ">
+      <div id="mlc-video-div" class="  z-0 w-full h-full flex items-start md:items-center justify-center">
 
       </div>
-      <div class='absolute md:-top-[25%] w-full mt-[5%] z-1 md:h-4/5'>
-        <img src = '/assets/panel.png' alt = 'banner' class='w-full '/>
-      </div>
+    </div>
+    <div class="absolute  w-full h-full  items-center justify-center hidden md:flex ">
+      <img src='/assets/panel.png' alt='banner' class=" z-1 w-full mt-[8.5%]" />
+    </div>
 
-      <!-- play now button -->
-      <div class="fixed p-4 bottom-10 sm:top-0 container mx-auto z-50 items-end justify-start flex  h-15  flex-col "
-        v-if="(gameInfo.live_stream != '') && (!play)">
-        <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/3 md:w-1/4  w-full  gap-4 bg-red-500/30'>
-          <!-- @click="router.push({ name: 'panno' })" -->
-          <button @click="play = true;">Play Now</button>
-        </div>
 
+    <!-- play now button -->
+    <div class="fixed p-4 bottom-10 sm:top-0 container mx-auto z-50 items-end justify-start flex  h-15  flex-col "
+      v-if="(gameInfo.live_stream != '') && (!play)">
+      <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/3 md:w-1/4  w-full  gap-4 bg-red-500/30'>
+        <!-- @click="router.push({ name: 'panno' })" -->
+        <button @click="play = true;">Play Now</button>
       </div>
 
     </div>
+
+
 
     <PannoView v-if="this.play"></PannoView>
   </div>
@@ -1237,13 +1239,13 @@ button {
 .RL_TRAIN01 .desktop #mlc-video-div,
 .RL_TRAIN01 .desktop #mlc-video-tag {
   position: absolute;
-  top: -7%;
+ 
 }
 
 
 #mlc-video-div,
 #mlc-video-tag {
-  display: block;
+ 
   overflow: hidden;
   background-color: #000;
   opacity: 1;
