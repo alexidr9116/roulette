@@ -44,7 +44,7 @@
       </div>
     </div>
     <div class="absolute  w-full h-full  items-center justify-center hidden md:flex ">
-      <img src='/assets/panel.png' alt='banner' class=" z-0 w-full mt-[8.5%]" />
+      <img src='/assets/panel.png' alt='banner' class=" z-0 w-full mt-[8.5%] pointer-events-none	" />
     </div>
 
 
