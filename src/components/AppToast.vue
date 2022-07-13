@@ -47,16 +47,14 @@ export default {
             rgba(0, 0, 0, 0) 0,
             rgba(0, 0, 0, 0.5) 15%,
             rgba(0, 0, 0, 0.5) 100%);
-    width: 26vh;
-    height: 7.87vh;
+    height: 90px;
     position: absolute;
     top: 12px;
     color: #fff;
     border-radius: 0 3vh 7vh 0;
     z-index: 50;
     opacity: 0;
-    height: 15vh;
-    width: 300px;
+    width: 320px;
     animation: 7s ease 0s normal forwards 1 toast;
 }
 
