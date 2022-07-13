@@ -6,14 +6,50 @@
       <div id="mlc-video-div" class="  z-0 w-full h-full flex items-start md:items-center justify-center">
 
       </div>
+
+    </div>
+    <div class="mlc-header z-50">
+      <!---->
+      <div class="ng-star-inserted">
+        <div class="infotavolo">
+          <h1>
+            LIVE<i><span class="game">roulette</span> FROM </i><span>MALTA</span></h1>
+          <p>DEALER
+            <button>Mihajlo</button>
+          </p>
+        </div>
+      </div>
+      <!--      <jackpot-boxes class="ng-star-inserted">&lt;!&ndash;&ndash;&gt;</jackpot-boxes>-->
+      <div class="ng-star-inserted">
+        <div class="infogioco">
+          <!---->
+          <!---->
+          <div class="mlc-btn ico-exit pevents-on ng-star-inserted"></div>
+          <div class="dati-gioco">
+            <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br>
+              <!---->
+              <!---->
+              <button id="eventId" class="ng-star-inserted">48863933</button>
+              : EVENT ID
+            </p>
+          </div>
+          <div class="tooltip-datigioco">
+            <div class="triangolo"></div>
+            <button id="partecipationId"></button>
+            : Ticket ADM <br>
+            <button id="sessionId"></button>
+            : <span>Session ADM</span>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="absolute  w-full h-full  items-center justify-center hidden md:flex ">
-      <img src='/assets/panel.png' alt='banner' class=" z-1 w-full mt-[8.5%]" />
+      <img src='/assets/panel.png' alt='banner' class=" z-0 w-full mt-[8.5%]" />
     </div>
 
 
     <!-- play now button -->
-    <div class="fixed p-4 bottom-10 sm:top-0 container mx-auto z-50 items-end justify-start flex  h-15  flex-col "
+    <div class="fixed p-4 bottom-10 container mx-auto z-50 items-end justify-start flex  h-15  flex-col "
       v-if="(gameInfo.live_stream != '') && (!play)">
       <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/3 md:w-1/4  w-full  gap-4 bg-red-500/30'>
         <!-- @click="router.push({ name: 'panno' })" -->
@@ -1037,7 +1073,7 @@ export default {
 .infogioco .mlc-btn {
   height: 4vh;
   width: 4vh;
-  margin-top: 3%;
+  margin-top: 1%;
   float: right;
 }
 
@@ -1239,13 +1275,13 @@ button {
 .RL_TRAIN01 .desktop #mlc-video-div,
 .RL_TRAIN01 .desktop #mlc-video-tag {
   position: absolute;
- 
+
 }
 
 
 #mlc-video-div,
 #mlc-video-tag {
- 
+
   overflow: hidden;
   background-color: #000;
   opacity: 1;
