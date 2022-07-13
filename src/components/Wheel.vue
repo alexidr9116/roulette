@@ -763,12 +763,10 @@ export default Vue.extend({
 //  z-index: 1;
 //}
 #overlay-wheel {
-  width: 15.95vh;
-  height: 15.95vh;
+  width: 96px;
+  height: 96px;
   position: absolute;
   border-radius: 50%;
-  left: 10px;
-  top: 10px;
   z-index: 59;
   background: linear-gradient(to left, #000 -2%, rgba(0, 0, 0, 0) 35%),
     linear-gradient(to right, #000 -2%, rgba(0, 0, 0, 0) 35%),
@@ -776,14 +774,13 @@ export default Vue.extend({
     linear-gradient(to bottom, #000 -20%, #00000000 40%);
 }
 #window-wheel {
-  width: 15.95vh;
-  height: 15.95vh;
+  width: 96px;
+  height: 96px;
   box-shadow: 0 0 20px #000;
   position: absolute;
   overflow: hidden;
   border-radius: 50%;
-  left: 10px;
-  top: 10px;
+
   z-index: 58;
 }
 .desktop.roulette-right #window-wheel {

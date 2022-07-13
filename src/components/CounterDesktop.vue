@@ -146,11 +146,10 @@ export default {
 
 <style scoped lang="scss">
 #counter {
-  width: 15.95vh;
-  height:  15.95vh;
+  width: 96px;
+  height:  96px;
   position: absolute;
-  left: 10px;
-  top: 10px;
+
   z-index: 60;
 }
 

@@ -1,20 +1,25 @@
 <template>
-  <div class="flex w-full md:h-full justify-center items-center">
-    <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
-    <CounterDesktop v-if="($store.state.roundStatus === 'started')"></CounterDesktop>
-    <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
-      :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
-    </Wheel>
-    <div class="absolute top-[120px] md:top-[140px] left-0 md:left-3  h-3/5 md:h-[59vh] overflow-y-hidden">
-      <div class="flex flex-col-reverse gap-1 p-3">
-        <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
-          class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
-          :class="numberObj[number].color === 'Black' ? 'ml-6 bg-black' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
-          {{ number }}
+  <div class="flex  w-full h-full md:items-center">
+    <div class="flex flex-col h-full justify-center overflow-y-hidden absolute w-20 md:w-32 ">
+      <div class="flex flex-col  h-1/2 md:h-2/3 relative">
+        <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
+        <CounterDesktop v-if="($store.state.roundStatus === 'started')"></CounterDesktop>
+        <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
+          :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
+        </Wheel>
+        <div class="flex flex-col-reverse gap-1 p-3 ">
+          <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
+            class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
+            :class="numberObj[number].color === 'Black' ? 'ml-6 bg-black' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
+            {{ number }}
+          </div>
         </div>
       </div>
+
     </div>
-    <div class="w-full md:px-8 md:w-3/5 md:ml-[38%] md:mt-[13%]">
+
+
+    <div class="w-full md:px-8 md:w-3/5 md:ml-[38%] md:mt-[15%] ">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
         <Ovale v-if="$store.state.roundStatus == 'started' && !$store.state.showGroupBet"></Ovale>
@@ -23,20 +28,20 @@
       </div>
     </div>
     <!-- balances -->
-    <div class="flex justify-between w-full px-2    bottom-0 sm:px-6 absolute text-sm sm:text-normal">
+    <div class="flex justify-between w-full px-2    bottom-0 sm:px-6 absolute text-xs leading-none">
       <div class="flex gap-0 items-end flex-col ">
         <div class="flex gap-2 items-center"><span class="text-yellow-200">EUR</span>
           <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-white">BALANCE</span>
         </div>
-        <span class="text-lg text-white  -mt-2 sm:mt-0">{{
+        <span class="text-sm text-white  ">{{
             formatNumber($store.state.haveBalance)
         }}</span>
       </div>
-      <div class="flex gap-0 items-start flex-col font-sm sm:font-normal">
+      <div class="flex gap-0 items-start flex-col text-xs leading-none">
         <div class="flex gap-2 items-center"><span class="text-white">{{ $store.state.gameStatus }}</span>
           <Icon icon="ci:dot-01-xs" width="10"></Icon><span class="text-yellow-200">EUR</span>
         </div>
-        <span class="text-lg text-white -mt-2 sm:mt-0">{{
+        <span class="text-sm text-white  ">{{
             formatNumber($store.state.roundBalance)
         }}</span>
       </div>
@@ -102,11 +107,11 @@
     </div>
 
     <!-- buttons -->
-    <button class="left-5 flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+    <button class=" flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
-      class="right-5 flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+      class=" right-0 flex absolute animate-btn btn bottom-16 md:bottom-20 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
   </div>
@@ -633,8 +638,8 @@ export default {
       this.$store.commit("setBetAction", "add");
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
-      this.$store.commit('setUpdated',[]);
-      
+      this.$store.commit('setUpdated', []);
+
     },
     handleReset() {
       console.log("reset...");

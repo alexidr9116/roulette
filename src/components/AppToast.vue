@@ -1,5 +1,5 @@
 <template>
-    <div class="app-toast p-1 lg:p-2 w-3/4 md:w-1/3   flex flex-col items-between "
+    <div class="app-toast p-1 lg:p-2 w-3/4 md:w-1/3    flex-col items-between hidden md:flex"
         :class="message == '' ? 'justify-center' : 'justify-between'" v-if="showMessage">
         <div class="pr-8 w-full text-right">
             <h3 class="md:text-xl font-bold">{{ title }}</h3>
