@@ -3,8 +3,10 @@
 
   <div class="panno relative  overflow-hidden h-full w-full">
     <div class="w-full h-full flex items-center justify-center ">
-      <div id="mlc-video-div" class="-mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center "
-        :class="(($store.state.roundStatus !== 'started') ? 'w-[200%] h-[200%] -top-[280px]' : '')"></div>
+      
+      <div id="mlc-video-div" class="-mt-[8.5%] z-0 w-full h-full items-start flex md:items-center justify-center "
+        :class="(($store.state.roundStatus !== 'started') ? 'origin-top-left -mt-[120%]  scale-[200%] md:scale-100 md:flex md:-mt-[8.5%] ' : '')">
+      </div>
 
     </div>
     <div class="mlc-header z-50 absolute top-0">
@@ -509,14 +511,20 @@ export default {
     },
     async handleLogout() {
 
-      if (this.getUserToken()!=='') {
-        const response = await request.post('/api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
-        if (response.data.status === 0 && response.data.result === '') {
-          this.play = false;
-          this.ws = null;
-          localStorage.setItem('userToken', '');
+      if (this.getUserToken() !== '') {
+        try {
+
+          const response = await request.post('/api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
+          if (response.data.status === 0 && response.data.result === '') {
+            this.play = false;
+            this.ws = null;
+            localStorage.setItem('userToken', '');
+          }
+          console.log(response);
         }
-        console.log(response);
+        catch (err) {
+          // console.log(err)
+        }
       }
 
     },
