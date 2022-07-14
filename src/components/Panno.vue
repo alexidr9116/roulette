@@ -78,7 +78,7 @@
         ? 'mobile-coin-toolbar-open '
         : 'mobile-coin-toolbar-close '
     ">
-       <Coin :fillColor="getFillColor(0.5, 400)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(0.5, 400)" v-bind:value="0.5"></Coin>
       <Coin :fillColor="getFillColor(1, 400)" v-bind:value="1"></Coin>
       <Coin :fillColor="getFillColor(5, 400)" v-bind:value="5"></Coin>
       <Coin :fillColor="getFillColor(10, 400)" v-bind:value="10"></Coin>
@@ -101,13 +101,17 @@
     </div>
 
     <!-- buttons -->
-    <button class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+    <button @click = "showMenu = !showMenu" class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
       class=" right-0 flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
+    <div class="absolute bottom-28 md:bottom-40 left-5 md:left-10" v-if="this.showMenu">
+      <AppMenu></AppMenu>
+    </div>
+
   </div>
 </template>
 
@@ -120,6 +124,7 @@ import PannoSnap from "./sections/PannoSnap";
 import CounterDesktop from "./CounterDesktop";
 import Wheel from "./Wheel";
 import AppToast from './AppToast';
+import AppMenu from './Menu';
 import { getFillColor } from "../utils/index.js";
 import { Icon } from "@iconify/vue2";
 import { mapState } from 'vuex';
@@ -128,6 +133,7 @@ export default {
   name: "Panno",
   components: {
     Ovale,
+    AppMenu,
     OvaleSnap,
     PannoPanel,
     Coin,
@@ -406,6 +412,7 @@ export default {
       showToast: false,
       toastTitle: '',
       toastMessage: '',
+      showMenu:false,
     };
   },
   computed: mapState(['roundStatus']),
@@ -631,7 +638,7 @@ export default {
             e.classList.add('pulseWinBox');
           }
         }
-        this.$store.commit('setWinNumbers',winNumber);
+        this.$store.commit('setWinNumbers', winNumber);
 
       }, 1500);
 
@@ -657,10 +664,10 @@ export default {
       this.$store.commit('setShowGroupBet', true);
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
-      setTimeout(
-        () => { document.getElementById('btn-show-group-bet').click(); }
-        , 300
-      )
+      // setTimeout(
+      //   () => { document.getElementById('btn-show-group-bet').click(); }
+      //   , 300
+      // )
     },
     // remove coin button
     handleRemoveCoin() {
