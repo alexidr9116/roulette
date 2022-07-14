@@ -88,7 +88,7 @@ export function getFillColor(value, max,) {
     color = '#00ffff';
   if ((value > 1000 ))
     color = 'red';
-  console.log(color)
+  
 
   return color;
 }
