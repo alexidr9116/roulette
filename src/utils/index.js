@@ -57,22 +57,41 @@ export function appDown() {
 
 export function getFillColor(value, max,) {
   let color = 'green';
-  if (value > 0 && value < max / 200)
-    color = 'green';
-  if (value >= max/200 && value < max / 100)
-    color = 'lightgreen';
-  if (value >= max / 100 && value < max / 80)
-    color = '#13cd0c';
-  if (value >= max / 80 && value < max / 60)
-    color = '#fbdb1c';
-  if (value >= max / 60 && value < max / 30)
-    color = '#fb931c';
-  if (value >= max / 30 && value < max / 10)
-    color = '#fb1c1c';
-  if (value >= max / 10 && value < max / 2)
-    color = '#de1cfb';
+  if (value > 0 && value < max / 300)
+    color = '#00f964';
+  if (value >= max / 300 && value < max / 200)
+    color = '#03a945';
+  if (value >= max / 200 && value < max / 150)
+    color = '#33ff00';
+  if (value >= max / 150 && value < max / 110)
+    color = '#115800';
+  if (value >= max / 110 && value < max / 90)
+    color = '#d8ff00';
+  if (value >= max / 90 && value < max / 70)
+    color = '#936c00';
+  if (value >= max / 70 && value < max / 50)
+    color = '#c34903';
+  if (value >= max / 50 && value < max / 35)
+    color = '#ff5e00';
+  if (value >= max / 35 && value < max / 20)
+    color = '#f91717';
+  if (value >= max / 20 && value < max / 10)
+    color = '#ff4600';
+  if (value >= max / 10 && value < max / 6)
+    color = '#ff2a6f';
+  if (value >= max / 6 && value < max / 5)
+    color = '#b9003c';
+  if (value >= max / 5 && value < max / 4)
+    color = '#ff41df';
+  if (value >= max / 4 && value < max / 3)
+    color = '#eb1dc8';
+  if (value >= max / 3 && value < max / 2)
+    color = '#e51515';
   if ((value >= max / 2 && value <= max / 1))
-    color = '#1c65fb';
+    color = '#a10085';
+  if ((value > max ))
+    color = '#5e005b';
+
 
   return color;
 }
