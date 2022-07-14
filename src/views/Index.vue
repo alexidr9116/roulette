@@ -3,8 +3,8 @@
 
   <div class="panno relative  overflow-hidden h-full w-full">
     <div class="w-full h-full flex items-center justify-center ">
-      <div id="mlc-video-div" class="-mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center " :class="(($store.state.roundStatus !=='started')?'w-[200%] h-[200%] -top-[280px]':'')"
-      ></div>
+      <div id="mlc-video-div" class="-mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center "
+        :class="(($store.state.roundStatus !== 'started') ? 'w-[200%] h-[200%] -top-[280px]' : '')"></div>
 
     </div>
     <div class="mlc-header z-50 absolute top-0">
@@ -14,7 +14,7 @@
           <h1>
             LIVE<i><span class="game">roulette</span> FROM </i><span>MALTA</span></h1>
           <p>DEALER
-            <button>{{$store.state.roundInfo.dealer}}</button>
+            <button>{{ $store.state.roundInfo.dealer }}</button>
           </p>
         </div>
       </div>
@@ -23,12 +23,12 @@
         <div class="infogioco">
           <!---->
           <!---->
-          <div class="mlc-btn ico-exit pevents-on ng-star-inserted"></div>
+          <div class="mlc-btn ico-exit pevents-on ng-star-inserted" @click="handleLogout()"></div>
           <div class="dati-gioco">
             <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br>
               <!---->
               <!---->
-              <button id="eventId" class="ng-star-inserted">{{$store.state.roundInfo.seqPlay}}</button>
+              <button id="eventId" class="ng-star-inserted">{{ $store.state.roundInfo.seqPlay }}</button>
               : EVENT ID
             </p>
           </div>
@@ -52,7 +52,7 @@
       v-if="(gameInfo.live_stream != '') && (!play)">
       <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/3 md:w-1/4  w-full  gap-4 bg-red-500/30'>
         <!-- @click="router.push({ name: 'panno' })" -->
-        <button @click="play = true;">Play Now</button>
+        <button @click="playGame();">Play Now</button>
       </div>
 
     </div>
@@ -458,22 +458,7 @@ export default {
 
     this.$nextTick(() => {
       if (!this.ws) {
-        request({
-          url: '/api/member/login',
-          // url: '/member/login',
-          method: 'post',
-          data: {
-            username: "bba222",
-            password: "123456"
-          }
-        }).then(res => {
-          this.t = res.data["result"]["token"];
-
-          this.$store.commit('setUserToken', this.t);
-          localStorage.setItem('userToken', this.t);
-
-          // 
-        })
+        this.login();
       }
 
       // request.post("https://api.asian888.club/member/login", {
@@ -488,6 +473,52 @@ export default {
   },
 
   methods: {
+    async login() {
+      const res = await request.post('/api/member/login', {
+        username: "bba222",
+        password: "123456"
+      });
+      if (res && res.data && res.data["result"] && res.data["result"]["token"]) {
+        this.t = res.data["result"]["token"];
+        this.$store.commit('setUserToken', this.t);
+        localStorage.setItem('userToken', this.t);
+        return true;
+      }
+      else {
+        return false;
+      }
+    },
+    getAxoisTokenHeader() {
+      const headers = {
+        'Content-Type': 'application/json',
+        'token': this.getUserToken()
+      }
+      return headers;
+    },
+    getUserToken() {
+      let token = this.$store.state.token;
+      if (token == '')
+        token = localStorage.getItem('userToken');
+      // console.log(token)
+      return token;
+    },
+    async playGame() {
+      if (await this.login())
+        this.play = true;
+    },
+    async handleLogout() {
+
+      if (!this.ws) {
+        const response = await request.post('/api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
+        if (response.data.status === 0 && response.data.result === '') {
+          this.play = false;
+          this.ws = null;
+          localStorage.setItem('userToken', '');
+        }
+        console.log(response);
+      }
+
+    },
     getGameConfig() {
       try {
         const vm = this;
