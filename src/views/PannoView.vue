@@ -105,19 +105,19 @@ export default {
             vm.$store.commit('setGameStatus', 'WIN');
             const selected = vm.selected.filter(f => {
               const ele = document.getElementById(f.refer);
-              const hover = ele.getAttribute('hover');
-              console.log(ele, hover);
-              const arr = hover.includes(" ") ? hover.split(" ") : [hover];
+              if (ele && ele != null) {
+                const hover = ele.getAttribute('hover');
+                const arr = hover.includes(" ") ? hover.split(" ") : [hover];
+                return arr.includes(`PL${vm.$store.state.winNumber}`);
+              }
+              return false;
 
-              return arr.includes(`PL${vm.$store.state.winNumber}`);
             });
             if (selected.length > 0) {
               for (const s of selected) {
                 s.value = data.amount;
               }
-
-            }
-            console.log(selected);
+            } 
             vm.$store.commit('setSelected', selected);
             vm.$store.commit('setWinCoin', { refer: data.bet_code, value: data.amount });
             vm.$store.commit('setRoundBalance', eval(data.amount));

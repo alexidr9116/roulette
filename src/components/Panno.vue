@@ -631,7 +631,7 @@ export default {
             e.classList.add('pulseWinBox');
           }
         }
-
+        this.$store.commit('setWinNumbers',winNumber);
 
       }, 1500);
 
