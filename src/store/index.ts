@@ -22,11 +22,15 @@ export default new Vuex.Store({
     winNumbers:[""],
     token:'',
     seqPlay:0,
+    roundInfo:{dealer:'', seqPlay:'', },
     hotCoolNumbers:null,  // {hot:[], cool:[]}
     lastBetInfo:null, // array [{bet_code:'PL1',bet_amount:'100.00'}]
   },
   getters: {},
   mutations: {
+    setRoundInfo(state,info){
+      state.roundInfo = info;
+    },
     setWinCoin(state,coin){
       state.winCoin = coin;
     },

@@ -3,9 +3,8 @@
 
   <div class="panno relative  overflow-hidden h-full w-full">
     <div class="w-full h-full flex items-center justify-center ">
-      <div id="mlc-video-div" class="  -mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center " :class = "($store.state.roundStatus !=='started') ?'w-[200%] h-[200%] -top-[280px]  ':''">
-
-      </div>
+      <div id="mlc-video-div" class="-mt-[8.5%] z-0 w-full h-full flex items-start md:items-center justify-center " :class="(($store.state.roundStatus !=='started')?'w-[200%] h-[200%] -top-[280px]':'')"
+      ></div>
 
     </div>
     <div class="mlc-header z-50 absolute top-0">
@@ -15,7 +14,7 @@
           <h1>
             LIVE<i><span class="game">roulette</span> FROM </i><span>MALTA</span></h1>
           <p>DEALER
-            <button>Mihajlo</button>
+            <button>{{$store.state.roundInfo.dealer}}</button>
           </p>
         </div>
       </div>
@@ -29,7 +28,7 @@
             <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br>
               <!---->
               <!---->
-              <button id="eventId" class="ng-star-inserted">48863933</button>
+              <button id="eventId" class="ng-star-inserted">{{$store.state.roundInfo.seqPlay}}</button>
               : EVENT ID
             </p>
           </div>

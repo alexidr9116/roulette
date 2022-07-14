@@ -130,7 +130,12 @@ export default {
               vm.$store.commit("setRoundStatus", "started");
 
               vm.$store.commit('setSeqPlay', data.seqPlay);
-
+              const roundInfo = {
+                dealer:data.dealer,
+                seqPlay:data.seqPlay
+              };
+              vm.$store.commit('setRoundInfo', roundInfo);
+              
             }
             if (data.status === 'stop') {
               // no betting
