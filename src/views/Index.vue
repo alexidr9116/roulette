@@ -474,6 +474,7 @@ export default {
 
   methods: {
     async login() {
+      await this.handleLogout();
       const res = await request.post('/api/member/login', {
         username: "bba222",
         password: "123456"
@@ -508,7 +509,7 @@ export default {
     },
     async handleLogout() {
 
-      if (!this.ws && this.getUserToken()!=='') {
+      if (this.getUserToken()!=='') {
         const response = await request.post('/api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
         if (response.data.status === 0 && response.data.result === '') {
           this.play = false;
