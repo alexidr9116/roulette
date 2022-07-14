@@ -63,14 +63,14 @@
           <Icon icon="bytesize:reload" width="40"></Icon>
         </button>
       </div>
-      <Coin :fillColor="getFillColor(0.5, 200)" v-bind:value="0.5"></Coin>
-      <Coin :fillColor="getFillColor(1, 200)" v-bind:value="1"></Coin>
-      <Coin :fillColor="getFillColor(5, 200)" v-bind:value="5"></Coin>
-      <Coin :fillColor="getFillColor(10, 200)" v-bind:value="10"></Coin>
-      <Coin :fillColor="getFillColor(20, 200)" v-bind:value="20"></Coin>
-      <Coin :fillColor="getFillColor(50, 200)" v-bind:value="50"></Coin>
-      <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
-      <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
+      <Coin :fillColor="getFillColor(0.5, 500)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(1, 500)" v-bind:value="1"></Coin>
+      <Coin :fillColor="getFillColor(5, 500)" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(10, 500)" v-bind:value="10"></Coin>
+      <Coin :fillColor="getFillColor(20, 500)" v-bind:value="20"></Coin>
+      <Coin :fillColor="getFillColor(50, 500)" v-bind:value="50"></Coin>
+      <Coin :fillColor="getFillColor(100, 500)" v-bind:value="100"></Coin>
+      <Coin :fillColor="getFillColor(200, 500)" v-bind:value="200"></Coin>
     </div>
     <!-- mobile toolbar-->
     <div class="mobile-coin-toolbar flex-col py-6 items-end justify-start flex md:hidden absolute right-4" :class="
@@ -78,14 +78,14 @@
         ? 'mobile-coin-toolbar-open '
         : 'mobile-coin-toolbar-close '
     ">
-      <Coin :fillColor="getFillColor(0.5, 200)" v-bind:value="0.5"></Coin>
-      <Coin :fillColor="getFillColor(1, 200)" v-bind:value="1"></Coin>
-      <Coin :fillColor="getFillColor(5, 200)" v-bind:value="5"></Coin>
-      <Coin :fillColor="getFillColor(10, 200)" v-bind:value="10"></Coin>
-      <Coin :fillColor="getFillColor(20, 200)" v-bind:value="20"></Coin>
-      <Coin :fillColor="getFillColor(50, 200)" v-bind:value="50"></Coin>
-      <Coin :fillColor="getFillColor(100, 200)" v-bind:value="100"></Coin>
-      <Coin :fillColor="getFillColor(200, 200)" v-bind:value="200"></Coin>
+       <Coin :fillColor="getFillColor(0.5, 400)" v-bind:value="0.5"></Coin>
+      <Coin :fillColor="getFillColor(1, 400)" v-bind:value="1"></Coin>
+      <Coin :fillColor="getFillColor(5, 400)" v-bind:value="5"></Coin>
+      <Coin :fillColor="getFillColor(10, 400)" v-bind:value="10"></Coin>
+      <Coin :fillColor="getFillColor(20, 400)" v-bind:value="20"></Coin>
+      <Coin :fillColor="getFillColor(50, 400)" v-bind:value="50"></Coin>
+      <Coin :fillColor="getFillColor(100, 400)" v-bind:value="100"></Coin>
+      <Coin :fillColor="getFillColor(200, 400)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
         <button class="animate-btn btn w-10 h-10  btn-circle flex" @click="handleFetchLast">
           <Icon icon="bytesize:reload" width="40"></Icon>
@@ -700,15 +700,15 @@ export default {
     //   group.classList.add("hidden");
     // }
 
-    // setTimeout(() => {
-    //   this.$store.commit('setRoundStatus', 'started')
-    //   // this.startRound();
-    //   // 66S start round
-    //   setInterval(() => {
-    //     this.$store.commit('setRoundStatus', 'started')
-    //     //this.startRound();
-    //   }, 60000);
-    // }, 3000);
+    setTimeout(() => {
+      this.$store.commit('setRoundStatus', 'started')
+      // this.startRound();
+      // 66S start round
+      setInterval(() => {
+        this.$store.commit('setRoundStatus', 'started')
+        //this.startRound();
+      }, 60000);
+    }, 3000);
 
   },
 };
