@@ -458,7 +458,7 @@ export default {
 
     this.$nextTick(() => {
       if (!this.ws) {
-        this.login();
+        // this.login();
       }
 
       // request.post("https://api.asian888.club/member/login", {
@@ -508,7 +508,7 @@ export default {
     },
     async handleLogout() {
 
-      if (!this.ws) {
+      if (!this.ws && this.getUserToken()!=='') {
         const response = await request.post('/api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
         if (response.data.status === 0 && response.data.result === '') {
           this.play = false;
