@@ -738,16 +738,17 @@ export default Vue.extend({
       // if(!this.wait){
        
       let current = this.numberList.indexOf(`${val}`);
-      // console.log(current)
+      
       let rotateDeg =
         this.rotateDeg +
         (current < this.numberList.length / 2 ? 360 : 0) +
         (360 / 37) * current;
+
       setTimeout(() => {
         this.rotateDeg = rotateDeg;
       }, 100);
 
-      // console.log(rotateDeg)
+      
       // }
     },
   },

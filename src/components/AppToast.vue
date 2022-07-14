@@ -1,5 +1,5 @@
 <template>
-    <div class="app-toast p-1 lg:p-2 w-3/4 md:w-1/3    flex-col items-between hidden md:flex"
+    <div class="app-toast  w-3/4 md:w-1/3    flex-col items-between hidden md:flex"
         :class="message == '' ? 'justify-center' : 'justify-between'" v-if="showMessage">
         <div class="pr-8 w-full text-right">
             <h3 class="md:text-xl font-bold">{{ title }}</h3>
@@ -54,7 +54,7 @@ export default {
     border-radius: 0 3vh 7vh 0;
     z-index: 50;
     opacity: 0;
-    width: 320px;
+    width: 280px;
     animation: 7s ease 0s normal forwards 1 toast;
 }
 

@@ -415,7 +415,7 @@ export default {
       if (status === 'end') {
         this.endRound();
       }
-      if(status === 'result'){
+      if (status === 'result') {
         this.resultRound();
       }
       if (status === 'started') {
@@ -484,7 +484,7 @@ export default {
         // setTimeout(() => {
         //   const winNumber = Math.floor(Math.random() * 36);
         //   this.$store.commit("setWinNumber", winNumber);
-        //   this.$store.commit("setRoundStatus", "end");
+        //   this.$store.commit("setRoundStatus", "result");
         //   // this.endRound();
         // }, 50000);
 
@@ -519,8 +519,16 @@ export default {
       // this.$store.commit("setRoundStatus", "end");
       setTimeout(() => {
         this.showToast = true;
-        this.toastTitle = `${winObj.type} / ${winObj.color}`;
-        this.toastMessage = `<p class='pr-4'>${winObj.text1}<br/>${winObj.text2}</p>`;
+        if (eval(winNumber) === 0) {
+          this.toastTitle = `${winObj.type} / ${winObj.color}`;
+          this.toastMessage = ``;
+        }
+        else {
+          this.toastTitle = `${winObj.type} / ${winObj.color}`;
+          this.toastMessage = `<p class='pr-4'>${winObj.text1}<br/>${winObj.text2}</p>`;
+        }
+
+
         if (winObj.type === 'Even') {
           for (const e of document.querySelectorAll('#gRR')) {
             e.classList.remove('otherBox');
@@ -623,8 +631,9 @@ export default {
             e.classList.add('pulseWinBox');
           }
         }
-        this.$store.commit("setWinNumbers", winNumber);
-      }, 500);
+
+
+      }, 1500);
 
     },
     endRound() {
@@ -690,17 +699,17 @@ export default {
     //   group.classList.remove("hidden");
     //   group.classList.add("hidden");
     // }
-    /*
-   setTimeout(() => {
-     this.$store.commit('setRoundStatus', 'started')
-     // this.startRound();
-     // 66S start round
-     setInterval(() => {
-       this.$store.commit('setRoundStatus', 'started')
-       //this.startRound();
-     }, 66000);
-   }, 3000);
-  */
+
+    // setTimeout(() => {
+    //   this.$store.commit('setRoundStatus', 'started')
+    //   // this.startRound();
+    //   // 66S start round
+    //   setInterval(() => {
+    //     this.$store.commit('setRoundStatus', 'started')
+    //     //this.startRound();
+    //   }, 60000);
+    // }, 3000);
+
   },
 };
 </script>

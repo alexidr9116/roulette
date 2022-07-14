@@ -16,7 +16,7 @@ export default {
     return {
       ws: null,
       isConnected: false,
-      selected:[],
+      selected: [],
     }
   },
   computed: mapState(['roundStatus', 'updated']),
@@ -101,22 +101,25 @@ export default {
 
           let data = JSON.parse(evt.data)
           console.log(data, " is received from ws")
-          if (data.type === 'win' && data.amount >0) {
+          if (data.type === 'win' && data.amount > 0) {
             vm.$store.commit('setGameStatus', 'WIN');
-            const selected = vm.selected.filter(f=>{
+            const selected = vm.selected.filter(f => {
               const ele = document.getElementById(f.refer);
               const hover = ele.getAttribute('hover');
-              console.log(ele,hover);
-              const arr = hover.includes(" ")?hover.split(" "):[hover];
+              console.log(ele, hover);
+              const arr = hover.includes(" ") ? hover.split(" ") : [hover];
 
               return arr.includes(`PL${vm.$store.state.winNumber}`);
             });
-            if(selected.length === 1){
-              selected[0].value = data.amount;
+            if (selected.length > 0) {
+              for (const s of selected) {
+                s.value = data.amount;
+              }
+
             }
             console.log(selected);
-            vm.$store.commit('setSelected',selected);
-            vm.$store.commit('setWinCoin',{refer:data.bet_code, value:data.amount});
+            vm.$store.commit('setSelected', selected);
+            vm.$store.commit('setWinCoin', { refer: data.bet_code, value: data.amount });
             vm.$store.commit('setRoundBalance', eval(data.amount));
           }
           // get game number;
@@ -143,6 +146,8 @@ export default {
               if (num.slice(0, 1) == 0) {
                 num = num.slice(1, 2)
               }
+              vm.selected = vm.$store.state.selected.slice(0, vm.$store.state.selected.length);
+              vm.$store.commit("setSelected", []);
               vm.$store.commit("setWinNumber", parseInt(num));
               vm.$store.commit("setRoundStatus", "result");
               // vm.updataNum(num)
