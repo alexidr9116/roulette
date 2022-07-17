@@ -101,14 +101,14 @@
     </div>
 
     <!-- buttons -->
-    <button @click = "showMenu = !showMenu" class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
+    <button   class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle" @click="$store.commit('setShowMenu',!$store.state.showMenu)">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
       class=" right-0 flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
-    <div class="absolute bottom-28 md:bottom-40 left-5 md:left-10" v-if="this.showMenu">
+    <div class="absolute bottom-28 md:bottom-40 left-5 md:left-10 z-50" v-if="this.showSideMenu">
       <AppMenu></AppMenu>
     </div>
 
@@ -412,12 +412,16 @@ export default {
       showToast: false,
       toastTitle: '',
       toastMessage: '',
-      showMenu:false,
+      showSideMenu:false,
     };
   },
-  computed: mapState(['roundStatus']),
+  computed: mapState(['roundStatus','showMenu']),
   watch: {
-
+    showMenu(status,old){
+      if(status!==old){
+        this.showSideMenu = status;
+      }
+    },
     roundStatus(status, old) {
       if (status === 'end') {
         this.endRound();

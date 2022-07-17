@@ -37,6 +37,7 @@ export default {
       if (status === "started") {
         this.$store.commit('setGameStatus', 'BET');
         this.getUserBalance();
+        this.loadGetTodayBets();
         // this.getLastBet();
       }
 
@@ -46,6 +47,7 @@ export default {
   },
   mounted() {
     this.initWebsocket();
+    this.loadLastWinNumbers();
     // this.getHotCoolNumbers();
     setInterval(() => {
       if (this.isConnected) {
@@ -57,6 +59,38 @@ export default {
     }, 30000);
   },
   methods: {
+    async loadGetTodayBets() {
+      try {
+        const response = await request.post('/api/member/getTodayBet', {}, { headers: this.getAxoisTokenHeader() });
+        const data = [];
+        if (response.message === 'success' && response.data.result) {
+          for (const row of response.data.result) {
+            data.push({ game: row.seqplay,date:row.bet_time,bet:row.bet_amount, win:row.win_amount,result:'' });
+          }
+
+        }
+        // const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
+        this.$store.commit("setHistoryData", data);
+        // console.log(response)
+      }
+      catch (err) {
+        console.log(err)
+      }
+    },
+    async loadLastWinNumbers() {
+      try {
+        const response = await request.post('/api/game/openCode');
+        const _numbers = [];
+        if (response.data.result && Array.isArray(response.data.result)) {
+          _numbers.push(response.data.result.map((round, index) => (`${round.open_code}`)))
+        }
+
+        this.$store.commit("setLoadedWinNumbers", _numbers[0].reverse());
+      }
+      catch (err) {
+        console.log(err)
+      }
+    },
     clearAll() {
       if (this.isConnected) {
         console.log('send cancle all')
@@ -117,7 +151,7 @@ export default {
               for (const s of selected) {
                 s.value = data.amount;
               }
-            } 
+            }
             vm.$store.commit('setSelected', selected);
             vm.$store.commit('setWinCoin', { refer: data.bet_code, value: data.amount });
             vm.$store.commit('setRoundBalance', eval(data.amount));
@@ -131,11 +165,11 @@ export default {
 
               vm.$store.commit('setSeqPlay', data.seqPlay);
               const roundInfo = {
-                dealer:data.dealer,
-                seqPlay:data.seqPlay
+                dealer: data.dealer,
+                seqPlay: data.seqPlay
               };
               vm.$store.commit('setRoundInfo', roundInfo);
-              
+
             }
             if (data.status === 'stop') {
               // no betting

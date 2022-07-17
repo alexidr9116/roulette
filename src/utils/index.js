@@ -92,3 +92,19 @@ export function getFillColor(value, max,) {
 
   return color;
 }
+
+export const TableLimitData = [
+  {bet:'Straight-Up', min:0.5, max:200, win:'X36'},
+  {bet:'Split', min:0.5, max:200, win:'X18'},
+  {bet:'Street', min:0.5, max:200, win:'X12'},
+  {bet:'Corner', min:0.5, max:200, win:'X9'},
+  {bet:'Line Bet', min:0.5, max:200, win:'X6'},
+  {bet:'Even', min:0.5, max:200, win:'X2'},
+  {bet:'Odd', min:0.5, max:200, win:'X2'},
+  {bet:'Split', min:0.5, max:200, win:'X2'},
+  {bet:'Red', min:0.5, max:200, win:'X2'},
+  {bet:'Black', min:0.5, max:200, win:'X2'},
+  {bet:'1-18', min:0.5, max:200, win:'X2'},
+  {bet:'19-36', min:0.5, max:200, win:'X2'},
+  
+]

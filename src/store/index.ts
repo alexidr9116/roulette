@@ -23,11 +23,42 @@ export default new Vuex.Store({
     token:'',
     seqPlay:0,
     roundInfo:{dealer:'', seqPlay:'', },
-    hotCoolNumbers:null,  // {hot:[], cool:[]}
+    hotCoolNumbers:null,  // {hot:[], cool:[]},
+    menuAction:"",
+    gameSetting:
+      {
+        mute:0,
+        fullscreen:0,
+      }
+    ,
+    activeTab:'',
+    showMenu:false,
+    
+    historyData:[],
     lastBetInfo:null, // array [{bet_code:'PL1',bet_amount:'100.00'}]
   },
   getters: {},
+  
   mutations: {
+    setActiveTab(state,action){
+      state.activeTab = action;
+
+    },
+    setHistoryData(state,action){
+      state.historyData = action;
+    },
+    setShowMenu(state,action){
+      state.showMenu = action;
+    },
+    changeGameSetting(state,action){
+      state.gameSetting = {
+        ...state.gameSetting,
+        ...action,
+      }
+    },
+    setMenuAction(state, action){
+      state.menuAction = action;
+    },
     setRoundInfo(state,info){
       state.roundInfo = info;
     },
@@ -54,6 +85,12 @@ export default new Vuex.Store({
     },
     setWinNumber(state,value){
       state.winNumber = value; 
+      
+    },
+    setLoadedWinNumbers(state,value){
+      if(value.length>14){
+        state.winNumbers = value.slice(0,7).reverse();
+      }
       
     },
     setWinNumbers(state,value){

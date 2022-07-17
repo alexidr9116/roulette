@@ -2,8 +2,10 @@
   <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
 
   <div class="panno relative  overflow-hidden h-full w-full">
+        <SettingDialog v-if="$store.state.activeTab!==''" :activeTab="$store.state.activeTab"></SettingDialog>
+
     <div class="w-full h-full flex items-center justify-center ">
-      
+
       <div id="mlc-video-div" class="-mt-[8.5%] z-0 w-full h-full items-start flex md:items-center justify-center "
         :class="(($store.state.roundStatus !== 'started') ? 'origin-top-left -mt-[120%]  scale-[200%] md:scale-100 md:flex md:-mt-[8.5%] ' : '')">
       </div>
@@ -71,13 +73,15 @@
 import request from "@/utils/request";
 import router from '@/router'
 import { mapState } from 'vuex';
+import SettingDialog from './SettingDialog'
 import PannoView from './PannoView';
 export default {
   name: "Index",
   components: {
-    PannoView
+    PannoView,
+    SettingDialog
   },
-  computed: mapState(['roundStatus']),
+  computed: mapState(['gameSetting']),
 
   data() {
     return {
@@ -416,6 +420,18 @@ export default {
         },
         onStopBuffering: function (e) {
           vm.log("resume playing");
+        },
+        onMute: function (e) {
+          vm.$store.commit('changeGameSetting', { mute: 2 });
+        },
+        onUnmute: function (e) {
+          vm.$store.commit('changeGameSetting', { mute: 0 });
+        },
+        onFullscreenChange: function (e) {
+          if (e.data) {
+            vm.$store.commit('changeGameSetting', e.data.entered ? { fullscreen: 2 }:{ fullscreen: 0 });
+          }
+
         },
         onError: function (e) {
 
@@ -989,13 +1005,48 @@ export default {
     warning(message) {
       const vm = this;
       vm.log("Warning: " + message);
+    },
+    mute(isMute) {
+      if (isMute === 1 ) {
+        this.player.mute();
+        console.log('muted');
+      }
+      else {
+        this.player.unmute();
+
+        console.log('unmuted');
+      }
+    },
+    fullscreen(isFullscreen) {
+      if (isFullscreen === 1) {
+        this.player.requestFullscreen().then(() => {
+
+        }).catch((err) => {
+
+        })
+      }
+      else {
+        this.player.exitFullscreen().then(() => {
+
+        }).catch((err) => {
+
+        })
+      }
     }
   },
-  // watch: {
-  //   roundStatus(current, old) {
-  //     console.log(current, old, " is watch");
-  //   }
-  // }
+  watch: {
+    gameSetting(current, old) {
+
+      if (current.mute !== old.mute && current.mute !== 2) {
+        console.log("mute chagned ")
+        this.mute(current.mute);
+      }
+      if (current.fullscreen !== old.fullscreen && current.fullscreen !== 2) {
+        console.log("full screen chagned")
+        this.fullscreen(current.fullscreen);
+      }
+    }
+  }
 };
 </script>
 
