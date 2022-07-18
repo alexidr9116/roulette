@@ -59,15 +59,15 @@ export function getFillColor(value, max,) {
   let color = 'red';
   
   if (value > 0 && value < 1)
-    color = 'darkgreen';
+    color = '#1a5916';
   if (value >= 1 && value < 5)
-    color = '#03a945';
+    color = '#7a9900';
   if (value >= 5 && value < 10)
-    color = '#33ff00';
+    color = '#ebcf0d';
   if (value >= 10 && value < 20)
-    color = 'yellow';
+    color = '#eba70d';
   if (value >= 20 && value < 30)
-    color = 'orange';
+    color = '#ff8100';
   if (value >= 30 && value < 40)
     color = '#936c00';
   if (value >= 40 && value < 50)

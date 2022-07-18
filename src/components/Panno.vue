@@ -448,6 +448,7 @@ export default {
         this.resultRound();
       }
       if (status === 'started') {
+
         this.startRound();
       }
       if (status === 'wait') {
@@ -683,6 +684,7 @@ export default {
     },
     handleClearAll() {
       console.log("clear all...");
+      this.twoxMode = false;
       this.$store.commit("setBetAction", "add");
       this.$store.commit("setHovered", []);
       this.$store.commit("setSelected", []);
@@ -691,6 +693,7 @@ export default {
     },
     handleReset() {
       console.log("reset...");
+      this.twoxMode = false;
       this.$store.commit("setWinCoin", null);
       this.$store.commit("setBetAction", "add");
       this.$store.commit('setShowGroupBet', true);

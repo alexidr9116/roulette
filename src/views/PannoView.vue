@@ -35,7 +35,9 @@ export default {
     roundStatus(status, old) {
       console.log(status, old)
       if (status === "started") {
+
         this.$store.commit('setGameStatus', 'BET');
+      
         this.getUserBalance();
         this.loadGetTodayBets();
         // this.getLastBet();
