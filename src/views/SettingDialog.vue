@@ -99,10 +99,10 @@
                                             <label>Items Per page 10 {{ this.page }} of
                                                 {{ Math.floor($store.state.historyData.length / 10) + 1 }} </label>
 
-                                            <a class="rounded-full navigate-item">
+                                            <a class="rounded-full navigate-item" @click="handlePrev">
                                                 <Icon icon='eva:arrow-ios-back-outline' width="30"></Icon>
                                             </a>
-                                            <a class="rounded-full navigate-item">
+                                            <a class="rounded-full navigate-item" @click="handleNext">
                                                 <Icon icon='eva:arrow-ios-forward-outline' width="30"></Icon>
                                             </a>
                                         </div>
@@ -205,6 +205,7 @@ export default {
             (this.activeTabData)  = tab;
         },
         handleNext() {
+            console.log("next",this.page)
             if (this.page <= Math.floor(this.historyData.length / 10)) {
                 this.page++;
             }
@@ -212,6 +213,7 @@ export default {
         },
 
         handlePrev() {
+            console.log("prev",this.page)
             if (this.page > 1)
                 this.page--;
         },
