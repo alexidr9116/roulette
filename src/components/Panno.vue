@@ -18,7 +18,8 @@
       </div>
     </div>
     <!-- hot and cool number -->
-    <div v-if="($store.state.roundStatus !== 'started')" class="absolute top-0 right-0 h-full w-12 flex flex-col md:hidden items-center justify-center gap-[1px]">
+    <div v-if="($store.state.roundStatus !== 'started')"
+      class="absolute top-0 right-0 h-full w-12 flex flex-col md:hidden items-center justify-center gap-[1px]">
       <h3 class="text-orange-600 font-bold">HOT</h3>
       <div v-if="number !== ''" v-for="number in $store.state.hotCoolNumbers.hot"
         class="text-center rounded-full flex items-center justify-center w-7 h-7 hot-cold-number"
@@ -75,7 +76,7 @@
         </button>
 
         <button class="animate-btn btn w-10 h-10 md:w-12 md:h-12   btn-circle mr-4 flex" @click="handleFetchLast">
-          <Icon icon="bytesize:reload" width="40"></Icon>
+          <Icon :icon="(twoxMode ? 'fluent:multiplier-2x-32-filled' : 'bytesize:reload')" width="40"></Icon>
         </button>
       </div>
       <Coin :fillColor="getFillColor(0.5, 500)" v-bind:value="0.5"></Coin>
@@ -103,7 +104,7 @@
       <Coin :fillColor="getFillColor(200, 400)" v-bind:value="200"></Coin>
       <div class="flex items-end mobile-coin-sub-toolbar relative flex-col mt-4 gap-2">
         <button class="animate-btn btn w-10 h-10  btn-circle flex" @click="handleFetchLast">
-          <Icon icon="bytesize:reload" width="40"></Icon>
+          <Icon :icon="(twoxMode ? 'fluent:multiplier-2x-32-filled' : 'bytesize:reload')" width="40"></Icon>
         </button>
         <button class="animate-btn btn w-10 h-10    btn-circle  flex" @click="handleRemoveCoin">
           <Icon :icon="$store.state.betAction == 'remove' ? 'bi:check-lg' : 'la:times'" width="40"></Icon>
@@ -162,6 +163,7 @@ export default {
   data() {
     return {
       isOvaleShow: true,
+      twoxMode: false,
       numberObj: {
         "0": {
           color: 'Green',
@@ -481,6 +483,7 @@ export default {
           }
           console.log(arr)
           this.$store.commit('setSelected', arr);
+          this.twoxMode = true;
         }
 
         // this.$store.commit("setLastBetInfo", response.data.result);
@@ -491,7 +494,16 @@ export default {
       }
     },
     handleFetchLast() {
-      this.getLastBet();
+      if (!this.twoxMode)
+        this.getLastBet();
+      else {
+        const _arr = [];
+        for (const coin of this.$store.state.selected) {
+          coin.value = coin.value * 2;
+          _arr.push(coin);
+        }
+        this.$store.commit('setSelected', arr);
+      }
     },
     initialize() {
       this.$store.commit("setBetAction", "add");
@@ -727,15 +739,15 @@ export default {
     //   group.classList.add("hidden");
     // }
 
-    // setTimeout(() => {
-    //   this.$store.commit('setRoundStatus', 'started')
-    //   // this.startRound();
-    //   // 66S start round
-    //   setInterval(() => {
-    //     this.$store.commit('setRoundStatus', 'started')
-    //     //this.startRound();
-    //   }, 60000);
-    // }, 3000);
+    setTimeout(() => {
+      this.$store.commit('setRoundStatus', 'started')
+      // this.startRound();
+      // 66S start round
+      setInterval(() => {
+        this.$store.commit('setRoundStatus', 'started')
+        //this.startRound();
+      }, 60000);
+    }, 3000);
 
   },
 };
@@ -2869,9 +2881,10 @@ button.mat-menu-item {
 .win-number {
   box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 4px 0px, rgba(255, 255, 255, 0.56) 0px 2px 16px 0px;
 }
-.hot-cold-number{
+
+.hot-cold-number {
   text-shadow: white 1px 0 2px;
-  font-size:13px;
+  font-size: 13px;
   box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 4px 0px, rgba(255, 255, 255, 0.16) 0px 2px 16px 0px;
 }
 
