@@ -23,14 +23,14 @@ export default {
 
   watch: {
     updated(status, old) {
-      console.log(status, old)
-      // clear
-      if (status.length === 0 && this.$store.state.betAction === 'add') {
-        this.clearAll();
-      }
-      if (status.length > 0) {
-        this.uploadBets();
-      }
+      // console.log(status, old)
+       
+      // if (status.length === 0 && this.$store.state.betAction === 'add') {
+      //   this.clearAll();
+      // }
+      // if (status.length > 0) {
+      //   this.uploadBets();
+      // }
     },
     roundStatus(status, old) {
       console.log(status, old)
@@ -43,7 +43,9 @@ export default {
         // this.getLastBet();
       }
 
-
+      if(status === 'stop'){
+         this.uploadBets();
+      }
 
     }
   },
@@ -51,6 +53,7 @@ export default {
     this.initWebsocket();
     this.loadLastWinNumbers();
     this.getHotCoolNumbers();
+   
     setInterval(() => {
       if (this.isConnected) {
         const ping = { "type": "ping" };
@@ -65,13 +68,16 @@ export default {
       try {
         const response = await request.post('/api/member/getTodayBet', {}, { headers: this.getAxoisTokenHeader() });
         const data = [];
-        if (response.message === 'success' && response.data.result) {
+        console.log(response);
+        if (response.data.message === 'success' && response.data.result) {
+       
           for (const row of response.data.result) {
             data.push({ game: row.seqplay,date:row.bet_time,bet:row.bet_amount, win:row.win_amount,result:'' });
           }
 
         }
         // const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
+        console.log(data);
         this.$store.commit("setHistoryData", data);
         // console.log(response)
       }
