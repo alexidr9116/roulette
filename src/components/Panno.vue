@@ -484,6 +484,7 @@ export default {
           }
           console.log(arr)
           this.$store.commit('setSelected', arr);
+          this.$store.commit('setSelected', arr);
           this.twoxMode = true;
         }
 
@@ -503,7 +504,8 @@ export default {
           coin.value = coin.value * 2;
           _arr.push(coin);
         }
-        this.$store.commit('setSelected', arr);
+        this.$store.commit('setSelected', _arr);
+        this.$store.commit('setUpdated', _arr);
       }
     },
     initialize() {

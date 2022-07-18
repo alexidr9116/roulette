@@ -25,12 +25,12 @@ export default {
     updated(status, old) {
       // console.log(status, old)
        
-      // if (status.length === 0 && this.$store.state.betAction === 'add') {
-      //   this.clearAll();
-      // }
-      // if (status.length > 0) {
-      //   this.uploadBets();
-      // }
+      if (status.length === 0 && this.$store.state.betAction === 'add') {
+        this.clearAll();
+      }
+      if (status.length > 0) {
+        this.uploadBets();
+      }
     },
     roundStatus(status, old) {
       console.log(status, old)
@@ -43,9 +43,9 @@ export default {
         // this.getLastBet();
       }
 
-      if(status === 'wait'){
-         this.uploadBets();
-      }
+      // if(status === 'wait'){
+      //    this.uploadBets();
+      // }
 
     }
   },
