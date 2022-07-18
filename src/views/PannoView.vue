@@ -234,7 +234,8 @@ export default {
       try {
         const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
-        this.$store.commit("setBalance", response.data.result.amount);
+        // this.$store.commit("setBalance", response.data.result.amount);
+        this.$store.commit("setBalance", 1000);
         // console.log(response)
       }
       catch (err) {

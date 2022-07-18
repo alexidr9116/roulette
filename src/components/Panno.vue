@@ -1,7 +1,7 @@
 <template>
   <div class="flex absolute top-0  w-full h-full md:items-center">
     <div class="flex flex-col justify-center h-full overflow-y-hidden absolute w-full md:w-1/2 ">
-      <div class="flex flex-col  h-1/2 md:h-2/3 relative">
+      <div class="flex flex-col  h-1/2 md:h-3/4 relative">
         <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
         <CounterDesktop v-if="($store.state.roundStatus === 'started')"></CounterDesktop>
         <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
@@ -744,15 +744,15 @@ export default {
     //   group.classList.add("hidden");
     // }
 
-    // setTimeout(() => {
-    //   this.$store.commit('setRoundStatus', 'started')
-    //   // this.startRound();
-    //   // 66S start round
-    //   setInterval(() => {
-    //     this.$store.commit('setRoundStatus', 'started')
-    //     //this.startRound();
-    //   }, 60000);
-    // }, 3000);
+    setTimeout(() => {
+      this.$store.commit('setRoundStatus', 'started')
+      // this.startRound();
+      // 66S start round
+      setInterval(() => {
+        this.$store.commit('setRoundStatus', 'started')
+        //this.startRound();
+      }, 60000);
+    }, 3000);
 
   },
 };

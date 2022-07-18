@@ -2,7 +2,7 @@
   <!-- <div class="mlc-container desktop BETTIME roulette-left"> -->
 
   <div class="panno relative  overflow-hidden h-full w-full">
-        <SettingDialog v-if="$store.state.activeTab!==''" :activeTab="$store.state.activeTab"></SettingDialog>
+    <SettingDialog v-if="$store.state.activeTab !== ''" :activeTab="$store.state.activeTab"></SettingDialog>
 
     <div class="w-full h-full flex items-center justify-center ">
 
@@ -29,7 +29,7 @@
           <!---->
           <div class="mlc-btn ico-exit pevents-on ng-star-inserted" @click="handleLogout()"></div>
           <div class="dati-gioco">
-            <p><span class="time">00:29:40</span><span class="date">11/04/2022</span><br>
+            <p><span class="time">{{time}}</span><br>
               <!---->
               <!---->
               <button id="eventId" class="ng-star-inserted">{{ $store.state.roundInfo.seqPlay }}</button>
@@ -92,6 +92,7 @@ export default {
       isShowWheel: true,
       isShowInfoPanel: false,
       isShowInfoPanel2: false,
+      time: '',
       fadeLeft: "", // fadeOutLeft
       numberList: [
         "0",
@@ -429,7 +430,7 @@ export default {
         },
         onFullscreenChange: function (e) {
           if (e.data) {
-            vm.$store.commit('changeGameSetting', e.data.entered ? { fullscreen: 2 }:{ fullscreen: 0 });
+            vm.$store.commit('changeGameSetting', e.data.entered ? { fullscreen: 2 } : { fullscreen: 0 });
           }
 
         },
@@ -488,6 +489,12 @@ export default {
       //   console.log(t);
       // });
     })
+
+    setInterval(() => {
+      const date = new Date(Date.now());
+      this.time = `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`    // 5/12/2020
+      
+    }, [1000]);
   },
 
   methods: {
@@ -1007,7 +1014,7 @@ export default {
       vm.log("Warning: " + message);
     },
     mute(isMute) {
-      if (isMute === 1 ) {
+      if (isMute === 1) {
         this.player.mute();
         console.log('muted');
       }

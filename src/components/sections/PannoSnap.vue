@@ -294,6 +294,7 @@
 <script>
 import { snapPoints, controlPoints } from "../../utils/SnapPoints.js";
 import { getFillColor } from "../../utils/index.js";
+import Vue from 'vue';
 
 export default {
   data() {
@@ -419,7 +420,13 @@ export default {
       if (this.$store.state.roundStatus != "started") {
         return;
       }
+
       const arr = this.$store.state.selected;
+      const userBalance = this.$store.state.haveBalance;
+      if ((eval(userBalance) - eval(this.$store.state.coin)) < 0 && (this.$store.state.betAction === 'add')) {
+        let instance = Vue.$toast.error(`Limit balance, please check your balance!`);
+        return;
+      }
       this.$store.commit("setUpdated",
         [{
           refer: e.target.id,

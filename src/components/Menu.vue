@@ -5,6 +5,7 @@
             <h3 v-if="$store.state.gameSetting.mute === 2">Unmute</h3>
             <h3 v-if="($store.state.gameSetting.mute <= 1)">Mute</h3>
         </div>
+<!--         
         <div class="flex gap-2 items-center  menu-item" @click="fullScreen()">
             <Icon
                 :icon="($store.state.gameSetting.fullscreen <= 1) ? 'ant-design:fullscreen-outlined' : 'ant-design:fullscreen-exit-outlined'"
@@ -12,7 +13,7 @@
             <h3 v-if="($store.state.gameSetting.fullscreen <= 1)">Fullscreen</h3>
             <h3 v-if="($store.state.menuAction === 2)">Back</h3>
 
-        </div>
+        </div> -->
         <div class="flex gap-2 items-center  menu-item" @click="$store.commit('setShowMenu', false);
         $store.commit('setActiveTab', 'help')">
             <Icon icon="ion:help-sharp" width="40"></Icon>
