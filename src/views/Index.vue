@@ -29,7 +29,7 @@
           <!---->
           <div class="mlc-btn ico-exit pevents-on ng-star-inserted" @click="handleLogout()"></div>
           <div class="dati-gioco">
-            <p><span class="time">{{time}}</span><br>
+            <p><span class="time">{{ time }}</span><br>
               <!---->
               <!---->
               <button id="eventId" class="ng-star-inserted">{{ $store.state.roundInfo.seqPlay }}</button>
@@ -49,19 +49,7 @@
     <div class="absolute top-0 w-full h-full  items-center justify-center hidden md:flex ">
       <img src='/assets/panel.png' alt='banner' class=" z-0 w-full pointer-events-none	" />
     </div>
-
-
-    <!-- play now button -->
-    <div class="fixed p-4 bottom-10 container mx-auto z-50 items-end justify-start flex  h-15  flex-col "
-      v-if="(gameInfo.live_stream != '') && (!play)">
-      <div class='border border-red-500 rounded-lg p-2 flex flex-col  sm:w-1/3 md:w-1/4  w-full  gap-4 bg-red-500/30'>
-        <!-- @click="router.push({ name: 'panno' })" -->
-        <button @click="playGame();">Play Now</button>
-      </div>
-
-    </div>
-
-
+    <LoginView v-if="(gameInfo.live_stream != '') && (!play)"></LoginView>
 
     <PannoView v-if="this.play"></PannoView>
   </div>
@@ -75,13 +63,17 @@ import router from '@/router'
 import { mapState } from 'vuex';
 import SettingDialog from './SettingDialog'
 import PannoView from './PannoView';
+import LoginView from './LoginView';
+import Vue from 'vue';
+
 export default {
   name: "Index",
   components: {
     PannoView,
-    SettingDialog
+    SettingDialog,
+    LoginView,
   },
-  computed: mapState(['gameSetting']),
+  computed: mapState(['gameSetting', 'loginAction']),
 
   data() {
     return {
@@ -476,6 +468,7 @@ export default {
 
 
     this.$nextTick(() => {
+
       if (!this.ws) {
         // this.login();
       }
@@ -493,26 +486,41 @@ export default {
     setInterval(() => {
       const date = new Date(Date.now());
       this.time = `${date.toLocaleTimeString()} ${date.toLocaleDateString()}`    // 5/12/2020
-      
+
     }, [1000]);
   },
 
   methods: {
     async login() {
-      await this.handleLogout();
-      const res = await request.post('/api/member/login', {
-        username: "bba222",
-        password: "123456"
-      });
-      if (res && res.data && res.data["result"] && res.data["result"]["token"]) {
-        this.t = res.data["result"]["token"];
-        this.$store.commit('setUserToken', this.t);
-        localStorage.setItem('userToken', this.t);
-        return true;
+      try {
+        await this.handleLogout();
+        const res = await request.post('/api/member/login', {
+          username: document.getElementById('username').value,
+          password: document.getElementById('password').value,
+        });
+        if (res && res.data && res.data["result"] && res.data["result"]["token"]) {
+          this.t = res.data["result"]["token"];
+          this.$store.commit('setUserToken', this.t);
+          localStorage.setItem('userToken', this.t);
+          this.$store.commit('setLoginAction', "");
+
+          return true;
+        }
+        else {
+          let instance = Vue.$toast.error(`Authentication Failed!`);
+          this.$store.commit('setLoginAction', "");
+
+          return false;
+        }
       }
-      else {
+      catch (err) {
+        let instance = Vue.$toast.error(`Authentication Failed!`);
+        this.$store.commit('setLoginAction', "");
+
+        console.log(err);
         return false;
       }
+
     },
     getAxoisTokenHeader() {
       const headers = {
@@ -533,7 +541,7 @@ export default {
         this.play = true;
     },
     async handleLogout() {
-
+      this.$store.commit('setUserToken', '');
       if (this.getUserToken() !== '') {
         try {
 
@@ -541,12 +549,13 @@ export default {
           if (response.data.status === 0 && response.data.result === '') {
             this.play = false;
             this.ws = null;
+            this.$store.commit('setUserToken', '');
             localStorage.setItem('userToken', '');
           }
           console.log(response);
         }
         catch (err) {
-          // console.log(err)
+
         }
       }
 
@@ -572,6 +581,10 @@ export default {
     },
 
     init() {
+
+
+
+
       const vm = this;
       let tweaksQ = this.getHTTPParam("tweaks") || this.getHTTPParam("tweaks.buffer");
 
@@ -781,7 +794,6 @@ export default {
         vm.checkSecurity();
         vm.startPlayer(vm.config);
       }
-
     },
     getHTTPParam(paramKey) {
       const vm = this;
@@ -1042,6 +1054,12 @@ export default {
     }
   },
   watch: {
+    loginAction(current, old) {
+      console.log(current, old)
+      if (current === "login") {
+        this.playGame();
+      }
+    },
     gameSetting(current, old) {
 
       if (current.mute !== old.mute && current.mute !== 2) {

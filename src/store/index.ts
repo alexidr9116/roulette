@@ -33,13 +33,16 @@ export default new Vuex.Store({
     ,
     activeTab:'',
     showMenu:false,
-    
+    loginAction:"",
     historyData:[],
     lastBetInfo:null, // array [{bet_code:'PL1',bet_amount:'100.00'}]
   },
   getters: {},
   
   mutations: {
+    setLoginAction(state,action){
+      state.loginAction = action;
+    },
     setActiveTab(state,action){
       state.activeTab = action;
 
