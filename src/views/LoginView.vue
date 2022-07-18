@@ -28,6 +28,8 @@ export default {
 input {
     background-color: #00000080;
     padding: 6px;
+    -webkit-user-select: text;
+    
 }
 
 input:hover,

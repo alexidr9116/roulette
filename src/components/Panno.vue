@@ -7,7 +7,7 @@
         <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
           :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
         </Wheel>
-        <div class="flex flex-col-reverse gap-1 p-3 pt-2 mt-[70px] md:mt-[90px]">
+        <div class="flex flex-col-reverse gap-1 p-3 pt-2 mt-[75px] md:mt-[90px]">
           <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
             class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
             :class="numberObj[number].color === 'Black' ? 'ml-6 bg-black' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
@@ -19,16 +19,16 @@
     </div>
     <!-- hot and cool number -->
     <div v-if="($store.state.roundStatus !== 'started')"
-      class="absolute top-0 right-0 h-full w-12 flex flex-col md:hidden items-center justify-center gap-[1px]">
+      class="absolute top-0 right-0 h-full w-20 flex flex-col md:hidden items-center justify-center gap-[1px]">
       <h3 class="text-orange-600 font-bold">HOT</h3>
       <div v-if="number !== ''" v-for="number in $store.state.hotCoolNumbers.hot"
-        class="text-center rounded-full flex items-center justify-center w-7 h-7 hot-cold-number"
+        class="text-center rounded-full flex items-center justify-center w-6 h-6 hot-cold-number"
         :class="numberObj[number].color === 'Black' ? ' bg-black ' : (numberObj[number].color === 'Green' ? ' bg-green-700' : 'bg-red-700')">
         {{ number }}
       </div>
-      <h3 class="text-sky-600 font-bold mt-1">COLD</h3>
+      <h3 class="text-sky-600 font-bold mt-2a">COLD</h3>
       <div v-if="number !== ''" v-for="number in $store.state.hotCoolNumbers.cool"
-        class="text-center rounded-full flex items-center justify-center w-7 h-7 hot-cold-number"
+        class="text-center rounded-full flex items-center justify-center w-6 h-6 hot-cold-number"
         :class="numberObj[number].color === 'Black' ? 'bg-black' : (numberObj[number].color === 'Green' ? ' bg-green-700' : 'bg-red-700')">
         {{ number }}
       </div>
