@@ -742,15 +742,15 @@ export default {
     //   group.classList.add("hidden");
     // }
 
-    setTimeout(() => {
-      this.$store.commit('setRoundStatus', 'started')
-      // this.startRound();
-      // 66S start round
-      setInterval(() => {
-        this.$store.commit('setRoundStatus', 'started')
-        //this.startRound();
-      }, 60000);
-    }, 3000);
+    // setTimeout(() => {
+    //   this.$store.commit('setRoundStatus', 'started')
+    //   // this.startRound();
+    //   // 66S start round
+    //   setInterval(() => {
+    //     this.$store.commit('setRoundStatus', 'started')
+    //     //this.startRound();
+    //   }, 60000);
+    // }, 3000);
 
   },
 };
