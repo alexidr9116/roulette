@@ -1,13 +1,13 @@
 <template>
   <div class="flex absolute top-0  w-full h-full md:items-center">
     <div class="flex flex-col justify-center h-full overflow-y-hidden absolute w-full md:w-1/2 ">
-      <div class="flex flex-col  h-1/2 md:h-3/4 relative">
+      <div class="flex flex-col  h-1/2 md:h-2/3 relative">
         <AppToast :showMessage="showToast" :title="toastTitle" :message="toastMessage"></AppToast>
         <CounterDesktop v-if="($store.state.roundStatus === 'started')"></CounterDesktop>
         <Wheel :num="$store.state.winNumber" v-if="$store.state.roundStatus !== 'started'"
           :wait="$store.state.roundStatus == 'wait'" :numberList="numberList">
         </Wheel>
-        <div class="flex flex-col-reverse gap-1 p-3 mt-[80px] md:mt-[100px]">
+        <div class="flex flex-col-reverse gap-1 p-3 pt-2 mt-[70px] md:mt-[90px]">
           <div v-if="number !== ''" v-for="number in $store.state.winNumbers"
             class="text-center rounded-full flex items-center justify-center w-8 h-8 win-number"
             :class="numberObj[number].color === 'Black' ? 'ml-6 bg-black' : (numberObj[number].color === 'Green' ? 'ml-3 bg-green-700' : 'bg-red-700')">
@@ -744,15 +744,15 @@ export default {
     //   group.classList.add("hidden");
     // }
 
-    setTimeout(() => {
-      this.$store.commit('setRoundStatus', 'started')
-      // this.startRound();
-      // 66S start round
-      setInterval(() => {
-        this.$store.commit('setRoundStatus', 'started')
-        //this.startRound();
-      }, 60000);
-    }, 3000);
+    // setTimeout(() => {
+    //   this.$store.commit('setRoundStatus', 'started')
+    //   // this.startRound();
+    //   // 66S start round
+    //   setInterval(() => {
+    //     this.$store.commit('setRoundStatus', 'started')
+    //     //this.startRound();
+    //   }, 60000);
+    // }, 3000);
 
   },
 };
