@@ -43,7 +43,7 @@ export default {
         // this.getLastBet();
       }
 
-      if(status === 'stop'){
+      if(status === 'wait'){
          this.uploadBets();
       }
 
