@@ -97,7 +97,7 @@
                                     <td colspan="5" v-if="historyData.length > 0">
                                         <div class="flex w-full justify-end gap-2 items-center py-2">
                                             <label>Items Per page 10 {{ this.page }} of
-                                                {{ Math.floor($store.state.historyData / 10) + 1 }} </label>
+                                                {{ Math.floor($store.state.historyData.length / 10) + 1 }} </label>
 
                                             <a class="rounded-full navigate-item">
                                                 <Icon icon='eva:arrow-ios-back-outline' width="30"></Icon>

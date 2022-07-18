@@ -482,9 +482,9 @@ export default {
           for (const bet of response.data.result) {
             arr.push({ refer: bet.bet_code, value: eval(bet.bet_amount) });
           }
-          console.log(arr)
+          
           this.$store.commit('setSelected', arr);
-          this.$store.commit('setSelected', arr);
+          this.$store.commit('setUpdated', arr);
           this.twoxMode = true;
         }
 
