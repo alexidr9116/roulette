@@ -20,6 +20,8 @@
                         @click="showHistory">History</a>
                 </div>
                 <div class="  overflow-y-auto h-full w-full">
+                    <!-- help -->
+                    <Help v-if="activeTabData === 'help'" />
                     <!-- setting -->
                     <div class="flex flex-col w-full h-full items-center pt-4 " v-if="activeTabData === 'setting'">
                         <div class="flex flex-col gap-2 p-2 pt-4">
@@ -167,6 +169,7 @@
 </template>
 <script>
 import VueToggle from "vue-switches";
+import Help from './Help.vue';
 import { Icon } from "@iconify/vue2";
 import { TableLimitData } from '@/utils/index.js';
 
@@ -187,7 +190,8 @@ export default {
     },
     components: {
         VueToggle,
-        Icon
+        Icon,
+        Help
     },
     computed: {
         filteredHistoryData() {

@@ -14,9 +14,24 @@
             {{ number }}
           </div>
         </div>
+
       </div>
     </div>
-
+    <!-- hot and cool number -->
+    <div v-if="($store.state.roundStatus !== 'started')" class="absolute top-0 right-0 h-full w-12 flex flex-col md:hidden items-center justify-center gap-[1px]">
+      <h3 class="text-orange-600 font-bold">HOT</h3>
+      <div v-if="number !== ''" v-for="number in $store.state.hotCoolNumbers.hot"
+        class="text-center rounded-full flex items-center justify-center w-7 h-7 hot-cold-number"
+        :class="numberObj[number].color === 'Black' ? ' bg-black ' : (numberObj[number].color === 'Green' ? ' bg-green-700' : 'bg-red-700')">
+        {{ number }}
+      </div>
+      <h3 class="text-sky-600 font-bold mt-1">COLD</h3>
+      <div v-if="number !== ''" v-for="number in $store.state.hotCoolNumbers.cool"
+        class="text-center rounded-full flex items-center justify-center w-7 h-7 hot-cold-number"
+        :class="numberObj[number].color === 'Black' ? 'bg-black' : (numberObj[number].color === 'Green' ? ' bg-green-700' : 'bg-red-700')">
+        {{ number }}
+      </div>
+    </div>
     <div class="w-full md:p-12 md:w-3/5 md:ml-[38%] md:mt-[6%]">
       <div _ngcontent-bdp-c0="" class="panno-container relative">
         <PannoPanel v-bind:startedBetting="$store.state.roundStatus == 'started'"></PannoPanel>
@@ -101,14 +116,15 @@
     </div>
 
     <!-- buttons -->
-    <button   class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle" @click="$store.commit('setShowMenu',!$store.state.showMenu)">
+    <button class=" flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle"
+      @click="$store.commit('setShowMenu', !$store.state.showMenu)">
       <Icon icon="entypo:menu" width="40"></Icon>
     </button>
     <button :disabled="this.$store.state.roundStatus != 'started'" @click="handleShowGroupBet()" id='btn-show-group-bet'
       class=" right-0 flex absolute animate-btn btn bottom-20 md:bottom-32 w-7 h-7 sm:w-10 sm:h-10 btn-circle">
       <Icon icon="ph:coins-duotone" width="40"></Icon>
     </button>
-    <div class="absolute bottom-28 md:bottom-40 left-5 md:left-10 z-50" v-if="this.showSideMenu">
+    <div class="absolute bottom-28 md:bottom-40 left-5 md:left-10" v-if="this.showSideMenu" style="z-index:60;">
       <AppMenu></AppMenu>
     </div>
 
@@ -412,13 +428,13 @@ export default {
       showToast: false,
       toastTitle: '',
       toastMessage: '',
-      showSideMenu:false,
+      showSideMenu: false,
     };
   },
-  computed: mapState(['roundStatus','showMenu']),
+  computed: mapState(['roundStatus', 'showMenu']),
   watch: {
-    showMenu(status,old){
-      if(status!==old){
+    showMenu(status, old) {
+      if (status !== old) {
         this.showSideMenu = status;
       }
     },
@@ -2852,6 +2868,11 @@ button.mat-menu-item {
 
 .win-number {
   box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 4px 0px, rgba(255, 255, 255, 0.56) 0px 2px 16px 0px;
+}
+.hot-cold-number{
+  text-shadow: white 1px 0 2px;
+  font-size:13px;
+  box-shadow: rgba(255, 255, 255, 0.15) 0px 2px 4px 0px, rgba(255, 255, 255, 0.16) 0px 2px 16px 0px;
 }
 
 .message-dialog.dialog-exit .mat-dialog-container .mat-dialog-actions button {

@@ -23,7 +23,7 @@ export default new Vuex.Store({
     token:'',
     seqPlay:0,
     roundInfo:{dealer:'', seqPlay:'', },
-    hotCoolNumbers:null,  // {hot:[], cool:[]},
+    hotCoolNumbers:{hot:[],cool:[]},  // {hot:[], cool:[]},
     menuAction:"",
     gameSetting:
       {

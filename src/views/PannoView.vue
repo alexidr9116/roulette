@@ -48,7 +48,7 @@ export default {
   mounted() {
     this.initWebsocket();
     this.loadLastWinNumbers();
-    // this.getHotCoolNumbers();
+    this.getHotCoolNumbers();
     setInterval(() => {
       if (this.isConnected) {
         const ping = { "type": "ping" };
