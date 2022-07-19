@@ -72,28 +72,27 @@ export default {
        
         if (response.data.result && response.data.message === 'success' && response.data.result.type === 'game') {
           const { seqPlay, status, number, dealer} = response.data.result;
- console.log(seqPlay,number,dealer,status);
 
           vm.$store.commit('setSeqPlay', seqPlay);
           const roundInfo = {
             dealer,
             seqPlay
           };
-          console.log(roundInfo)
+          console.log(response.data.result)
           vm.$store.commit('setRoundInfo', roundInfo);
           if (status === 'go') {
             // vm.$store.commit("setRoundStatus", "started");
           }
-          if (data.status === 'stop') {
+          if (status === 'stop') {
             // no betting
             vm.$store.commit("setRoundStatus", "wait");
           }
-          if (data.status === 'end') {
+          if (status === 'end') {
             // end
             vm.$store.commit("setRoundStatus", "end");
           }
 
-          if (data.status === 'result') {
+          if (status === 'result') {
             let num = number;
             if (num.slice(0, 1) == 0) {
               num = num.slice(1, 2)
