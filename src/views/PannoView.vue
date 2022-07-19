@@ -24,7 +24,7 @@ export default {
   watch: {
     updated(status, old) {
       // console.log(status, old)
-       
+
       if (status.length === 0 && this.$store.state.betAction === 'add') {
         this.clearAll();
       }
@@ -37,7 +37,7 @@ export default {
       if (status === "started") {
 
         this.$store.commit('setGameStatus', 'BET');
-      
+
         this.getUserBalance();
         this.loadGetTodayBets();
         // this.getLastBet();
@@ -53,7 +53,8 @@ export default {
     this.initWebsocket();
     this.loadLastWinNumbers();
     this.getHotCoolNumbers();
-   
+    this.getUserBalance();
+    this.loadCurrentGame();
     setInterval(() => {
       if (this.isConnected) {
         const ping = { "type": "ping" };
@@ -64,15 +65,61 @@ export default {
     }, 30000);
   },
   methods: {
+    async loadCurrentGame() {
+      try {
+        const response = await request.post('/api/game/getLastOrder');
+        const vm = this;
+       
+        if (response.data.result && response.data.message === 'success' && response.data.result.type === 'game') {
+          const { seqPlay, status, number, dealer} = response.data.result;
+ console.log(seqPlay,number,dealer,status);
+
+          vm.$store.commit('setSeqPlay', seqPlay);
+          const roundInfo = {
+            dealer,
+            seqPlay
+          };
+          console.log(roundInfo)
+          vm.$store.commit('setRoundInfo', roundInfo);
+          if (status === 'go') {
+            // vm.$store.commit("setRoundStatus", "started");
+          }
+          if (data.status === 'stop') {
+            // no betting
+            vm.$store.commit("setRoundStatus", "wait");
+          }
+          if (data.status === 'end') {
+            // end
+            vm.$store.commit("setRoundStatus", "end");
+          }
+
+          if (data.status === 'result') {
+            let num = number;
+            if (num.slice(0, 1) == 0) {
+              num = num.slice(1, 2)
+            }
+            vm.selected = vm.$store.state.selected.slice(0, vm.$store.state.selected.length);
+            vm.$store.commit("setSelected", []);
+            vm.$store.commit("setWinNumber", parseInt(num));
+            vm.$store.commit("setRoundStatus", "result");
+            // vm.updataNum(num)
+          }
+        }
+
+      }
+      catch (err) {
+        console.log(err)
+      }
+    },
     async loadGetTodayBets() {
       try {
         const response = await request.post('/api/member/getTodayBet', {}, { headers: this.getAxoisTokenHeader() });
         const data = [];
         console.log(response);
         if (response.data.message === 'success' && response.data.result) {
-       
+
           for (const row of response.data.result) {
-            data.push({ game: row.seqplay,date:row.bet_time,bet:row.bet_amount, win:row.win_amount,result:'' });
+            data.push({ game: row.seqplay, date: row.bet_time, bet: row.bet_amount, win: row.win_amount, result: '' });
           }
 
         }
