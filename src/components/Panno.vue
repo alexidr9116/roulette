@@ -474,7 +474,7 @@ export default {
     },
     async getLastBet() {
       try {
-        const response = await request.post('/api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
+        const response = await request.post('api/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getLastBet', {}, { headers: this.getAxoisTokenHeader() });
         const arr = [];
 

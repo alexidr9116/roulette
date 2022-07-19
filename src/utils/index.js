@@ -108,3 +108,5 @@ export const TableLimitData = [
   {bet:'19-36', min:0.5, max:200, win:'X2'},
   
 ]
+
+export const API_SERVER_URL = "https://api.asian888.club/";

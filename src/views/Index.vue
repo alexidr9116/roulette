@@ -77,6 +77,7 @@ export default {
 
   data() {
     return {
+      
       router,
       play: false,
       gameInfo: { name: '', live_stream: '' },
@@ -494,7 +495,7 @@ export default {
     async login() {
       try {
         await this.handleLogout();
-        const res = await request.post('/api/member/login', {
+        const res = await request.post('api/member/login', {
           username: document.getElementById('username').value,
           password: document.getElementById('password').value,
         });
@@ -545,7 +546,7 @@ export default {
       if (this.getUserToken() !== '') {
         try {
 
-          const response = await request.post('/api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
+          const response = await request.post('api/member/loginOut', {}, { headers: this.getAxoisTokenHeader() });
           if (response.data.status === 0 && response.data.result === '') {
             this.play = false;
             this.ws = null;
@@ -570,8 +571,6 @@ export default {
         }).catch(err => {
           console.log(err)
         });
-
-
 
       }
       catch (err) {

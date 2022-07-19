@@ -67,7 +67,7 @@ export default {
   methods: {
     async loadCurrentGame() {
       try {
-        const response = await request.post('/api/game/getLastOrder');
+        const response = await request.post('api/game/getLastOrder');
         const vm = this;
        
         if (response.data.result && response.data.message === 'success' && response.data.result.type === 'game') {
@@ -112,7 +112,7 @@ export default {
     },
     async loadGetTodayBets() {
       try {
-        const response = await request.post('/api/member/getTodayBet', {}, { headers: this.getAxoisTokenHeader() });
+        const response = await request.post('api/member/getTodayBet', {}, { headers: this.getAxoisTokenHeader() });
         const data = [];
         console.log(response);
         if (response.data.message === 'success' && response.data.result) {
@@ -133,7 +133,7 @@ export default {
     },
     async loadLastWinNumbers() {
       try {
-        const response = await request.post('/api/game/openCode');
+        const response = await request.post('api/game/openCode');
         const _numbers = [];
         if (response.data.result && Array.isArray(response.data.result)) {
           _numbers.push(response.data.result.map((round, index) => (`${round.open_code}`)))
@@ -278,7 +278,7 @@ export default {
 
     async getUserBalance() {
       try {
-        const response = await request.post('/api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
+        const response = await request.post('api/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
         // const response = await request.post('/member/getAmount', {}, { headers: this.getAxoisTokenHeader() });
         this.$store.commit("setBalance", response.data.result.amount);
         // this.$store.commit("setBalance", 1000);
@@ -290,7 +290,7 @@ export default {
     },
     async getHotCoolNumbers() {
       try {
-        const response = await request.post('/api/game/codeRank');
+        const response = await request.post('api/game/codeRank');
         // const response = await request.post('/game/codeRank');
         this.$store.commit("setHotCoolNumbers", response.data.result);
         // console.log(response)
